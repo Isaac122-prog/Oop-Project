@@ -1,28 +1,33 @@
 #include <chrono>
 #include <iostream>
+#include <thread>
 
 #include "Cafe.h"
 #include "Customer.h"
 #include "Player.h"
 #include "Table.h"
+#include "UnitTest.h"
 
 using namespace std;
 
 int main() {
-  int maxCustomers;
+  int customers;
   cout << "How many customers do you want?" << endl;
-  cin >> maxCustomers;
+  cin >> customers;
 
-  Cafe gameCafe = Cafe(maxCustomers);
+  Cafe cafe = Cafe(3);
 
-  Player player = Player();
+  // cout << gameCafe.get_maxCustomers() << endl;
 
-  // player.viewPerformance();
+  cafe.viewPerformance();
 
-  for (int i = 0; i < gameCafe.get_maxCustomers(); i++) {
-    cout << "customer " << i << "score: " << gameCafe.get_customer(i).get_happiness()
-         << endl;
-  }
+  // for (int i = 0; i < gameCafe.get_maxCustomers(); i++) {
+  //   cout << "customer " << i << " score: " << gameCafe.get_customer(i).get_happiness()
+  //        << endl;
+  // }
+
+  // UnitTest unitTest;
+  // unitTest.runTests();
 
   return 0;
 }

@@ -6,10 +6,14 @@
 
 using namespace std;
 
-Cafe::Cafe(){}
+Cafe::Cafe(){
+    maxCustomers = 0;
+    customers = new Customer[maxCustomers];
+    tables = new Table[maxCustomers];
+}
 
-Cafe::Cafe(int maxCustomers){ 
-    this->maxCustomers = maxCustomers;
+Cafe::Cafe(int max){ 
+    maxCustomers = max;
     // maximum game duration will be 2 minutes for every customer
     gameDuration = chrono::seconds(maxCustomers*120);
     customers = new Customer[maxCustomers];
@@ -31,18 +35,8 @@ Cafe::Cafe(int maxCustomers){
     }
 }
 
-void Cafe::set_maxCustomers(int max){
-    maxCustomers = max;
-}
-
 int Cafe::get_maxCustomers(){
     return maxCustomers;
-}
-
-// I DON'T THINK WE NEED THIS
-void Cafe::set_gameDuration(){
-    // maximum game duration will be 2 minutes for every customer
-    gameDuration = chrono::seconds(maxCustomers*120); 
 }
 
 chrono::seconds Cafe::get_gameDuration(){
@@ -70,5 +64,13 @@ void Cafe::CustomerLeaves(){
         if (customers[i].get_isActive() == true && customers[i].get_happiness() == 15){
             customers[i].set_isActive(false);
         }
+    }
+}
+
+void Cafe::viewPerformance(){
+    cout << maxCustomers << endl;
+    
+    for (int i=0; i<maxCustomers; i++){
+        cout << "customer " << i << " score: " << get_customer(i).get_happiness() << endl;
     }
 }

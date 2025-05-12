@@ -22,10 +22,8 @@ class Cafe {
         Cafe();
         Cafe(int maxCustomers);
 
-        void set_maxCustomers(int max);
         int get_maxCustomers();
 
-        void set_gameDuration();
         chrono::seconds get_gameDuration();
 
         // returns the customer you want the attributes of
@@ -34,6 +32,9 @@ class Cafe {
         // introduces the next customer based on the previous customer's stats -> not sure if this should be in the class or not
         void newCustomer();
         void CustomerLeaves();
+        
+        // not quite sure what class this should be in
+        void viewPerformance();
     
 };
 

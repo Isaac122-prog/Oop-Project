@@ -10,9 +10,9 @@ class Player : public Cafe {
 
     public:
         Player();
+        Player(int max);
 
         void assignTask();
-        void viewPerformance();
 };
 
 #endif
