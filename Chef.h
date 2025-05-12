@@ -1,15 +1,15 @@
 #ifndef CHEF_H
 #define CHEF_H
 
-#include "Cafe.h"
 #include "Employee.h"
-#include "Table.h"
+#include "KitchenStaff.h"
 
-class Chef : public Employee {
-    protected:
-    public:
-        // not really sure how to make this work
-        void do_task();
+class Chef : public KitchenStaff {
+ protected:
+ public:
+  Chef();
+
+  void do_task();
 };
 
 #endif

@@ -13,7 +13,7 @@ class UnitTest {
   void runTests() { testCafe(); }
 
  private:
-  void testCafe() {
+  int testCafe() {
     // standard cafe with 5 customers
     Cafe cafe = Cafe(5);
 
@@ -33,9 +33,23 @@ class UnitTest {
     if (cafe.get_customer(0).get_disgust() != 5 ||
         cafe.get_customer(0).get_hunger() != 5 ||
         cafe.get_customer(0).get_thirst() != 5) {
-      cout << "test 1 failed!";
+      cout << "test 1 failed!" << endl;
     }
-    // test 2
+    // test 2: game duration
+    if (cafe.get_gameDuration().count() !=300){
+      cout << "test 2 failed!" << endl;
+    }
+    // test 3: newCustomer()
+    cafe.newCustomer();
+    if (cafe.get_customer(1).get_isActive() == false){
+      cout << "test 3 failed!" << endl;
+    }
+    // test 4: CustomerLeaves()
+    cafe.CustomerLeaves();
+    if (cafe.get_customer(0).get_isActive() == true){
+      cout << "test 4 failed!" << endl;
+    }
+    return 0;
   }
   void testPlayer() {
     Cafe playerCafe = Cafe(1);

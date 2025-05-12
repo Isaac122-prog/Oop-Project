@@ -1,1 +1,7 @@
-// this file should be empty as the employee class is a virtual class
+#include "Employee.h"
+
+using namespace std;
+
+Employee::Employee(){
+    isBusy = false;
+}

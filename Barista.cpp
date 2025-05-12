@@ -1,4 +1,4 @@
-#include "Chef.h"
+#include "Barista.h"
 #include "KitchenStaff.h"
 #include "Employee.h"
 
@@ -7,12 +7,12 @@
 
 using namespace std;
 
-Chef::Chef():KitchenStaff(){}
-        
-void Chef::do_task(){
-    // the chef's task is to make the food servings
+Barista::Barista():KitchenStaff(){}
+
+void Barista::doTask(int customerNumber){
+    // the barista's task is to make the drinks
     
-    // check chef is not busy
+    // check barista is not busy
     if (isBusy = true){
         cout << "chef is busy!" << endl;
     } else {
@@ -21,13 +21,13 @@ void Chef::do_task(){
     auto startTime = chrono::steady_clock::now();
     auto duration = chrono::seconds(15);
 
-    // set chef to busy during 15 second wait period
+    // set barista to busy during 15 second wait period
     while (chrono::steady_clock::now()-startTime < duration){
         isBusy = true;
     }
 
-    // finished cooking!
-    numFood ++;
+    // finished brewing!
+    numDrink ++;
 
     isBusy = false;
     }

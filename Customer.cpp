@@ -5,7 +5,7 @@
 #include <random>
 
 Customer::Customer(){
-    // taken from chat gpt
+    // taken from chat gpt to randomise numbers for hunger and thirst
     std::random_device rd;                          // non-deterministic seed
     std::mt19937 gen(rd());                         // Mersenne Twister engine
     std::uniform_int_distribution<> dist(1, 4);     // range: 1 to 4 inclusive

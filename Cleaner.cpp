@@ -1,20 +1,37 @@
 #include "Cleaner.h"
 #include "Employee.h"
-#include "Cafe.h"
 #include "Table.h"
 
 #include <chrono>
-#include <thread>
+#include <iostream>
 
 using namespace std;
 
-void Cleaner::doTask(int tableNo){
-    // the cleaner's task is to clean this specific table
+// default constructor
+Cleaner::Cleaner():Employee(){}
+
+void Cleaner::doTask(int customerNumber){
+    // the cleaner's task is to clean this specific customer's table
+
+    // check cleaner is not busy
+    if (isBusy = true){
+        cout << "cleaner is busy!" << endl;
+    } else {
 
     // wait for 15 seconds -> FROM CHAT GPT
-    this_thread::sleep_for(chrono::seconds(10));  
+    auto startTime = chrono::steady_clock::now();
+    auto duration = chrono::seconds(15);
 
-    // setting the isClean property from table class to ture
-    tables[tableNo].set_isClean(true);
+    // set cleaner to busy during 15 second wait period
+    while (chrono::steady_clock::now()-startTime < duration){
+        isBusy = true;
+    }
 
+    // setting the isClean property from table class to true
+    // tables[tableNo].set_isClean(true);
+
+    // access the customer to use customer[i].increase_disgust();
+
+    isBusy = false;
+    }
 }

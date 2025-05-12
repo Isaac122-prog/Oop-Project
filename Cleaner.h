@@ -9,7 +9,8 @@ class Cleaner : public Employee {
     protected:
 
     public:
-        void doTask(int tableNo);
+        Cleaner();
+        void doTask(int customerNumber);
 };
 
 #endif

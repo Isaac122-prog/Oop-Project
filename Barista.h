@@ -1,14 +1,13 @@
-#ifndef CLEANER_H
-#define CLEARNER_H
+#ifndef BARISTA_H
+#define BARISTA_H
 
 #include "Employee.h"
 #include "KitchenStaff.h"
 
-class Waiter : public KitchenStaff {
+class Barista : public KitchenStaff {
  protected:
  public:
-  Waiter();
-
+  Barista();
   void doTask(int customerNumber);
 };
 

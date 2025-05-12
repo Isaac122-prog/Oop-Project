@@ -8,6 +8,9 @@ class Customer{
         int thirst;
         int happiness;
         bool isActive;
+
+        // use SFML clock sf::Clock clock
+        // sf::Time limit = sf::seconds(120);
     public:
         Customer();
 

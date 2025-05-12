@@ -1,13 +1,16 @@
 #ifndef EMPLOYEE_H
 #define EMPLOYEE_H
 
-#include "Cafe.h"
+#include <chrono>
 
-class Employee : public Cafe {
-    protected:
-        bool isBusy;
-    public:
-        virtual void doTask();
+class Employee {
+ protected:
+  bool isBusy;       // whether an employee is busy or not
+ public:
+  Employee();  // default constructor
+
+  virtual void doTask(int customerNumber) = 0;  // virtual function making this
+                                                // an abstract class
 };
 
 #endif
