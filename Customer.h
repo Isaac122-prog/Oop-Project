@@ -25,6 +25,8 @@ class Customer{
         void increase_disgust();
         void decrease_disgust();
         int get_disgust();
+
+        int get_happiness();
 };
 
 #endif

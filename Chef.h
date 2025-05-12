@@ -3,11 +3,13 @@
 
 #include "Cafe.h"
 #include "Employee.h"
+#include "Table.h"
 
 class Chef : public Employee {
     protected:
     public:
-    void do_task();
+        // not really sure how to make this work
+        void do_task();
 };
 
 #endif

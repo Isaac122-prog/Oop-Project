@@ -5,6 +5,7 @@
 #include <chrono>
 
 #include "Customer.h"
+#include "Table.h"
 
 using namespace std;
 
@@ -13,7 +14,12 @@ class Cafe {
         chrono::seconds gameDuration;
         int maxCustomers;
         Customer* customers;
+
+        bool food;
+        bool drink;
+        Table* tables;
     public:
+        Cafe();
         Cafe(int maxCustomers);
 
         void set_maxCustomers(int max);

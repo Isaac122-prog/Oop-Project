@@ -9,6 +9,8 @@ class Player : public Cafe {
     protected:
 
     public:
+        Player();
+
         void assignTask();
         void viewPerformance();
 };

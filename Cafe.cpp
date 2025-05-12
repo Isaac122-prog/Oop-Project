@@ -6,6 +6,7 @@
 
 using namespace std;
 
+Cafe::Cafe(){}
 
 Cafe::Cafe(int maxCustomers){ 
     this->maxCustomers = maxCustomers;
@@ -13,13 +14,21 @@ Cafe::Cafe(int maxCustomers){
     gameDuration = chrono::seconds(maxCustomers*120);
     customers = new Customer[maxCustomers];
 
-    // assigning customers to the pointer array
+    // assigning customers to the customer pointer array
     for (int i=0; i<maxCustomers; i++){
         customers[i] = Customer();
     }
 
     // releasing the first customer
     customers[0].set_isActive(true);
+
+    // creating an array of tables
+    tables = new Table[maxCustomers];
+
+    // assigning tables to the table pointer array
+    for (int j=0; j<maxCustomers; j++){
+        tables[j] = Table();
+    }
 }
 
 void Cafe::set_maxCustomers(int max){
@@ -48,7 +57,18 @@ Customer Cafe::get_customer(int customerNumber){
 // introduces the next customer based on the previous customer's stats -> not sure if this should be in the class or not
 void Cafe::newCustomer(){
     for (int i=1; i<maxCustomers; i++){
-        if (customers[i].get_isActive() == false && customers[i-1].get)
+        if (customers[i].get_isActive() == false && customers[i-1].get_isActive() == true){
+            customers[i].set_isActive(true);
+            break;
+        }
     }
 }
-//void CustomerLeaves();
+
+// customers will leave if they have a happiness of 15
+void Cafe::CustomerLeaves(){
+    for (int i=0; i<maxCustomers; i++){
+        if (customers[i].get_isActive() == true && customers[i].get_happiness() == 15){
+            customers[i].set_isActive(false);
+        }
+    }
+}
