@@ -7,6 +7,14 @@
 #include "Customer.h"
 #include "Table.h"
 
+#include "Player.h"
+#include "Employee.h"
+#include "KitchenStaff.h"
+#include "Waiter.h"
+#include "Cleaner.h"
+#include "Chef.h"
+#include "Barista.h"
+
 using namespace std;
 
 class Cafe {
@@ -14,13 +22,20 @@ class Cafe {
         chrono::seconds gameDuration;
         int maxCustomers;
         Customer* customers;
+        int numActiveCustomers;
 
-        bool food;
-        bool drink;
+        // bool food;
+        // bool drink;
         Table* tables;
+
+        Player player;
+        Waiter waiter;
+        Cleaner cleaner;
+        Chef chef;
+        Barista barista;
     public:
         Cafe();
-        Cafe(int maxCustomers);
+        Cafe(int max);
 
         int get_maxCustomers();
 
@@ -35,6 +50,8 @@ class Cafe {
         
         // not quite sure what class this should be in
         void viewPerformance();
+
+        Cleaner get_Cleaner();
     
 };
 

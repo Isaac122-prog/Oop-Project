@@ -9,7 +9,3 @@ KitchenStaff::KitchenStaff():Employee(){
     numDrink = 0;
 }
 
-// NOT SURE WHAT TO PUT HERE
-void KitchenStaff::doTask(int customerNumber){
-
-}

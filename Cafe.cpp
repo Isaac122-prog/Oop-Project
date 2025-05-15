@@ -11,21 +11,22 @@ Cafe::Cafe() {
   maxCustomers = 0;
   customers = new Customer[maxCustomers];
   tables = new Table[maxCustomers];
+  numActiveCustomers = 0;
+  player = Player();
+  waiter = Waiter();
+  cleaner = Cleaner();
+  chef = Chef();
+  barista = Barista();
 }
 
 Cafe::Cafe(int max) {
   maxCustomers = max;
   // maximum game duration will be 2 minutes for every customer
   gameDuration = chrono::seconds(maxCustomers * 120);
-  customers = new Customer[maxCustomers];
-
-  // assigning customers to the customer pointer array
-  for (int i = 0; i < maxCustomers; i++) {
-    customers[i] = Customer();
-  }
 
   // releasing the first customer
   customers[0].set_isActive(true);
+  numActiveCustomers = 1;
 
   // creating an array of tables
   tables = new Table[maxCustomers];
@@ -34,6 +35,20 @@ Cafe::Cafe(int max) {
   for (int j = 0; j < maxCustomers; j++) {
     tables[j] = Table();
   }
+
+  customers = new Customer[maxCustomers];
+
+  // assigning customers to the customer pointer array
+  for (int i = 0; i < maxCustomers; i++) {
+    customers[i] = Customer(tables[i]);
+
+  }
+
+  player = Player();
+  waiter = Waiter();
+  cleaner = Cleaner();
+  chef = Chef();
+  barista = Barista();
 }
 
 int Cafe::get_maxCustomers() { return maxCustomers; }
@@ -51,8 +66,9 @@ void Cafe::newCustomer() {
   for (int i = 1; i < maxCustomers; i++) {
     if (customers[i].get_isActive() == false &&
         customers[i - 1].get_isActive() == true &&
-        customers[i - 1].get_happiness() == 13) {  // OR SFML TIME RUNS OUT TO 0
+        customers[i - 1].get_happiness() >= 13) {  // OR SFML TIME RUNS OUT TO 0 -> SEE CUSTOMER DATA MEMBERS
       customers[i].set_isActive(true);
+      numActiveCustomers++;
       break;
     }
   }
@@ -64,6 +80,7 @@ void Cafe::CustomerLeaves() {
     if (customers[i].get_isActive() == true &&
         customers[i].get_happiness() == 15) {
       customers[i].set_isActive(false);
+      numActiveCustomers--;
     }
   }
 }
@@ -75,4 +92,8 @@ void Cafe::viewPerformance() {
     cout << "customer " << i << " score: " << get_customer(i).get_happiness()
          << endl;
   }
+}
+
+Cleaner Cafe::get_Cleaner(){
+  return cleaner;
 }

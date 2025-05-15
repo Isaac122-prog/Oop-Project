@@ -12,7 +12,6 @@ class KitchenStaff : public Employee {
 
  public:
   KitchenStaff();  // default constructor
-  void doTask(int customerNumber);
 };
 
 #endif

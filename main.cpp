@@ -19,6 +19,10 @@ int main() {
 
   cafe.viewPerformance();
 
+  cafe.get_cleaner().doTask()
+  // screen class- where you click will give a different thing i.e. click on a customer to get a customer
+
+
   UnitTest unitTest;
   unitTest.runTests();
 
