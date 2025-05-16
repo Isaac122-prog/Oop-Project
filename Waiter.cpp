@@ -12,7 +12,7 @@ Waiter::Waiter() : KitchenStaff() {}
 
 // waiter will be called using button 'call waiter for table 2 or smth'
 
-void Waiter::doTask(int customerNumber) {
+void Waiter::doTask(Customer* customer) {
   // the waiter's task is to serve the food to the customer
 
   // check waiter is not busy
@@ -24,7 +24,7 @@ void Waiter::doTask(int customerNumber) {
     if (numFood == 0 && numDrink == 0) {
       cout << "no food or drink to be served!" << endl;
     }
-    if (numFood > 0) {
+    if (numFood > 0 && customer->get_hunger() <5) {
       // wait for 15 seconds -> FROM CHAT GPT
       auto startTime = chrono::steady_clock::now();
       auto duration = chrono::seconds(15);
@@ -40,7 +40,7 @@ void Waiter::doTask(int customerNumber) {
       // access the customer to use customer[i].increase_hunger();
     }
 
-    if (numDrink > 0) {
+    if (numDrink > 0 && customer->get_thirst() <5) { // AND IF THE CUSTOMER'S THIRST IS NOT 5
         // wait for 15 seconds -> FROM CHAT GPT
         auto startTime = chrono::steady_clock::now();
         auto duration = chrono::seconds(15);

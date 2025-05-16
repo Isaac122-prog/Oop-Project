@@ -1,10 +1,19 @@
 #include "Customer.h"
+#include "Table.h"
 
 #include <iostream>
 #include <chrono>
 #include <random>
 
 Customer::Customer(){
+    hunger = 0;
+    thirst = 0;
+    disgust = 0;
+    happiness = 0;
+    isActive = false;
+}
+
+Customer::Customer(Table tableNo){
     // taken from chat gpt to randomise numbers for hunger and thirst
     std::random_device rd;                          // non-deterministic seed
     std::mt19937 gen(rd());                         // Mersenne Twister engine
@@ -13,6 +22,9 @@ Customer::Customer(){
     hunger = dist(gen);
     disgust = 5;
     thirst = dist(gen);
+
+    tableNo = this-> tableNo;
+
     // to ensure customer score is not 15 on entry to the cafe
     if (hunger == 5 && thirst == 5){
         thirst = 4;

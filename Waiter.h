@@ -3,13 +3,14 @@
 
 #include "Employee.h"
 #include "KitchenStaff.h"
+#include "Customer.h".
 
 class Waiter : public KitchenStaff {
  protected:
  public:
   Waiter();
 
-  void doTask(int customerNumber);
+  void doTask(Customer* customer);
 };
 
 #endif

@@ -10,7 +10,7 @@ using namespace std;
 // default constructor
 Cleaner::Cleaner():Employee(){}
 
-void Cleaner::doTask(int customerNumber){
+void Cleaner::doTask(Customer* customer){
     // the cleaner's task is to clean this specific customer's table
 
     // check cleaner is not busy
@@ -28,9 +28,9 @@ void Cleaner::doTask(int customerNumber){
     }
 
     // setting the isClean property from table class to true
-    // tables[tableNo].set_isClean(true);
+    customer->get_tableNo()->set_isClean(true);
 
-    // access the customer to use customer[i].increase_disgust();
+    customer->increase_disgust();
 
     isBusy = false;
     }

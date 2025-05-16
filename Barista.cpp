@@ -1,6 +1,7 @@
 #include "Barista.h"
 #include "KitchenStaff.h"
 #include "Employee.h"
+#include "Customer.h"
 
 #include <iostream>
 #include <chrono>
@@ -9,7 +10,7 @@ using namespace std;
 
 Barista::Barista():KitchenStaff(){}
 
-void Barista::doTask(int customerNumber){
+void Barista::doTask(Customer* customerNo){
     // the barista's task is to make the drinks
     
     // check barista is not busy

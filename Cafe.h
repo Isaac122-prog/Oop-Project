@@ -44,14 +44,23 @@ class Cafe {
         // returns the customer you want the attributes of
         Customer get_customer(int customerNumber);
 
-        // introduces the next customer based on the previous customer's stats -> not sure if this should be in the class or not
+        // introduces the next customer based on the previous customer's stats
         void newCustomer();
+        // customer leaves based on their stats
         void CustomerLeaves();
         
         // not quite sure what class this should be in
         void viewPerformance();
 
-        Cleaner get_Cleaner();
+        Table get_table(int tableNo);
+        Customer get_customer(int customerNo);
+
+        Player get_player();
+
+        Cleaner get_cleaner();
+        Waiter get_waiter();
+        Chef get_chef();
+        Barista get_barista();
     
 };
 

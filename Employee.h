@@ -1,6 +1,8 @@
 #ifndef EMPLOYEE_H
 #define EMPLOYEE_H
 
+#include "Customer.h"
+
 #include <chrono>
 
 class Employee {
@@ -9,7 +11,7 @@ class Employee {
  public:
   Employee();  // default constructor
 
-  virtual void doTask(int customerNumber) = 0;  // virtual function making this
+  virtual void doTask(Customer* customer) = 0;  // virtual function making this
                                                 // an abstract class
 };
 

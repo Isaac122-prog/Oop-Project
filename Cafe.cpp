@@ -4,6 +4,12 @@
 #include <iostream>
 
 #include "Customer.h"
+#include "Employee.h"
+#include "KitchenStaff.h"
+#include "Cleaner.h"
+#include "Barista.h"
+#include "Chef.h" 
+#include "Waiter.h"
 
 using namespace std;
 
@@ -78,7 +84,7 @@ void Cafe::newCustomer() {
 void Cafe::CustomerLeaves() {
   for (int i = 0; i < maxCustomers; i++) {
     if (customers[i].get_isActive() == true &&
-        customers[i].get_happiness() == 15) {
+        customers[i].get_happiness() == 15) { 
       customers[i].set_isActive(false);
       numActiveCustomers--;
     }
@@ -94,6 +100,34 @@ void Cafe::viewPerformance() {
   }
 }
 
-Cleaner Cafe::get_Cleaner(){
+Cleaner Cafe::get_cleaner(){
   return cleaner;
+}
+
+Table Cafe::get_table(int tableNo){
+  return tables[tableNo];
+ }
+
+Customer Cafe::get_customer(int customerNo){
+  return customers[customerNo];
+}
+
+Player Cafe::get_player(){
+  return player;
+}
+
+Cleaner Cafe::get_cleaner(){
+  return cleaner;
+}
+
+Waiter Cafe::get_waiter(){
+  return waiter;
+}
+
+Chef Cafe::get_chef(){
+  return chef;
+}
+
+Barista Cafe::get_barista(){
+  return barista;
 }

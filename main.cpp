@@ -19,7 +19,7 @@ int main() {
 
   cafe.viewPerformance();
 
-  cafe.get_cleaner().doTask()
+  // cafe.get_cleaner().doTask(/*pointer to customer*/);
   // screen class- where you click will give a different thing i.e. click on a customer to get a customer
 
 

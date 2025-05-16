@@ -13,12 +13,13 @@ class Customer{
         int happiness;
         bool isActive;
 
-        Table* tableNo;
+        Table tableNo; // was originally a pointer but i've changed it bc of the error...
         // use SFML clock sf::Clock clock
         // sf::Time limit = sf::seconds(120);
         std::chrono::steady_clock::time_point startTime;
     public:
-        Customer(Table* tableNo);
+        Customer(); // default constructor
+        Customer(Table tableNo);
 
         void set_isActive(bool state);
         bool get_isActive();
