@@ -15,16 +15,17 @@ int main() {
   cout << "How many customers do you want?" << endl;
   cin >> customers;
 
-  Cafe cafe = Cafe(customers);
+  Cafe cafe = Cafe(customers, 500, "cafe game");
+  cafe.run();
 
-  cafe.viewPerformance();
+  // cafe.viewPerformance();
 
   // cafe.get_cleaner().doTask(/*pointer to customer*/);
   // screen class- where you click will give a different thing i.e. click on a customer to get a customer
 
 
-  UnitTest unitTest;
-  unitTest.runTests();
+  // UnitTest unitTest;
+  // unitTest.runTests();
 
   return 0;
 }

@@ -1,9 +1,11 @@
 #include "Table.h"
 
 Table::Table(){
-    // table is clean and unoccupied
+    // table is clean 
     isClean = true;
-    // isOccupied = false;
+    // body = new sf::RectangleShape(sf::Vector2f(10,5));
+    // body -> setFillColour(sf::Color::Blue);
+    // body -> setPosition(-1,-1);
 }
 
 void Table::set_isClean(bool cleanliness){

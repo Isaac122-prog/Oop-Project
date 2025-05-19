@@ -1,8 +1,11 @@
 #ifndef TABLE_H
 #define TABLE_H
 
+#include <SFML/Graphics.hpp>
+
 class Table{
     protected:
+        sf::RectangleShape* body;
         bool isClean;
         // bool isOccupied; only need if customers are assigned tables randomly
     public:

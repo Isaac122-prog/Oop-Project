@@ -2,7 +2,8 @@
 #define CAFE_H
 
 #include <iostream>
-#include <chrono>
+#include <ctime>
+#include <SFML/Graphics.hpp>
 
 #include "Customer.h"
 #include "Table.h"
@@ -15,11 +16,14 @@
 #include "Chef.h"
 #include "Barista.h"
 
+
 using namespace std;
 
 class Cafe {
     protected:
-        chrono::seconds gameDuration;
+        sf::RenderWindow* win;    
+
+        chrono::seconds gameDuration; // fix
         int maxCustomers;
         Customer* customers;
         int numActiveCustomers;
@@ -35,28 +39,22 @@ class Cafe {
         Barista barista;
     public:
         Cafe();
-        Cafe(int max);
+        Cafe(int max, int size, std::string title);
+
+        void drawFrame();
+        void run();
 
         int get_maxCustomers();
-
-        chrono::seconds get_gameDuration();
-
-        // returns the customer you want the attributes of
-        Customer get_customer(int customerNumber);
-
-        // introduces the next customer based on the previous customer's stats
-        void newCustomer();
-        // customer leaves based on their stats
-        void CustomerLeaves();
+        chrono::seconds get_gameDuration(); // fix
         
-        // not quite sure what class this should be in
-        void viewPerformance();
+        void newCustomer(); // introduces the next customer based on the previous customer's stats
+        void CustomerLeaves();  // customer leaves based on their stats
+    
+        void viewPerformance(); 
 
+        Customer get_customer(int customerNumber);
         Table get_table(int tableNo);
-        Customer get_customer(int customerNo);
-
         Player get_player();
-
         Cleaner get_cleaner();
         Waiter get_waiter();
         Chef get_chef();
