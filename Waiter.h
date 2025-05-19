@@ -3,7 +3,7 @@
 
 #include "Employee.h"
 #include "KitchenStaff.h"
-#include "Customer.h".
+#include "Customer.h"
 
 class Waiter : public KitchenStaff {
  protected:

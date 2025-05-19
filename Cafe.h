@@ -23,7 +23,10 @@ class Cafe {
     protected:
         sf::RenderWindow* win;    
 
-        chrono::seconds gameDuration; // fix
+        std::time_t startTime;
+        int runTime;
+        std::time_t endTime;
+        
         int maxCustomers;
         Customer* customers;
         int numActiveCustomers;
@@ -45,7 +48,7 @@ class Cafe {
         void run();
 
         int get_maxCustomers();
-        chrono::seconds get_gameDuration(); // fix
+        int get_gameDuration(); 
         
         void newCustomer(); // introduces the next customer based on the previous customer's stats
         void CustomerLeaves();  // customer leaves based on their stats
@@ -59,6 +62,8 @@ class Cafe {
         Waiter get_waiter();
         Chef get_chef();
         Barista get_barista();
+
+        ~Cafe();
     
 };
 

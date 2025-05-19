@@ -28,7 +28,7 @@ void Cleaner::doTask(Customer* customer){
     }
 
     // setting the isClean property from table class to true
-    customer->get_tableNo()->set_isClean(true);
+    customer->get_tableNo().set_isClean(true);
 
     customer->increase_disgust();
 

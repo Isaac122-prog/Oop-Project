@@ -1,7 +1,6 @@
 #ifndef CLEANER_H
 #define CLEARNER_H
 
-#include "Cafe.h"
 #include "Employee.h"
 #include "Table.h"
 #include "Customer.h"

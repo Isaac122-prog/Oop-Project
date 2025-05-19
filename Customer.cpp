@@ -2,7 +2,7 @@
 #include "Table.h"
 
 #include <iostream>
-#include <chrono>
+#include <ctime>
 #include <random>
 
 Customer::Customer(){
@@ -11,17 +11,15 @@ Customer::Customer(){
     disgust = 0;
     happiness = 0;
     isActive = false;
+    startTime = 0;
 }
 
 Customer::Customer(Table tableNo){
-    // taken from chat gpt to randomise numbers for hunger and thirst
-    std::random_device rd;                          // non-deterministic seed
-    std::mt19937 gen(rd());                         // Mersenne Twister engine
-    std::uniform_int_distribution<> dist(1, 4);     // range: 1 to 4 inclusive
+    srand(time(0));
 
-    hunger = dist(gen);
+    hunger = std::rand() % 5; // generate random integer from 0 to 5
     disgust = 5;
-    thirst = dist(gen);
+    thirst = std::rand() % 5;
 
     tableNo = this-> tableNo;
 
@@ -31,6 +29,9 @@ Customer::Customer(Table tableNo){
     }
     happiness = hunger+thirst+disgust;
     isActive = false;
+    
+    startTime = std::time(nullptr);
+    endTime = startTime + 120;
 }
 
 void Customer::set_isActive(bool state){
@@ -103,4 +104,12 @@ int Customer::get_disgust(){
 
 int Customer::get_happiness(){
     return happiness;
+}
+
+Table Customer::get_tableNo(){
+    return tableNo;
+}
+
+void Customer::set_tableNo(Table tableNo){
+    this->tableNo = tableNo;
 }

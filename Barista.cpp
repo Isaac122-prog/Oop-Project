@@ -33,3 +33,6 @@ void Barista::doTask(Customer* customerNo){
     isBusy = false;
     }
 }
+
+Barista::~Barista(){
+}

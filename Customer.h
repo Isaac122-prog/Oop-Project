@@ -3,7 +3,8 @@
 
 #include "Table.h"
 
-#include <chrono>
+#include <ctime>
+#include <random>
 
 class Customer{
     protected:
@@ -14,9 +15,9 @@ class Customer{
         bool isActive;
 
         Table tableNo; // was originally a pointer but i've changed it bc of the error...
-        // use SFML clock sf::Clock clock
-        // sf::Time limit = sf::seconds(120);
-        std::chrono::steady_clock::time_point startTime;
+        
+        std::time_t startTime;
+        std::time_t endTime;
     public:
         Customer(); // default constructor
         Customer(Table tableNo);
@@ -36,8 +37,8 @@ class Customer{
         void decrease_disgust();
         int get_disgust();
 
-        void set_tableNo(Table* tableNo);
-        Table* get_tableNo();
+        void set_tableNo(Table tableNo);
+        Table get_tableNo();
 
 
         int get_happiness();

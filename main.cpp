@@ -3,10 +3,7 @@
 #include <thread>
 
 #include "Cafe.h"
-#include "Customer.h"
-#include "Player.h"
-#include "Table.h"
-#include "UnitTest.h"
+// #include "UnitTest.h"
 
 using namespace std;
 

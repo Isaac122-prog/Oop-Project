@@ -10,6 +10,7 @@ class Barista : public KitchenStaff {
  public:
   Barista();
   void doTask(Customer* customerNo);
+  ~Barista();
 };
 
 #endif

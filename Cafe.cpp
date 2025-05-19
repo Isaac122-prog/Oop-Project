@@ -4,14 +4,6 @@
 #include <iostream>
 #include <SFML/Graphics.hpp>
 
-#include "Barista.h"
-#include "Chef.h"
-#include "Cleaner.h"
-#include "Customer.h"
-#include "Employee.h"
-#include "KitchenStaff.h"
-#include "Waiter.h"
-
 using namespace sf;
 
 Cafe::Cafe() {
@@ -24,6 +16,9 @@ Cafe::Cafe() {
   cleaner = Cleaner();
   chef = Chef();
   barista = Barista();
+  startTime = 0;
+  runTime = 0;
+  endTime = 0;
 }
 
 Cafe::Cafe(int max, int size, std::string title) {
@@ -31,11 +26,9 @@ Cafe::Cafe(int max, int size, std::string title) {
 
   maxCustomers = max;
   // maximum game duration will be 2 minutes for every customer
-  gameDuration = chrono::seconds(maxCustomers * 120);
-
-  // releasing the first customer
-  customers[0].set_isActive(true);
-  numActiveCustomers = 1;
+  startTime = std::time(nullptr);
+  runTime = maxCustomers*120;
+  endTime = startTime + runTime;
 
   // creating an array of tables
   tables = new Table[maxCustomers];
@@ -51,6 +44,10 @@ Cafe::Cafe(int max, int size, std::string title) {
   for (int i = 0; i < maxCustomers; i++) {
     customers[i] = Customer(tables[i]);
   }
+
+  // releasing the first customer
+  customers[0].set_isActive(true);
+  numActiveCustomers = 1;
 
   player = Player();
   waiter = Waiter();
@@ -82,7 +79,7 @@ void Cafe::run(){
 
 int Cafe::get_maxCustomers() { return maxCustomers; }
 
-chrono::seconds Cafe::get_gameDuration() { return gameDuration; }
+int Cafe::get_gameDuration() { return runTime; }
 
 // returns the customer you want the attributes of
 Customer Cafe::get_customer(int customerNumber) {
@@ -128,7 +125,11 @@ void Cafe::viewPerformance() {
 Cleaner Cafe::get_cleaner() { return cleaner; }
 Table Cafe::get_table(int tableNo) { return tables[tableNo]; }
 Player Cafe::get_player() { return player; }
-Cleaner Cafe::get_cleaner() { return cleaner; }
 Waiter Cafe::get_waiter() { return waiter; }
 Chef Cafe::get_chef() { return chef; }
 Barista Cafe::get_barista() { return barista; }
+
+Cafe::~Cafe(){
+  delete[] customers;
+  delete[] tables;
+}
