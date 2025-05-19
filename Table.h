@@ -14,6 +14,8 @@ class Table{
         Table(int depth);
 
         void draw(sf::RenderWindow* win);
+
+        sf::RectangleShape* get_body();
     
 
         void set_isClean(bool cleanliness);

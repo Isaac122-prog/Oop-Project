@@ -3,10 +3,10 @@
 #include <chrono>
 #include <iostream>
 
-#include "Employee.h"
-#include "KitchenStaff.h"
 #include "Cafe.h"
 #include "Customer.h"
+#include "Employee.h"
+#include "KitchenStaff.h"
 
 using namespace std;
 
@@ -25,6 +25,9 @@ void Waiter::doTask(Customer* customer, Cafe* cafe) {
     std::cout << "Customer is not in cafe!" << std::endl;
   } else {
     // check waiter is not busy
+    if (busyTimer.getElapsedTime().asSeconds() >= 15) {
+      isBusy = false;
+    }
     if (isBusy == true) {
       cout << "waiter is busy!" << endl;
     } else {
@@ -33,41 +36,21 @@ void Waiter::doTask(Customer* customer, Cafe* cafe) {
         cout << "no food or drink to be served!" << endl;
       }
       if (cafe->get_numFood() > 0 && customer->get_hunger() < 5) {
-        // wait for 15 seconds -> FROM CHAT GPT
-        auto startTime = chrono::steady_clock::now();
-        auto duration = chrono::seconds(15);
-
-        // set waiter to busy during 15 second wait period
-        while (chrono::steady_clock::now() - startTime < duration) {
-          isBusy = true;
-        }
-
+        std::cout << "serving food... " << std::endl;
+        isBusy = true;
+        busyTimer.restart();
         // food is served!
         cafe->decrease_numFood();
         // customer.get_Food().set_isActive(true);
         // increase customer hunger
         customer->increase_hunger();
       }
-
-      if (cafe->get_numDrink() > 0 &&
-          customer->get_thirst() < 5) {  // AND IF THE CUSTOMER'S THIRST IS NOT 5
-        // wait for 15 seconds -> FROM CHAT GPT
-        auto startTime = chrono::steady_clock::now();
-        auto duration = chrono::seconds(15);
-
-        // set waiter to busy during 15 second wait period
-        while (chrono::steady_clock::now() - startTime < duration) {
-          isBusy = true;
-        }
-
+      if (cafe->get_numDrink() > 0 && customer->get_thirst() < 5)
         // drink is served!
         cafe->decrease_numDrink();
-        // customer.get_drink().set_isActive(true);
-        // increase customer thirst
-        customer->increase_thirst();
-      }
-
-      isBusy = false;
+      // customer.get_drink().set_isActive(true);
+      // increase customer thirst
+      customer->increase_thirst();
     }
   }
 }

@@ -29,6 +29,7 @@ class Customer{
         Customer(Table tableNo, int customerNo);
 
         void draw(sf::RenderWindow* win);
+        sf::RectangleShape* get_body();
 
         void set_isActive(bool state);
         bool get_isActive();

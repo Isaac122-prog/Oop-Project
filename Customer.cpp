@@ -38,7 +38,10 @@ Customer::Customer(Table tableNo, int customerNo) {
   body = new sf::RectangleShape(sf::Vector2f(10, 40));
   body->setFillColor(sf::Color::Red);
   body->setOrigin(5, 20);
-  body->setPosition(customerNo * 30 + 100, 30);
+}
+
+sf::RectangleShape* Customer::get_body(){
+  return body;
 }
 
 void Customer::draw(sf::RenderWindow* win) {

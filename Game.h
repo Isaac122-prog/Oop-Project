@@ -9,6 +9,8 @@ class Game {
  private:
   sf::RenderWindow* win;
   Cafe* cafe;
+  sf::Font font;
+  sf::Text waiterInfo;
 
  public:
   Game(int size, std::string title, Cafe* cafe);

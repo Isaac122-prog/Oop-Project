@@ -33,7 +33,8 @@ Cafe::Cafe(int max) {
 
   // assigning tables to the table pointer array
   for (int j = 0; j < maxCustomers; j++) {
-    tables[j] = Table(j * 30);
+    tables[j] = Table(j);
+    tables[j].get_body() -> setPosition((500/(maxCustomers+1))*(j+1),30);
   }
 
   // // creating an array of food servings
@@ -60,6 +61,7 @@ Cafe::Cafe(int max) {
   // assigning customers to the customer pointer array
   for (int i = 0; i < maxCustomers; i++) {
     customers[i] = Customer(tables[i], i);  // note first customer is customer0
+    customers[i].get_body()->setPosition((500/(maxCustomers+1))*(i+1),30);
   }
 
   // releasing the first customer

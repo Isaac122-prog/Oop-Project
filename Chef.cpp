@@ -19,8 +19,8 @@ Chef::Chef() : KitchenStaff() {
 
 void Chef::doTask(Customer* customer, Cafe* cafe) {
   // the chef's task is to make the food servings
-  if (customer->get_thirst() == 5) {
-    std::cout << "Customer is not thirsty!" << std::endl;
+  if (customer->get_hunger() == 5) {
+    std::cout << "Customer is not hungry!" << std::endl;
   } else if (!customer->get_isActive()) {
     std::cout << "Customer is not in cafe!" << std::endl;
   } else {

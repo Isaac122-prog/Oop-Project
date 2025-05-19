@@ -16,3 +16,14 @@ int Employee::get_depth() { return depth; }
 void Employee::set_position(sf::Vector2f position) {
   body->setPosition(position);
 }
+
+bool Employee::get_isBusy(){
+  return isBusy;
+}
+void Employee::set_isBusy(bool status){
+  isBusy = status;
+}
+
+int Employee::get_busyTimer(){
+  return busyTimer.getElapsedTime().asSeconds();
+}

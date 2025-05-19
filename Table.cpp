@@ -14,8 +14,11 @@ Table::Table(int depth){
     body = new sf::RectangleShape(sf::Vector2f(20, 20));
     body -> setFillColor(sf::Color::Blue);
     body -> setOrigin(10, 10);
-    body -> setPosition(depth+100, 30);
 }
+
+ sf::RectangleShape* Table::get_body(){
+    return body;
+ }
 
 void Table::draw(sf::RenderWindow* win){
     win -> draw(*body);

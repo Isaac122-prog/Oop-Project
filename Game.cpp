@@ -10,6 +10,14 @@ using namespace sf;
 Game::Game(int size, std::string title, Cafe* cafe) {
   win = new ::sf::RenderWindow(sf::VideoMode(size, size), title);
   this->cafe = cafe;
+
+  // setting up font
+  if (!font.loadFromFile("fonts/MyFont.ttf")) {
+    std::cerr << "Failed to load font!" << std::endl;
+  }
+  waiterInfo.setFont(font);
+  waiterInfo.setFillColor(sf::Color::Red);
+  waiterInfo.setCharacterSize(20);
 }
 
 void Game::drawFrame() {
@@ -23,6 +31,11 @@ void Game::drawFrame() {
   cafe->get_chef().draw(win);
   cafe->get_barista().draw(win);
   cafe->get_waiter().draw(win);
+
+  std::string msg;  // write a message to display on the screen
+  msg = cafe->get_waiter().get_busyTimer();
+  waiterInfo.setString(msg);
+  win->draw(waiterInfo);
 }
 
 void Game::keyBindings(sf::Event e) {
@@ -122,11 +135,20 @@ void Game::run() {
       keyBindings(e);
     }
 
+    // if the cafe timer is below the game duration
     if (cafe->startTime.getElapsedTime().asSeconds() <
         cafe->get_gameDuration()) {
+    // every 1 second
       if (actionClock.getElapsedTime().asSeconds() >= 1.0f) {
         cafe->newCustomer();
         cafe->customerLeaves();
+        if (cafe->get_waiter().get_isBusy()){
+            std::string msg;  
+            msg = cafe->get_waiter().get_busyTimer();
+            waiterInfo.setString(msg); // display the waiter's timer when they are busy
+            waiterInfo.setPosition(cafe->get_waiter().get_x(),cafe->get_waiter().get_y());  
+        }
+        win->draw(waiterInfo); // not sure if this goes here
       }
     }
 
