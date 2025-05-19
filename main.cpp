@@ -1,8 +1,9 @@
 #include <chrono>
 #include <iostream>
-#include <thread>
+#include <SFML/Graphics.hpp>
 
 #include "Cafe.h"
+#include "Game.h"
 // #include "UnitTest.h"
 
 using namespace std;
@@ -16,8 +17,9 @@ int main() {
     cin >> customers;
   }
 
-  Cafe cafe = Cafe(customers, 500, "cafe game");
-  cafe.run();
+  Cafe cafe = Cafe(customers);
+  Game game = Game(500, "cafe game", &cafe);
+  game.run();
 
   // cafe.viewPerformance();
 

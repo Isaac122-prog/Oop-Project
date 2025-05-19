@@ -10,6 +10,10 @@ Cafe::Cafe() {
   maxCustomers = 0;
   customers = new Customer[maxCustomers];
   tables = new Table[maxCustomers];
+  // foodServings = new Food[maxCustomers+1];
+  // drinks = new Drink[maxCustomers+1];
+  numFood = 0;
+  numDrink = 0;
   numActiveCustomers = 0;
   player = Player();
   waiter = Waiter();
@@ -19,9 +23,7 @@ Cafe::Cafe() {
   runTime = 0;
 }
 
-Cafe::Cafe(int max, int size, std::string title) {
-  win = new ::sf::RenderWindow(sf::VideoMode(size, size), title);
-
+Cafe::Cafe(int max) {
   // maximum game duration will be 2 minutes for every customer
   maxCustomers = max;
   runTime = maxCustomers * 120;
@@ -34,6 +36,25 @@ Cafe::Cafe(int max, int size, std::string title) {
     tables[j] = Table(j * 30);
   }
 
+  // // creating an array of food servings
+  // foodServings = new Food[maxCustomers+1];
+
+  // // assigning food
+  // for (int k = 0; k < maxCustomers+1; k++) {
+  //   foodServings[k] = Food();
+  // }
+
+  // // creating an array of drinks
+  // drinks = new Drink[maxCustomers+1];
+
+  // // assigning drinks
+  // for (int l=0; l<maxCustomers+1; l++){
+  //   drinks[l] = Drink();
+  // }
+
+  numFood = 0;
+  numDrink = 0;
+
   customers = new Customer[maxCustomers];
 
   // assigning customers to the customer pointer array
@@ -44,25 +65,14 @@ Cafe::Cafe(int max, int size, std::string title) {
   // releasing the first customer
   customers[0].set_isActive(true);
   numActiveCustomers = 1;
+  customers[0].print_attributes();  // TO BE DELETED LATER
+  activeCustomer = -1;
 
   player = Player();
   waiter = Waiter();
   cleaner = Cleaner();
   chef = Chef();
   barista = Barista();
-}
-
-void Cafe::drawFrame() {
-  for (int i = 0; i < maxCustomers; i++) {
-    tables[i].draw(win);
-  }
-  for (int j = 0; j < maxCustomers; j++) {
-    customers[j].draw(win);
-  }
-  cleaner.draw(win);
-  chef.draw(win);
-  barista.draw(win);
-  waiter.draw(win);
 }
 
 int Cafe::get_maxCustomers() { return maxCustomers; }
@@ -74,17 +84,20 @@ Customer Cafe::get_customer(int customerNumber) {
   return customers[customerNumber];
 }
 
+Customer* Cafe::get_customerPointer(int customerNumber){
+  return &customers[customerNumber];
+}
+
 // introduces the next customer based on the previous customer's stats
 void Cafe::newCustomer() {
   for (int i = 1; i < maxCustomers; i++) {
     if (customers[i].get_isActive() == false &&
-            customers[i - 1].get_isActive() == true &&
             customers[i - 1].get_happiness() >= 13 ||
-        std::time_t(nullptr) >=
-            customers[i].get_endTime()) {  // OR TIME RUNS OUT TO 0 -> SEE
-                                           // CUSTOMER DATA MEMBERS
+        std::time_t(nullptr) >= customers[i].get_endTime()) {
       customers[i].set_isActive(true);
       numActiveCustomers++;
+      customers[i].print_attributes();  // TO BE DELETED LATER AND REPLACED WITH
+                                        // A SCREEN DISPLAY
       break;
     }
   }
@@ -120,57 +133,16 @@ Waiter Cafe::get_waiter() { return waiter; }
 Chef Cafe::get_chef() { return chef; }
 Barista Cafe::get_barista() { return barista; }
 
-void Cafe::keyBindings() {
-  if (Keyboard::isKeyPressed(Keyboard::Num1)) {  
-    activeCustomer = 0;                          
-  } else if (Keyboard::isKeyPressed(Keyboard::Num2)) {  
-    activeCustomer = 1;                          
-  } else if (Keyboard::isKeyPressed(Keyboard::Num3)) {  
-    activeCustomer = 2;                          
-  } else if (Keyboard::isKeyPressed(Keyboard::Num4)) {  
-    activeCustomer = 3;                          
-  } else if (Keyboard::isKeyPressed(Keyboard::Num5)) {  
-    activeCustomer = 4;                          
-  } else if (Keyboard::isKeyPressed(Keyboard::Num6)) {  
-    activeCustomer = 5;                          
-  } else if (Keyboard::isKeyPressed(Keyboard::Num7)) {  
-    activeCustomer = 6;                          
-  } else if (Keyboard::isKeyPressed(Keyboard::Num8)) {  
-    activeCustomer = 7;                          
-  } else if (Keyboard::isKeyPressed(Keyboard::Num9)) {  
-    activeCustomer = 8;                          
-  } else if (Keyboard::isKeyPressed(Keyboard::Num0)) {  
-    activeCustomer = 9;                          
-  }
-}
+int Cafe::get_numFood() { return numFood; }
+void Cafe::increase_numFood() { numFood++; }
+void Cafe::decrease_numFood() { numFood--; }
 
-void Cafe::run() {
-  while (win->isOpen()) {
-    sf::Event e;
-    while (win->pollEvent(e)) {
-      if (e.type == Event::Closed) {
-        win->close();
-      }
-      if (Keyboard::isKeyPressed(Keyboard::Num1)) {  // key bindings
-        activeCustomer = 1;                          // key bindings
-      }
-    }
+int Cafe::get_numDrink() { return numDrink; }
+void Cafe::increase_numDrink() { numDrink++; }
+void Cafe::decrease_numDrink() { numDrink--; }
 
-    sf::Clock actionClock;  // clock for incrementing how often things are
-                            // checked in while loops
-
-    if (startTime.getElapsedTime().asSeconds() < runTime) {
-      if (actionClock.getElapsedTime().asSeconds() >= 1.0f) {
-        newCustomer();
-        customerLeaves();
-      }
-    }
-
-    win->clear();
-    drawFrame();
-    win->display();
-  }
-}
+void Cafe::set_activeCustomer(int customerNo) { activeCustomer = customerNo; }
+int Cafe::get_activeCustomer() { return activeCustomer; }
 
 Cafe::~Cafe() {
   delete[] customers;

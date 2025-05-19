@@ -2,6 +2,8 @@
 #define CUSTOMER_H
 
 #include "Table.h"
+// #include "Food.h"
+// #include "Drink.h"
 
 #include <ctime>
 #include <random>
@@ -15,6 +17,8 @@ class Customer{
         bool isActive;
 
         Table tableNo; // was originally a pointer but i've changed it bc of the error...
+        // Food foodServing;
+        // Drink drinkServing;
         
         std::time_t startTime;
         std::time_t endTime;
@@ -38,13 +42,17 @@ class Customer{
         int get_thirst();
 
         void increase_disgust();
-        void decrease_disgust();
+        void decrease_disgust(Table table);
         int get_disgust();
 
         void set_tableNo(Table tableNo);
         Table get_tableNo();
 
+        // Drink get_drink();
+        // Food get_food();
+
         int get_happiness();
+        void print_attributes();
 
         std::time_t get_startTime();
         std::time_t get_endTime();

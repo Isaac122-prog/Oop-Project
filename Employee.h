@@ -21,6 +21,7 @@ class Employee {
   int get_depth();
   void set_position(sf::Vector2f position);
 
+  // SHOULD THIS BE IN THE .CPP FILE TOO???
   virtual void doTask(Customer* customer) = 0;  // virtual function making this
                                                 // an abstract class
 };

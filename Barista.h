@@ -5,11 +5,13 @@
 #include "KitchenStaff.h"
 #include "Customer.h"
 
+class Cafe;
+
 class Barista : public KitchenStaff {
  protected:
  public:
   Barista();
-  void doTask(Customer* customerNo);
+  void doTask(Customer* customer, Cafe* cafe);
   ~Barista();
 };
 

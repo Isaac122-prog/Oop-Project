@@ -10,7 +10,7 @@ class Cleaner : public Employee {
 
     public:
         Cleaner();
-        void doTask(Customer* customer);
+        void doTask(Customer* customer) override;
 };
 
 #endif

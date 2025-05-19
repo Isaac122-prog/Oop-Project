@@ -3,6 +3,7 @@
 #include <ctime>
 #include <iostream>
 #include <random>
+#include <SFML/Graphics.hpp>
 
 #include "Table.h"
 
@@ -94,10 +95,13 @@ void Customer::increase_disgust() {
   happiness = hunger + thirst + disgust;
 }
 
-void Customer::decrease_disgust() {
+void Customer::decrease_disgust(Table table) {
   disgust--;
   if (disgust < 0) {
     disgust = 0;
+  }
+  if (disgust < 5){
+    table.set_isClean(false);
   }
   happiness = hunger + thirst + disgust;
 }
@@ -106,9 +110,18 @@ int Customer::get_disgust() { return disgust; }
 
 int Customer::get_happiness() { return happiness; }
 
+void Customer::print_attributes(){
+  std::cout << "hunger: " << hunger << ", thirst: " << thirst << ", disgust: " << disgust << std::endl;
+}
+
+// I NEED TO REMEMBER WHAT'S GOING ON WITH TABLE NUMBER BC WTF
 Table Customer::get_tableNo() { return tableNo; }
 
 void Customer::set_tableNo(Table tableNo) { this->tableNo = tableNo; }
+
+// Drink Customer::get_drink(){ return drinkServing;}
+
+// Food Customer::get_food(){ return foodServing;}
 
 std::time_t Customer::get_startTime() { return startTime; }
 
