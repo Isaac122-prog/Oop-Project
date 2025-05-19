@@ -23,13 +23,12 @@ class Cafe {
     protected:
         sf::RenderWindow* win;    
 
-        std::time_t startTime;
         int runTime;
-        std::time_t endTime;
         
         int maxCustomers;
         Customer* customers;
         int numActiveCustomers;
+        int activeCustomer;
 
         // bool food;
         // bool drink;
@@ -41,17 +40,20 @@ class Cafe {
         Chef chef;
         Barista barista;
     public:
+        sf::Clock startTime; // CHECK WHERE THIS SHOULD BE
+
         Cafe();
         Cafe(int max, int size, std::string title);
 
         void drawFrame();
         void run();
+        void keyBindings();
 
         int get_maxCustomers();
         int get_gameDuration(); 
         
         void newCustomer(); // introduces the next customer based on the previous customer's stats
-        void CustomerLeaves();  // customer leaves based on their stats
+        void customerLeaves();  // customer leaves based on their stats
     
         void viewPerformance(); 
 

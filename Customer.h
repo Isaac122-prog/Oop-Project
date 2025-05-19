@@ -18,9 +18,13 @@ class Customer{
         
         std::time_t startTime;
         std::time_t endTime;
+
+        sf::RectangleShape* body;
     public:
         Customer(); // default constructor
-        Customer(Table tableNo);
+        Customer(Table tableNo, int customerNo);
+
+        void draw(sf::RenderWindow* win);
 
         void set_isActive(bool state);
         bool get_isActive();
@@ -40,8 +44,10 @@ class Customer{
         void set_tableNo(Table tableNo);
         Table get_tableNo();
 
-
         int get_happiness();
+
+        std::time_t get_startTime();
+        std::time_t get_endTime();
 };
 
 #endif

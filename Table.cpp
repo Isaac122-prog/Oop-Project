@@ -1,12 +1,26 @@
 #include "Table.h"
 
+#include <SFML/Graphics.hpp>
+
 Table::Table(){
+    depth = 0;
+    isClean = true;
+}
+
+Table::Table(int depth){
     // table is clean 
     isClean = true;
-    // body = new sf::RectangleShape(sf::Vector2f(10,5));
-    // body -> setFillColour(sf::Color::Blue);
-    // body -> setPosition(-1,-1);
+    this->depth = depth;
+    body = new sf::RectangleShape(sf::Vector2f(20, 20));
+    body -> setFillColor(sf::Color::Blue);
+    body -> setOrigin(10, 10);
+    body -> setPosition(depth+100, 30);
 }
+
+void Table::draw(sf::RenderWindow* win){
+    win -> draw(*body);
+}
+
 
 void Table::set_isClean(bool cleanliness){
     isClean = cleanliness;
