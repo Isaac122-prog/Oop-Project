@@ -1,5 +1,5 @@
 #ifndef CLEANER_H
-#define CLEARNER_H
+#define CLEANER_H
 
 #include "Employee.h"
 #include "Table.h"
