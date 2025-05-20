@@ -44,6 +44,19 @@ sf::RectangleShape* Customer::get_body(){
   return body;
 }
 
+sf::Text Customer::get_customerInfo(){
+  return customerInfo;
+}
+
+std::string Customer::get_customerAttributes(){
+  std::string text;
+  text = "hunger: " + std::to_string(hunger) + "/5\n";
+  text += "thirst: " + std::to_string(thirst) + "/5\n";
+  text += "disgust: " + std::to_string(disgust) + "/5\n";
+  text += "happiness: " + std::to_string(happiness) + "/15\n";
+  return text;
+}
+
 void Customer::draw(sf::RenderWindow* win) {
   if (isActive) {
     win->draw(*body);
@@ -99,6 +112,8 @@ void Customer::increase_disgust() {
 }
 
 void Customer::decrease_disgust(Table table) {
+  sf::Clock disgustClock;
+  if (disgustClock.getElapsedTime().asSeconds() >= 10.0f){
   disgust--;
   if (disgust < 0) {
     disgust = 0;
@@ -107,6 +122,8 @@ void Customer::decrease_disgust(Table table) {
     table.set_isClean(false);
   }
   happiness = hunger + thirst + disgust;
+  disgustClock.restart();
+  }
 }
 
 int Customer::get_disgust() { return disgust; }

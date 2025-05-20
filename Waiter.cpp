@@ -38,7 +38,7 @@ void Waiter::doTask(Customer* customer, Cafe* cafe) {
         cout << "no food or drink to be served!" << endl;
       }
       if (cafe->get_numFood() > 0 && customer->get_hunger() < 5) {
-        std::cout << "serving... " << std::endl;
+        std::cout << "serving food... " << std::endl;
         isBusy = true;
         busyTimer.restart();
         // food is served!
@@ -47,12 +47,16 @@ void Waiter::doTask(Customer* customer, Cafe* cafe) {
         // increase customer hunger
         customer->increase_hunger();
       }
-      if (cafe->get_numDrink() > 0 && customer->get_thirst() < 5)
+      if (cafe->get_numDrink() > 0 && customer->get_thirst() < 5){
+        std::cout << "serving drink..." << std::endl;
+        isBusy = true;
+        busyTimer.restart();
         // drink is served!
         cafe->decrease_numDrink();
       // customer.get_drink().set_isActive(true);
       // increase customer thirst
       customer->increase_thirst();
+      }
     }
   }
 }

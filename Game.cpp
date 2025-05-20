@@ -32,10 +32,17 @@ void Game::drawFrame() {
   cafe->get_barista().draw(win);
   cafe->get_waiter().draw(win);
 
-  std::string msg;  // write a message to display on the screen
-  msg = cafe->get_waiter().get_busyTimer();
-  waiterInfo.setString(msg);
-  win->draw(waiterInfo);
+  if (cafe->get_waiter().get_isBusy()) {
+    std::string msg;
+    msg = std::to_string(cafe->get_waiter().get_busyTimer());
+    waiterInfo.setString(msg);  // display the waiter's timer when they are busy
+    waiterInfo.setPosition(cafe->get_waiter().get_x(),
+                           cafe->get_waiter().get_y());
+  } else {
+    waiterInfo.setString("");
+    waiterInfo.setPosition(cafe->get_waiter().get_x(),
+                           cafe->get_waiter().get_y());
+  }
 }
 
 void Game::keyBindings(sf::Event e) {
@@ -138,22 +145,27 @@ void Game::run() {
     // if the cafe timer is below the game duration
     if (cafe->startTime.getElapsedTime().asSeconds() <
         cafe->get_gameDuration()) {
-    // every 1 second
-      if (actionClock.getElapsedTime().asSeconds() >= 1.0f) {
+      // every 1 second
+      if (actionClock.getElapsedTime().asSeconds() >=
+          1.0f) {  // should this be in Game::run or Game::drawFrame
         cafe->newCustomer();
         cafe->customerLeaves();
-        if (cafe->get_waiter().get_isBusy()){
-            std::string msg;  
-            msg = cafe->get_waiter().get_busyTimer();
-            waiterInfo.setString(msg); // display the waiter's timer when they are busy
-            waiterInfo.setPosition(cafe->get_waiter().get_x(),cafe->get_waiter().get_y());  
-        }
-        win->draw(waiterInfo); // not sure if this goes here
+        actionClock.restart();
       }
     }
 
     win->clear();
     drawFrame();
+    win->draw(waiterInfo);
     win->display();
   }
+}
+
+std::string Game::get_customerAttributes(Customer* customer){
+  std::string text;
+  text = "hunger: " + std::to_string(customer->get_hunger()) + "/5\n";
+  text += "thirst: " + std::to_string(customer->get_thirst()) + "/5\n";
+  text += "disgust: " + std::to_string(customer->get_disgust()) + "/5\n";
+  text += "happiness: " + std::to_string(customer->get_happiness()) + "/15\n";
+  return text;
 }

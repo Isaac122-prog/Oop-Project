@@ -34,7 +34,7 @@ Cafe::Cafe(int max) {
   // assigning tables to the table pointer array
   for (int j = 0; j < maxCustomers; j++) {
     tables[j] = Table(j);
-    tables[j].get_body() -> setPosition((500/(maxCustomers+1))*(j+1),30);
+    tables[j].get_body()->setPosition((500 / (maxCustomers + 1)) * (j + 1), 30);
   }
 
   // // creating an array of food servings
@@ -61,7 +61,8 @@ Cafe::Cafe(int max) {
   // assigning customers to the customer pointer array
   for (int i = 0; i < maxCustomers; i++) {
     customers[i] = Customer(tables[i], i);  // note first customer is customer0
-    customers[i].get_body()->setPosition((500/(maxCustomers+1))*(i+1),30);
+    customers[i].get_body()->setPosition((500 / (maxCustomers + 1)) * (i + 1),
+                                         30);
   }
 
   // releasing the first customer
@@ -86,7 +87,7 @@ Customer Cafe::get_customer(int customerNumber) {
   return customers[customerNumber];
 }
 
-Customer* Cafe::get_customerPointer(int customerNumber){
+Customer* Cafe::get_customerPointer(int customerNumber) {
   return &customers[customerNumber];
 }
 
@@ -96,11 +97,13 @@ void Cafe::newCustomer() {
     if (customers[i].get_isActive() == false &&
             customers[i - 1].get_happiness() >= 13 ||
         std::time_t(nullptr) >= customers[i].get_endTime()) {
-      customers[i].set_isActive(true);
-      numActiveCustomers++;
-      customers[i].print_attributes();  // TO BE DELETED LATER AND REPLACED WITH
-                                        // A SCREEN DISPLAY
-      break;
+      if (numActiveCustomers < maxCustomers) {
+        customers[i].set_isActive(true);
+        numActiveCustomers++;
+        customers[i].print_attributes();  // TO BE DELETED LATER AND REPLACED
+                                          // WITH A SCREEN DISPLAY
+        break;
+      }
     }
   }
 }
@@ -112,7 +115,7 @@ void Cafe::customerLeaves() {
             customers[i].get_happiness() == 15 ||
         std::time_t(nullptr) >= customers[i].get_endTime()) {
       customers[i].set_isActive(false);
-      numActiveCustomers--;
+      // numActiveCustomers--; TESTING SOMETHING HERE
     }
   }
 }
