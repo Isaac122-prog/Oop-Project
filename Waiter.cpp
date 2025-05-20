@@ -1,12 +1,14 @@
 #include "Waiter.h"
 
-#include <chrono>
 #include <iostream>
+#include <SFML/Graphics.hpp>
 
 #include "Cafe.h"
 #include "Customer.h"
 #include "Employee.h"
 #include "KitchenStaff.h"
+
+// ISSUE: BREWS/COOKS/SERVES TOO FAST, DOES NOT WAIT FOR BUSY TIMER
 
 using namespace std;
 
@@ -36,7 +38,7 @@ void Waiter::doTask(Customer* customer, Cafe* cafe) {
         cout << "no food or drink to be served!" << endl;
       }
       if (cafe->get_numFood() > 0 && customer->get_hunger() < 5) {
-        std::cout << "serving food... " << std::endl;
+        std::cout << "serving... " << std::endl;
         isBusy = true;
         busyTimer.restart();
         // food is served!

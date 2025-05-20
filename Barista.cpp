@@ -1,6 +1,6 @@
 #include "Barista.h"
 
-#include <chrono>
+#include <SFML/Graphics.hpp>
 #include <iostream>
 
 #include "Customer.h"
@@ -24,23 +24,18 @@ void Barista::doTask(Customer* customer, Cafe* cafe) {
   } else if (!customer->get_isActive()){
     std::cout << "Customer is not in cafe!" << std:: endl;
   } else {
+    if (busyTimer.getElapsedTime().asSeconds() >= 15) {
+      isBusy = false;
+    }
     // check barista is not busy
     if (isBusy == true) {
       cout << "barista is busy!" << endl;
     } else {
-      // wait for 15 seconds -> FROM CHAT GPT
-      auto startTime = chrono::steady_clock::now();
-      auto duration = chrono::seconds(15);
-
-      // set barista to busy during 15 second wait period
-      while (chrono::steady_clock::now() - startTime < duration) {
-        isBusy = true;
-      }
-
+      std::cout << "brewing..." << std::endl;
+      isBusy = true;
+      busyTimer.restart();
       // finished brewing!
       cafe->increase_numDrink();
-
-      isBusy = false;
     }
   }
 }
