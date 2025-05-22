@@ -43,17 +43,24 @@ void Game::drawFrame() {
   // }
 
   for (int k = 0; k < cafe->get_maxCustomers(); k++) {
-    if (cafe->get_customer(k).get_isActive() == true) {
-      cafe->get_customer(k).get_customerInfo().setPosition(
-          cafe->get_customer(k).get_x(), cafe->get_customer(k).get_y());
-          cafe->get_customerPointer(k)->draw_text(win);
-    }
+    const Customer& customer = cafe->get_customer(k);  // get a single customer
+
+    sf::Text label;
+    label.setFont(font);
+    label.setCharacterSize(16);
+    label.setString(customer.get_customerAttributes());
+    // label.setString("testing!");
+    label.setPosition(customer.get_x(), customer.get_y() - 20);
+    // label.setPosition(100,100);
+    label.setFillColor(sf::Color::White);
+
+    win->draw(label);
   }
 
-  cafe->get_cleaner().draw(win);
-  cafe->get_chef().draw(win);
-  cafe->get_barista().draw(win);
-  cafe->get_waiter().draw(win);
+cafe->get_cleaner().draw(win);
+cafe->get_chef().draw(win);
+cafe->get_barista().draw(win);
+cafe->get_waiter().draw(win);
 }
 
 void Game::keyBindings(sf::Event e) {

@@ -11,7 +11,7 @@ class Employee {
   bool isBusy;  // whether an employee is busy or not
   sf::Shape* body;
 //   sf::Text* info;
-  sf::Font font;
+//   sf::Font font;
   int depth; // unsure if we actually need this yet
   sf::Clock busyTimer;
 

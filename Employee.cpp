@@ -14,9 +14,9 @@ Employee::Employee() {
   body->setOrigin(10, 10);
 
   // setting up font
-  if (!font.loadFromFile("fonts/MyFont.ttf")) {
-    std::cerr << "Failed to load font!" << std::endl;
-  }
+  // if (!font.loadFromFile("fonts/MyFont.ttf")) {
+  //   std::cerr << "Failed to load font!" << std::endl;
+  // }
 
   // info = new sf::Text();
   // info->setString("");

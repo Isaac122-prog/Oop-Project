@@ -11,7 +11,7 @@ class Game {
   Cafe* cafe;
   sf::Font font;
   
-  
+  std::vector<sf::Text> customerTexts; // FROM CHATGPT
  public:
   Game(int size, std::string title, Cafe* cafe);
 

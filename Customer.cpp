@@ -30,6 +30,12 @@ Customer::Customer(Table tableNo, int customerNo) {
     thirst = 4;
   }
   happiness = hunger + thirst + disgust;
+  
+  customerAttributes = "hunger: " + std::to_string(hunger) + "/5\n";
+  customerAttributes += "thirst: " + std::to_string(thirst) + "/5\n";
+  customerAttributes += "disgust: " + std::to_string(disgust) + "/5\n";
+  customerAttributes += "happiness: " + std::to_string(happiness) + "/15\n";
+
   isActive = false;
 
   startTime = std::time(nullptr);
@@ -38,27 +44,33 @@ Customer::Customer(Table tableNo, int customerNo) {
   body = new sf::RectangleShape(sf::Vector2f(10, 40));
   body->setFillColor(sf::Color::Red);
   body->setOrigin(5, 20);
+  
+  // if (!font.loadFromFile("fonts/MyFont.ttf")) {
+  //   std::cerr << "Failed to load font!" << std::endl;
+  // }
 
-  if (!font.loadFromFile("fonts/MyFont.ttf")) {
-    std::cerr << "Failed to load font!" << std::endl;
-  }
-
-  customerInfo.setFont(font);
-  customerInfo.setFillColor(sf::Color::White);
-  customerInfo.setCharacterSize(20);
+  // customerInfo->setFont(font);
+  // customerInfo->setFillColor(sf::Color::White);
+  // customerInfo->setCharacterSize(20);
+  // customerInfo->setString("TEST");
 }
+
+// sf::Font Customer::font;
 
 sf::RectangleShape* Customer::get_body() { return body; }
 
-sf::Text Customer::get_customerInfo() { return customerInfo; }
+// sf::Text* Customer::get_customerInfo() { return customerInfo; }
 
-std::string Customer::get_customerAttributes() {
-  std::string text;
-  text = "hunger: " + std::to_string(hunger) + "/5\n";
-  text += "thirst: " + std::to_string(thirst) + "/5\n";
-  text += "disgust: " + std::to_string(disgust) + "/5\n";
-  text += "happiness: " + std::to_string(happiness) + "/15\n";
-  return text;
+void Customer::set_customerAttributes() {
+  customerAttributes = "hunger: " + std::to_string(hunger) + "/5\n";
+  customerAttributes += "thirst: " + std::to_string(thirst) + "/5\n";
+  customerAttributes += "disgust: " + std::to_string(disgust) + "/5\n";
+  customerAttributes += "happiness: " + std::to_string(happiness) + "/15\n";
+  // std::cout << text << std::endl;
+}
+
+std::string Customer::get_customerAttributes() const {
+  return customerAttributes;
 }
 
 void Customer::draw(sf::RenderWindow* win) {
@@ -67,15 +79,14 @@ void Customer::draw(sf::RenderWindow* win) {
   }
 }
 
-int Customer::get_x() { return body->getPosition().x; }
-int Customer::get_y() { return body->getPosition().y; }
+int Customer::get_x() const { return body->getPosition().x; }
+int Customer::get_y() const { return body->getPosition().y; }
 void Customer::set_position(sf::Vector2f position) {
   body->setPosition(position);
 }
 
 void Customer::set_isActive(bool state) {
   isActive = state;
-  customerInfo.setString(customerAttributes);
 }
 
 bool Customer::get_isActive() { return isActive; }
@@ -87,7 +98,7 @@ void Customer::increase_hunger() {
     hunger = 5;
   }
   happiness = hunger + thirst + disgust;
-  customerInfo.setString(customerAttributes);
+  set_customerAttributes();
 }
 
 void Customer::decrease_hunger() {
@@ -96,7 +107,7 @@ void Customer::decrease_hunger() {
     hunger = 0;
   }
   happiness = hunger + thirst + disgust;
-  customerInfo.setString(customerAttributes);
+  set_customerAttributes();
 }
 
 int Customer::get_hunger() { return hunger; }
@@ -108,7 +119,7 @@ void Customer::increase_thirst() {
     thirst = 5;
   }
   happiness = hunger + thirst + disgust;
-  customerInfo.setString(customerAttributes);
+  set_customerAttributes();
 }
 
 void Customer::decrease_thirst() {
@@ -117,7 +128,7 @@ void Customer::decrease_thirst() {
     thirst = 0;
   }
   happiness = hunger + thirst + disgust;
-  customerInfo.setString(customerAttributes);
+  set_customerAttributes();
 }
 
 int Customer::get_thirst() { return thirst; }
@@ -126,7 +137,7 @@ void Customer::increase_disgust() {
   // disgust is maxed out to 5
   disgust = 5;
   happiness = hunger + thirst + disgust;
-  customerInfo.setString(customerAttributes);
+  set_customerAttributes();
 }
 
 void Customer::decrease_disgust(Table table) {
@@ -140,7 +151,7 @@ void Customer::decrease_disgust(Table table) {
       table.set_isClean(false);
     }
     happiness = hunger + thirst + disgust;
-    customerInfo.setString(customerAttributes);
+    set_customerAttributes();
     disgustClock.restart();
   }
 }
@@ -159,9 +170,9 @@ Table Customer::get_tableNo() { return tableNo; }
 
 void Customer::set_tableNo(Table tableNo) { this->tableNo = tableNo; }
 
-void Customer::draw_text(sf::RenderWindow* win){
-  win->draw(customerInfo);
-}
+// void Customer::draw_text(sf::RenderWindow* win){
+//   win->draw(customerInfo);
+// }
 
 // Drink Customer::get_drink(){ return drinkServing;}
 

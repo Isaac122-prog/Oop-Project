@@ -25,8 +25,6 @@ class Customer {
   std::time_t endTime;
 
   sf::RectangleShape* body;
-    sf::Font font;
-  sf::Text customerInfo;
   std::string customerAttributes;
 
  public:
@@ -35,11 +33,12 @@ class Customer {
 
   void draw(sf::RenderWindow* win);
   sf::RectangleShape* get_body();
-  sf::Text get_customerInfo();
-  std::string get_customerAttributes();
 
-  int get_x();
-  int get_y();
+  void set_customerAttributes();
+  std::string get_customerAttributes() const;
+
+  int get_x() const;
+  int get_y() const;
   void set_position(sf::Vector2f position);
 
   void set_isActive(bool state);
@@ -65,7 +64,7 @@ class Customer {
 
   int get_happiness();
   void print_attributes();
-  void draw_text(sf::RenderWindow* win);
+  // void draw_text(sf::RenderWindow* win);
 
   std::time_t get_startTime();
   std::time_t get_endTime();

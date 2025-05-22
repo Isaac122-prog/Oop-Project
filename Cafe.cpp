@@ -66,6 +66,8 @@ Cafe::Cafe(int max) {
     customers[i] = Customer(tables[i], i);  // note first customer is customer0
     customers[i].get_body()->setPosition((500 / (maxCustomers + 1)) * (i + 1),
                                          30);
+    // customers[i].get_customerInfo()->setPosition((500 / (maxCustomers + 1)) * (i + 1),
+    //                                      30);
   }
 
   // releasing the first customer
@@ -121,7 +123,7 @@ void Cafe::customerLeaves() {
       // numActiveCustomers--; TESTING SOMETHING HERE
     }
   }
-}  
+}
 
 // view the customer's scoring
 void Cafe::viewPerformance() {
