@@ -25,7 +25,7 @@ void Chef::doTask(Customer* customer, Cafe* cafe) {
   } else if (customer->get_hunger() == 5) {
     std::cout << "Customer is not hungry!" << std::endl;
   } else {
-    if (busyTimer.getElapsedTime().asSeconds() >= 15) {
+    if (waitTime <= std::time(nullptr)-10) {
       isBusy = false;
     }
     // check chef is not busy
@@ -34,9 +34,8 @@ void Chef::doTask(Customer* customer, Cafe* cafe) {
     } else {
       std::cout << "cooking..." << std::endl;
       isBusy = true;
-      busyTimer.restart();
-      // finished cooking!
-      cafe->increase_numFood();
+      waitTime = std::time(nullptr);
+      wasCalled = true;
     }
   }
 }

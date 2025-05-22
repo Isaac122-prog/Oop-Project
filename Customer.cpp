@@ -41,6 +41,8 @@ Customer::Customer(Table tableNo, int customerNo) {
   startTime = std::time(nullptr);
   endTime = startTime + 120;
 
+  disgustTime = std::time(nullptr);
+
   body = new sf::RectangleShape(sf::Vector2f(10, 40));
   body->setFillColor(sf::Color::Red);
   body->setOrigin(5, 20);
@@ -61,7 +63,7 @@ sf::RectangleShape* Customer::get_body() { return body; }
 
 // sf::Text* Customer::get_customerInfo() { return customerInfo; }
 
-void Customer::set_customerAttributes() {
+void Customer::set_customerAttributes(){
   customerAttributes = "hunger: " + std::to_string(hunger) + "/5\n";
   customerAttributes += "thirst: " + std::to_string(thirst) + "/5\n";
   customerAttributes += "disgust: " + std::to_string(disgust) + "/5\n";
@@ -141,8 +143,6 @@ void Customer::increase_disgust() {
 }
 
 void Customer::decrease_disgust(Table table) {
-  sf::Clock disgustClock;
-  if (disgustClock.getElapsedTime().asSeconds() >= 10.0f) {
     disgust--;
     if (disgust < 0) {
       disgust = 0;
@@ -152,8 +152,7 @@ void Customer::decrease_disgust(Table table) {
     }
     happiness = hunger + thirst + disgust;
     set_customerAttributes();
-    disgustClock.restart();
-  }
+    disgustTime = std::time(nullptr);
 }
 
 int Customer::get_disgust() { return disgust; }
@@ -181,5 +180,7 @@ void Customer::set_tableNo(Table tableNo) { this->tableNo = tableNo; }
 std::time_t Customer::get_startTime() { return startTime; }
 
 std::time_t Customer::get_endTime() { return endTime; }
+
+std::time_t Customer::get_disgustTime() {return disgustTime;}
 
 Customer::~Customer(){}

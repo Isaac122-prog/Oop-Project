@@ -71,6 +71,11 @@ class Cafe {
   Waiter get_waiter();
   Chef get_chef();
   Barista get_barista();
+  
+  Cleaner* get_cleanerPointer();
+  Waiter* get_waiterPointer();
+  Chef* get_chefPointer();
+  Barista* get_baristaPointer();
 
   int get_numFood();
   void increase_numFood();

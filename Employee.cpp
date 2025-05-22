@@ -12,17 +12,9 @@ Employee::Employee() {
   
   body = new sf::RectangleShape(sf::Vector2f(10, 40));
   body->setOrigin(10, 10);
+  waitTime = std::time(nullptr);
+  wasCalled = false;
 
-  // setting up font
-  // if (!font.loadFromFile("fonts/MyFont.ttf")) {
-  //   std::cerr << "Failed to load font!" << std::endl;
-  // }
-
-  // info = new sf::Text();
-  // info->setString("");
-  // info->setFont(font);
-  // info->setFillColor(sf::Color::Red);
-  // info->setCharacterSize(20);
 }
 
 // graphics functions
@@ -40,12 +32,12 @@ void Employee::set_position(sf::Vector2f position) {
 
 bool Employee::get_isBusy() { return isBusy; }
 void Employee::set_isBusy(bool status) { isBusy = status; }
+bool Employee::get_wasCalled() {return wasCalled;}
+void Employee::set_wasCalled(bool status) {wasCalled = status;}
 
-// sf::Text* Employee::get_info(){
-//   return info;
-// }
 
-int Employee::get_busyTimer() { return busyTimer.getElapsedTime().asSeconds(); }
+
+std::time_t Employee::get_waitTime() { return waitTime; }
 
 Employee::~Employee() {
 }

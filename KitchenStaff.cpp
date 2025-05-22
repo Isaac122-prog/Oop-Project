@@ -11,6 +11,7 @@ using namespace std;
 KitchenStaff::KitchenStaff() : Employee() {
   food = Consumable();
   drink = Consumable();
+
 }
 
 void KitchenStaff::doTask(Customer* customer) {
@@ -19,5 +20,7 @@ void KitchenStaff::doTask(Customer* customer) {
 
 Consumable KitchenStaff::get_food() { return food; }
 Consumable KitchenStaff::get_drink() { return drink; }
+
+std::time_t KitchenStaff::get_waitTime(){return waitTime;}
 
 KitchenStaff::~KitchenStaff(){}

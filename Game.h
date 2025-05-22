@@ -10,6 +10,8 @@ class Game {
   sf::RenderWindow* win;
   Cafe* cafe;
   sf::Font font;
+
+  int customerKey;
   
   std::vector<sf::Text> customerTexts; // FROM CHATGPT
  public:

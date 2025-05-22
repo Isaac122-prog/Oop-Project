@@ -24,6 +24,8 @@ class Customer {
   std::time_t startTime;
   std::time_t endTime;
 
+  std::time_t disgustTime;
+
   sf::RectangleShape* body;
   std::string customerAttributes;
 
@@ -68,6 +70,7 @@ class Customer {
 
   std::time_t get_startTime();
   std::time_t get_endTime();
+  std::time_t get_disgustTime();
 
   ~Customer();
 };

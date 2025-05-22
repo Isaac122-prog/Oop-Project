@@ -25,7 +25,7 @@ void Barista::doTask(Customer* customer, Cafe* cafe) {
   } else if (customer->get_thirst() == 5) {
     std::cout << "Customer is not thirsty!" << std::endl;
   } else {
-    if (busyTimer.getElapsedTime().asSeconds() >= 15) {
+    if (waitTime <= std::time(nullptr)-10 ) {
       isBusy = false;
     }
     // check barista is not busy
@@ -34,9 +34,8 @@ void Barista::doTask(Customer* customer, Cafe* cafe) {
     } else {
       std::cout << "brewing..." << std::endl;
       isBusy = true;
-      busyTimer.restart();
-      // finished brewing!
-      cafe->increase_numDrink();
+      waitTime = std::time(nullptr);
+      wasCalled = true;
     }
   }
 }

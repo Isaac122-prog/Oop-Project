@@ -66,7 +66,8 @@ Cafe::Cafe(int max) {
     customers[i] = Customer(tables[i], i);  // note first customer is customer0
     customers[i].get_body()->setPosition((500 / (maxCustomers + 1)) * (i + 1),
                                          30);
-    // customers[i].get_customerInfo()->setPosition((500 / (maxCustomers + 1)) * (i + 1),
+    // customers[i].get_customerInfo()->setPosition((500 / (maxCustomers + 1)) *
+    // (i + 1),
     //                                      30);
   }
 
@@ -136,19 +137,30 @@ void Cafe::viewPerformance() {
 }
 
 // getters
-Cleaner Cafe::get_cleaner() { return cleaner; }
 Table Cafe::get_table(int tableNo) { return tables[tableNo]; }
 Player Cafe::get_player() { return player; }
+Cleaner Cafe::get_cleaner() { return cleaner; }
 Waiter Cafe::get_waiter() { return waiter; }
 Chef Cafe::get_chef() { return chef; }
 Barista Cafe::get_barista() { return barista; }
 
+Cleaner* Cafe::get_cleanerPointer() { return &cleaner; }
+Waiter* Cafe::get_waiterPointer() { return &waiter; }
+Chef* Cafe::get_chefPointer() { return &chef; }
+Barista* Cafe::get_baristaPointer() { return &barista; }
+
 int Cafe::get_numFood() { return numFood; }
-void Cafe::increase_numFood() { numFood++; }
+void Cafe::increase_numFood() {
+  numFood++;
+  chef.set_wasCalled(false);
+}
 void Cafe::decrease_numFood() { numFood--; }
 
 int Cafe::get_numDrink() { return numDrink; }
-void Cafe::increase_numDrink() { numDrink++; }
+void Cafe::increase_numDrink() {
+  numDrink++;
+  barista.set_wasCalled(false);
+}
 void Cafe::decrease_numDrink() { numDrink--; }
 
 void Cafe::set_activeCustomer(int customerNo) { activeCustomer = customerNo; }
