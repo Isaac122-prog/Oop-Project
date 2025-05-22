@@ -17,6 +17,30 @@ Game::Game(int size, std::string title, Cafe* cafe) {
   if (!font.loadFromFile("fonts/MyFont.ttf")) {
     std::cerr << "Failed to load font!" << std::endl;
   }
+
+  waiterTimer.setFont(font);
+  waiterTimer.setCharacterSize(15);
+  waiterTimer.setFillColor(sf::Color::White);
+  waiterTimer.setString("waiter");
+  waiterTimer.setPosition(300, 400);
+
+  cleanerTimer.setFont(font);
+  cleanerTimer.setCharacterSize(15);
+  cleanerTimer.setFillColor(sf::Color::White);
+  cleanerTimer.setString("cleaner");
+  cleanerTimer.setPosition(400, 400);
+
+  baristaTimer.setFont(font);
+  baristaTimer.setCharacterSize(15);
+  baristaTimer.setFillColor(sf::Color::White);
+  baristaTimer.setString("barista");
+  baristaTimer.setPosition(100, 400);
+
+  chefTimer.setFont(font);
+  chefTimer.setCharacterSize(15);
+  chefTimer.setFillColor(sf::Color::White);
+  chefTimer.setString("chef");
+  chefTimer.setPosition(200, 400);
 }
 
 void Game::drawFrame() {
@@ -35,47 +59,68 @@ void Game::drawFrame() {
     cafe->get_barista().get_drink().draw(win);
   }
 
-  if (cafe->get_barista().get_waitTime() <= std::time(nullptr)-10 && cafe->get_barista().get_wasCalled()){
+  if (cafe->get_barista().get_waitTime() <= std::time(nullptr) - 10 &&
+      cafe->get_barista().get_wasCalled()) {
     cafe->increase_numDrink();
+    baristaTimer.setString("barista");
+    std::cout << "number of drinks: " << cafe->get_numDrink() << std::endl;
+  } else if (cafe->get_barista().get_waitTime() > std::time(nullptr) - 10 &&
+             cafe->get_barista().get_wasCalled()) {
+              baristaTimer.setString("barista\n" + std::to_string(10-(std::time(nullptr) - cafe->get_baristaPointer()->get_waitTime())));
   }
 
-  if (cafe->get_chef().get_waitTime() <= std::time(nullptr)-10 && cafe->get_chef().get_wasCalled()){
+  if (cafe->get_chef().get_waitTime() <= std::time(nullptr) - 10 &&
+      cafe->get_chef().get_wasCalled()) {
     cafe->increase_numFood();
+    chefTimer.setString("chef");
+    std::cout << "servings of food: " << cafe->get_numFood() << std::endl;
+  } else if (cafe->get_chef().get_waitTime() > std::time(nullptr) - 10 &&
+             cafe->get_chef().get_wasCalled()) {
+              chefTimer.setString("chef\n" + std::to_string(10-(std::time(nullptr) - cafe->get_chefPointer()->get_waitTime())));
   }
 
-  // NOTE: IF PLAYER PRESSES ANOTHER NUMBER, THIS WILL ASSIGN TO THE WRONG CUSTOMER
-  if (cafe->get_cleaner().get_waitTime() <= std::time(nullptr)-10 && cafe->get_cleaner().get_wasCalled()){
-        cafe->get_cleanerPointer()->set_wasCalled(false);
+  // NOTE: IF PLAYER PRESSES ANOTHER NUMBER, THIS WILL ASSIGN TO THE WRONG
+  // CUSTOMER
+  if (cafe->get_cleaner().get_waitTime() <= std::time(nullptr) - 10 &&
+      cafe->get_cleaner().get_wasCalled()) {
+    cafe->get_cleanerPointer()->set_wasCalled(false);
     cafe->get_customerPointer(customerKey)->get_tableNo().set_isClean(true);
     cafe->get_customerPointer(customerKey)->increase_disgust();
+    cleanerTimer.setString("cleaner");
     // std::cout << "function was happily called!" << std::endl;
+  } else if (cafe->get_cleaner().get_waitTime() > std::time(nullptr) - 10 &&
+             cafe->get_cleaner().get_wasCalled()) {
+              cleanerTimer.setString("cleaner\n" + std::to_string(10-(std::time(nullptr) - cafe->get_cleanerPointer()->get_waitTime())));
   }
-  
 
-  // if (cafe->get_waiter().get_waitTime() <= std::time(nullptr)-10 ){
-    
+  // NOTE: IF PLAYER PRESSES ANOTHER NUMBER, THIS WILL ASSIGN TO THE WRONG
+  // CUSTOMER
+  if (cafe->get_waiter().get_waitTime() <= std::time(nullptr) - 5 &&
+      cafe->get_waiter().get_wasCalled()) {
+    cafe->get_waiterPointer()->set_wasCalled(false);
 
-  //   // food is served!
-  //       cafe->decrease_numFood();
-  //       // customer.get_Food().set_isActive(true);
-  //       // increase customer hunger
-  //       customer->increase_hunger();
+    if (cafe->get_customerPointer(customerKey)->get_hunger() < 5) {
+      // food is served!
+      cafe->decrease_numFood();
+      // customer.get_Food().set_isActive(true);
+      // increase customer hunger
+      cafe->get_customerPointer(customerKey)->increase_hunger();
+    }
+    if (cafe->get_customerPointer(customerKey)->get_thirst() < 5) {
+      // drink is served!
+      cafe->decrease_numDrink();
+      // customer.get_drink().set_isActive(true);
+      // increase customer thirst
+      cafe->get_customerPointer(customerKey)->increase_thirst();
+    }
+    std::cout << "function was happily called!" << std::endl;
+    std::cout << "number of drinks: " << cafe->get_numDrink() << std::endl;
+    std::cout << "servings of food: " << cafe->get_numFood() << std::endl;
+  } else if (cafe->get_waiter().get_waitTime() > std::time(nullptr) - 10 &&
+             cafe->get_waiter().get_wasCalled()) {
+              waiterTimer.setString("waiter\n" + std::to_string(10-(std::time(nullptr) - cafe->get_waiterPointer()->get_waitTime())));
+  }
 
-  //        // drink is served!
-  //       cafe->decrease_numDrink();
-  //     // customer.get_drink().set_isActive(true);
-  //     // increase customer thirst
-  //     customer->increase_thirst();
-  // }
-
-  // if (cafe->get_waiter().get_isBusy()) {
-  //   std::string msg;
-  //   msg = std::to_string(cafe->get_waiter().get_busyTimer());
-  //   cafe->get_waiter().get_info()->setString(
-  //       msg);  // display the waiter's timer when they are busy
-  // } else {
-  //   cafe->get_waiter().get_info()->setString("");
-  // }
 
   for (int k = 0; k < cafe->get_maxCustomers(); k++) {
     // THIS SECTION IS TAKEN FROM CHAT GPT
@@ -84,18 +129,23 @@ void Game::drawFrame() {
     sf::Text label;
     label.setFont(font);
     label.setCharacterSize(16);
-    label.setString(customer.get_customerAttributes());
+    label.setString(std::to_string(k+1) + "\n" + customer.get_customerAttributes());
     label.setPosition(customer.get_x(), customer.get_y() - 20);
     label.setFillColor(sf::Color::White);
-    if(cafe->get_customer(k).get_isActive()){
-    win->draw(label);
+    if (cafe->get_customer(k).get_isActive()) {
+      win->draw(label);
     }
   }
 
-cafe->get_cleaner().draw(win);
-cafe->get_chef().draw(win);
-cafe->get_barista().draw(win);
-cafe->get_waiter().draw(win);
+  cafe->get_cleaner().draw(win);
+  cafe->get_chef().draw(win);
+  cafe->get_barista().draw(win);
+  cafe->get_waiter().draw(win);
+
+  win->draw(baristaTimer);
+  win->draw(chefTimer);
+  win->draw(waiterTimer);
+  win->draw(cleanerTimer);
 }
 
 void Game::keyBindings(sf::Event e) {
@@ -150,8 +200,8 @@ void Game::keyBindings(sf::Event e) {
           cafe->get_baristaPointer()->doTask(
               cafe->get_customerPointer(cafe->get_activeCustomer()), cafe);
           // cafe->get_customer(cafe->get_activeCustomer()).print_attributes();
-          std::cout << "number of drinks: " << cafe->get_numDrink()
-                    << std::endl;
+          // std::cout << "number of drinks: " << cafe->get_numDrink()
+          //           << std::endl;
           cafe->set_activeCustomer(-1);
         }
         break;
@@ -161,7 +211,8 @@ void Game::keyBindings(sf::Event e) {
           cafe->get_chefPointer()->doTask(
               cafe->get_customerPointer(cafe->get_activeCustomer()), cafe);
           // cafe->get_customer(cafe->get_activeCustomer()).print_attributes();
-          std::cout << "servings of food: " << cafe->get_numFood() << std::endl;
+          // std::cout << "servings of food: " << cafe->get_numFood() <<
+          // std::endl;
           cafe->set_activeCustomer(-1);
         }
         break;
@@ -171,8 +222,6 @@ void Game::keyBindings(sf::Event e) {
           cafe->get_waiterPointer()->doTask(
               cafe->get_customerPointer(cafe->get_activeCustomer()), cafe);
           // cafe->get_customer(cafe->get_activeCustomer()).print_attributes();
-          std::cout << "number of drinks: " << cafe->get_numDrink()
-                    << std::endl;
           cafe->set_activeCustomer(-1);
         }
         break;
@@ -214,9 +263,12 @@ void Game::run() {
         cafe->newCustomer();
         cafe->customerLeaves();
         actionClock.restart();
-        for (int i=0; i<cafe->get_maxCustomers(); i++){
-          if(cafe->get_customer(i).get_isActive() && cafe->get_customer(i).get_disgustTime() <= std::time(nullptr)-10 ){
-            cafe->get_customerPointer(i)->decrease_disgust(cafe->get_customerPointer(i)->get_tableNo());
+        for (int i = 0; i < cafe->get_maxCustomers(); i++) {
+          if (cafe->get_customer(i).get_isActive() &&
+              cafe->get_customer(i).get_disgustTime() <=
+                  std::time(nullptr) - 10) {
+            cafe->get_customerPointer(i)->decrease_disgust(
+                cafe->get_customerPointer(i)->get_tableNo());
           }
         }
       }

@@ -12,6 +12,11 @@ class Game {
   sf::Font font;
 
   int customerKey;
+
+  sf::Text waiterTimer;
+  sf::Text cleanerTimer;
+  sf::Text baristaTimer;
+  sf::Text chefTimer;
   
   std::vector<sf::Text> customerTexts; // FROM CHATGPT
  public:

@@ -42,11 +42,13 @@ void Waiter::doTask(Customer* customer, Cafe* cafe) {
         std::cout << "serving food... " << std::endl;
         isBusy = true;
         waitTime = std::time(nullptr);
+        wasCalled = true;
       }
       if (cafe->get_numDrink() > 0 && customer->get_thirst() < 5){
         std::cout << "serving drink..." << std::endl;
         isBusy = true;
         waitTime = std::time(nullptr);
+        wasCalled = true;
       }
     }
   }
