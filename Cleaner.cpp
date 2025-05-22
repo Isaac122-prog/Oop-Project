@@ -48,3 +48,5 @@ void Cleaner::doTask(Customer* customer) {
     }
   }
 }
+
+Cleaner::~Cleaner(){}

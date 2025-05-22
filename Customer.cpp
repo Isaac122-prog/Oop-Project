@@ -166,3 +166,5 @@ void Customer::set_tableNo(Table tableNo) { this->tableNo = tableNo; }
 std::time_t Customer::get_startTime() { return startTime; }
 
 std::time_t Customer::get_endTime() { return endTime; }
+
+Customer::~Customer(){}

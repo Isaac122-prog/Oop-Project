@@ -60,3 +60,5 @@ void Waiter::doTask(Customer* customer, Cafe* cafe) {
     }
   }
 }
+
+Waiter::~Waiter(){}

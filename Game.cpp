@@ -18,7 +18,6 @@ Game::Game(int size, std::string title, Cafe* cafe) {
   waiterInfo.setFont(font);
   waiterInfo.setFillColor(sf::Color::Red);
   waiterInfo.setCharacterSize(20);
-
 }
 
 void Game::drawFrame() {
@@ -33,6 +32,14 @@ void Game::drawFrame() {
   cafe->get_barista().draw(win);
   cafe->get_waiter().draw(win);
 
+  if (cafe->get_numFood()>0){
+    cafe->get_chef().get_food().draw(win);
+  }
+
+  if (cafe->get_numDrink()>0){
+    cafe->get_barista().get_drink().draw(win);
+  }
+
   if (cafe->get_waiter().get_isBusy()) {
     std::string msg;
     msg = std::to_string(cafe->get_waiter().get_busyTimer());
@@ -45,11 +52,11 @@ void Game::drawFrame() {
                            cafe->get_waiter().get_y());
   }
 
-  for (int k=0; k<cafe->get_maxCustomers(); k++)
-  if (cafe->get_customer(k).get_isActive() == true){
-    cafe->get_customer(k).get_customerInfo().setPosition(cafe->get_customer(k).get_x(),
-                           cafe->get_customer(k).get_y());
-  }
+  for (int k = 0; k < cafe->get_maxCustomers(); k++)
+    if (cafe->get_customer(k).get_isActive() == true) {
+      cafe->get_customer(k).get_customerInfo().setPosition(
+          cafe->get_customer(k).get_x(), cafe->get_customer(k).get_y());
+    }
 }
 
 void Game::keyBindings(sf::Event e) {
@@ -158,13 +165,22 @@ void Game::run() {
         cafe->newCustomer();
         cafe->customerLeaves();
         actionClock.restart();
+        // for (int i=0; i<cafe->get_maxCustomers(); i++){
+        //   if(cafe->get_customer(i).get_isActive()){
+        //     cafe->get_customerPointer(i)->decrease_disgust(cafe->get_customerPointer(i)->get_tableNo());
+        //   }
+        // }
       }
     }
 
     win->clear();
     drawFrame();
     win->draw(waiterInfo);
+    // for (int k = 0; k < cafe->get_maxCustomers(); k++) {
+    //   if (cafe->get_customer(k).get_isActive() == true) {
+    //     win->draw(cafe->get_customer(k).get_customerInfo());
+    //   }
+    // }
     win->display();
   }
 }
-

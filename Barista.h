@@ -4,11 +4,12 @@
 #include "Employee.h"
 #include "KitchenStaff.h"
 #include "Customer.h"
+#include "Consumable.h"
 
 class Cafe;
 
 class Barista : public KitchenStaff {
- protected:
+ private:
  public:
   Barista();
   void doTask(Customer* customer, Cafe* cafe);

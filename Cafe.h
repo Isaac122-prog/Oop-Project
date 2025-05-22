@@ -9,9 +9,8 @@
 #include "Chef.h"
 #include "Cleaner.h"
 #include "Customer.h"
-// #include "Drink.h"
+#include "Consumable.h"
 #include "Employee.h"
-// #include "Food.h"
 #include "KitchenStaff.h"
 #include "Player.h"
 #include "Table.h"
@@ -36,8 +35,8 @@ class Cafe {
   int numActiveCustomers;
   int activeCustomer;
 
-  // Food* numFoodServings;
-  // Drink* drinks;
+  Consumable baristaDrink;
+  Consumable chefFood;
   Table* tables;
 
   int numFood;
@@ -79,6 +78,9 @@ class Cafe {
   int get_numDrink();
   void increase_numDrink();
   void decrease_numDrink();
+
+  void set_baristaDrink(bool status);
+  void set_chefFood(bool status);
 
   void set_activeCustomer(int customerNo);
   int get_activeCustomer();

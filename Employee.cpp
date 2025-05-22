@@ -27,3 +27,5 @@ void Employee::set_isBusy(bool status){
 int Employee::get_busyTimer(){
   return busyTimer.getElapsedTime().asSeconds();
 }
+
+Employee::~Employee(){}

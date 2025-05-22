@@ -23,6 +23,7 @@ class Table{
 
         // void set_isOccupied(bool occupation);
         // bool get_isOccupied();
+        ~Table();
 };
 
 #endif

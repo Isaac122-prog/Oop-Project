@@ -30,6 +30,7 @@ class Employee {
   // SHOULD THIS BE IN THE .CPP FILE TOO???
   virtual void doTask(Customer* customer) = 0;  // virtual function making this
                                                 // an abstract class
+                                                ~Employee();
 };
 
 #endif

@@ -68,6 +68,8 @@ class Customer {
 
   std::time_t get_startTime();
   std::time_t get_endTime();
+
+  ~Customer();
 };
 
 #endif

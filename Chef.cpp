@@ -7,6 +7,7 @@
 #include "Employee.h"
 #include "KitchenStaff.h"
 #include "Cafe.h"
+#include "Consumable.h"
 
 using namespace std;
 
@@ -15,15 +16,17 @@ Chef::Chef() : KitchenStaff() {
   body->setFillColor(sf::Color::Cyan);
   body->setOrigin(10, 10);
   body->setPosition(200, 400);
+
+  food.get_body()->setPosition(200,400);
 }
 
 void Chef::doTask(Customer* customer, Cafe* cafe) {
   // the chef's task is to make the food servings
-  if (customer->get_hunger() == 5) {
-    std::cout << "Customer is not hungry!" << std::endl;
-  } else if (!customer->get_isActive()) {
+  if (!customer->get_isActive()) {
     std::cout << "Customer is not in cafe!" << std::endl;
-  } else {
+  } else if (customer->get_hunger() == 5) {
+    std::cout << "Customer is not hungry!" << std::endl;
+  } else  {
     if (busyTimer.getElapsedTime().asSeconds() >= 15) {
       isBusy = false;
     }
@@ -40,3 +43,5 @@ void Chef::doTask(Customer* customer, Cafe* cafe) {
     }
   }
 }
+
+Chef::~Chef(){}

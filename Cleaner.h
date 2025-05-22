@@ -1,16 +1,16 @@
 #ifndef CLEANER_H
 #define CLEANER_H
 
+#include "Customer.h"
 #include "Employee.h"
 #include "Table.h"
-#include "Customer.h"
 
 class Cleaner : public Employee {
-    protected:
-
-    public:
-        Cleaner();
-        void doTask(Customer* customer) override;
+ protected:
+ public:
+  Cleaner();
+  void doTask(Customer* customer) override;
+  ~Cleaner();
 };
 
 #endif

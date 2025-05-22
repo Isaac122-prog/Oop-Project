@@ -40,3 +40,5 @@ bool Table::get_isClean(){
 // bool Table::get_isOccupied(){
 //     return isOccupied;
 // }
+
+Table::~Table(){}
