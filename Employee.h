@@ -10,6 +10,8 @@ class Employee {
  protected:
   bool isBusy;  // whether an employee is busy or not
   sf::Shape* body;
+//   sf::Text* info;
+  sf::Font font;
   int depth; // unsure if we actually need this yet
   sf::Clock busyTimer;
 
@@ -26,6 +28,8 @@ class Employee {
   bool get_isBusy();
   void set_isBusy(bool status);
   int get_busyTimer();
+
+//   sf::Text* get_info();
 
   // SHOULD THIS BE IN THE .CPP FILE TOO???
   virtual void doTask(Customer* customer) = 0;  // virtual function making this

@@ -11,10 +11,8 @@ using namespace std;
 
 // default constructor
 Cleaner::Cleaner() : Employee() {
-  body = new sf::RectangleShape(sf::Vector2f(10, 40));
-  body->setFillColor(sf::Color::Green);
-  body->setOrigin(10, 10);
-  body->setPosition(400, 400);
+    body->setFillColor(sf::Color::Green);
+    body->setPosition(400, 400);
 }
 
 void Cleaner::doTask(Customer* customer) {

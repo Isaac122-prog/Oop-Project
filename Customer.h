@@ -65,6 +65,7 @@ class Customer {
 
   int get_happiness();
   void print_attributes();
+  void draw_text(sf::RenderWindow* win);
 
   std::time_t get_startTime();
   std::time_t get_endTime();

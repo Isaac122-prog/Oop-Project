@@ -12,9 +12,7 @@
 using namespace std;
 
 Barista::Barista() : KitchenStaff() {
-  body = new sf::RectangleShape(sf::Vector2f(10, 40));
   body->setFillColor(sf::Color::Magenta);
-  body->setOrigin(10, 10);
   body->setPosition(100, 400);
 
   drink.get_body()->setPosition(100,400);

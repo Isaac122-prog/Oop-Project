@@ -26,7 +26,7 @@ class Chef;
 
 class Cafe {
  protected:
-  //   sf::RenderWindow* win;
+    sf::RenderWindow* win;
 
   int runTime;
 

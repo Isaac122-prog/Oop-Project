@@ -121,7 +121,7 @@ void Cafe::customerLeaves() {
       // numActiveCustomers--; TESTING SOMETHING HERE
     }
   }
-}  // FINAL CUSTOMER WON'T LEAVE WHY IS THAT...
+}  
 
 // view the customer's scoring
 void Cafe::viewPerformance() {
@@ -148,9 +148,6 @@ void Cafe::decrease_numFood() { numFood--; }
 int Cafe::get_numDrink() { return numDrink; }
 void Cafe::increase_numDrink() { numDrink++; }
 void Cafe::decrease_numDrink() { numDrink--; }
-
-// void Cafe::set_baristaDrink(bool status) { baristaDrink.set_isActive(status); }
-// void Cafe::set_chefFood(bool status) { chefFood.set_isActive(status); }
 
 void Cafe::set_activeCustomer(int customerNo) { activeCustomer = customerNo; }
 int Cafe::get_activeCustomer() { return activeCustomer; }

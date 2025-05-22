@@ -3,21 +3,19 @@
 #include <SFML/Graphics.hpp>
 #include <iostream>
 
+#include "Cafe.h"
+#include "Consumable.h"
 #include "Customer.h"
 #include "Employee.h"
 #include "KitchenStaff.h"
-#include "Cafe.h"
-#include "Consumable.h"
 
 using namespace std;
 
 Chef::Chef() : KitchenStaff() {
-  body = new sf::RectangleShape(sf::Vector2f(10, 40));
   body->setFillColor(sf::Color::Cyan);
-  body->setOrigin(10, 10);
   body->setPosition(200, 400);
 
-  food.get_body()->setPosition(200,400);
+  food.get_body()->setPosition(200, 400);
 }
 
 void Chef::doTask(Customer* customer, Cafe* cafe) {
@@ -26,7 +24,7 @@ void Chef::doTask(Customer* customer, Cafe* cafe) {
     std::cout << "Customer is not in cafe!" << std::endl;
   } else if (customer->get_hunger() == 5) {
     std::cout << "Customer is not hungry!" << std::endl;
-  } else  {
+  } else {
     if (busyTimer.getElapsedTime().asSeconds() >= 15) {
       isBusy = false;
     }
@@ -39,9 +37,8 @@ void Chef::doTask(Customer* customer, Cafe* cafe) {
       busyTimer.restart();
       // finished cooking!
       cafe->increase_numFood();
-
     }
   }
 }
 
-Chef::~Chef(){}
+Chef::~Chef() {}

@@ -13,10 +13,11 @@
 using namespace std;
 
 Waiter::Waiter() : KitchenStaff() {
-  body = new sf::RectangleShape(sf::Vector2f(10, 40));
+  
   body->setFillColor(sf::Color::Yellow);
-  body->setOrigin(10, 10);
   body->setPosition(300, 400);
+
+  // info->setPosition(300,400);
 }
 
 // waiter will be called using button 'call waiter for table 2 or smth'

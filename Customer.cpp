@@ -159,6 +159,10 @@ Table Customer::get_tableNo() { return tableNo; }
 
 void Customer::set_tableNo(Table tableNo) { this->tableNo = tableNo; }
 
+void Customer::draw_text(sf::RenderWindow* win){
+  win->draw(customerInfo);
+}
+
 // Drink Customer::get_drink(){ return drinkServing;}
 
 // Food Customer::get_food(){ return foodServing;}

@@ -15,9 +15,6 @@ Game::Game(int size, std::string title, Cafe* cafe) {
   if (!font.loadFromFile("fonts/MyFont.ttf")) {
     std::cerr << "Failed to load font!" << std::endl;
   }
-  waiterInfo.setFont(font);
-  waiterInfo.setFillColor(sf::Color::Red);
-  waiterInfo.setCharacterSize(20);
 }
 
 void Game::drawFrame() {
@@ -27,36 +24,36 @@ void Game::drawFrame() {
   for (int j = 0; j < cafe->get_maxCustomers(); j++) {
     cafe->get_customer(j).draw(win);
   }
+
+  if (cafe->get_numFood() > 0) {
+    cafe->get_chef().get_food().draw(win);
+  }
+
+  if (cafe->get_numDrink() > 0) {
+    cafe->get_barista().get_drink().draw(win);
+  }
+
+  // if (cafe->get_waiter().get_isBusy()) {
+  //   std::string msg;
+  //   msg = std::to_string(cafe->get_waiter().get_busyTimer());
+  //   cafe->get_waiter().get_info()->setString(
+  //       msg);  // display the waiter's timer when they are busy
+  // } else {
+  //   cafe->get_waiter().get_info()->setString("");
+  // }
+
+  for (int k = 0; k < cafe->get_maxCustomers(); k++) {
+    if (cafe->get_customer(k).get_isActive() == true) {
+      cafe->get_customer(k).get_customerInfo().setPosition(
+          cafe->get_customer(k).get_x(), cafe->get_customer(k).get_y());
+          cafe->get_customerPointer(k)->draw_text(win);
+    }
+  }
+
   cafe->get_cleaner().draw(win);
   cafe->get_chef().draw(win);
   cafe->get_barista().draw(win);
   cafe->get_waiter().draw(win);
-
-  if (cafe->get_numFood()>0){
-    cafe->get_chef().get_food().draw(win);
-  }
-
-  if (cafe->get_numDrink()>0){
-    cafe->get_barista().get_drink().draw(win);
-  }
-
-  if (cafe->get_waiter().get_isBusy()) {
-    std::string msg;
-    msg = std::to_string(cafe->get_waiter().get_busyTimer());
-    waiterInfo.setString(msg);  // display the waiter's timer when they are busy
-    waiterInfo.setPosition(cafe->get_waiter().get_x(),
-                           cafe->get_waiter().get_y());
-  } else {
-    waiterInfo.setString("");
-    waiterInfo.setPosition(cafe->get_waiter().get_x(),
-                           cafe->get_waiter().get_y());
-  }
-
-  for (int k = 0; k < cafe->get_maxCustomers(); k++)
-    if (cafe->get_customer(k).get_isActive() == true) {
-      cafe->get_customer(k).get_customerInfo().setPosition(
-          cafe->get_customer(k).get_x(), cafe->get_customer(k).get_y());
-    }
 }
 
 void Game::keyBindings(sf::Event e) {
@@ -175,7 +172,6 @@ void Game::run() {
 
     win->clear();
     drawFrame();
-    win->draw(waiterInfo);
     // for (int k = 0; k < cafe->get_maxCustomers(); k++) {
     //   if (cafe->get_customer(k).get_isActive() == true) {
     //     win->draw(cafe->get_customer(k).get_customerInfo());
