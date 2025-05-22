@@ -10,9 +10,9 @@ Player::Player(){
     maxEnergy = 100;
 }
 
-Player::Player(const std::string& name, int maxEnergy){
-    name(name), energy(maxEnergy), maxEnergy(maxEnergy) {}
-}
+Player::Player(const std::string& name, int maxEnergy):
+    name(name), energy(maxEnergy), maxEnergy(maxEnergy){}
+
 
 void Player::assignTask(const std::string& task) {
     tasks.push_back(task);

@@ -11,7 +11,7 @@ class Game {
   Cafe* cafe;
   sf::Font font;
   sf::Text waiterInfo;
-
+  
  public:
   Game(int size, std::string title, Cafe* cafe);
 

@@ -18,6 +18,7 @@ Game::Game(int size, std::string title, Cafe* cafe) {
   waiterInfo.setFont(font);
   waiterInfo.setFillColor(sf::Color::Red);
   waiterInfo.setCharacterSize(20);
+
 }
 
 void Game::drawFrame() {
@@ -42,6 +43,12 @@ void Game::drawFrame() {
     waiterInfo.setString("");
     waiterInfo.setPosition(cafe->get_waiter().get_x(),
                            cafe->get_waiter().get_y());
+  }
+
+  for (int k=0; k<cafe->get_maxCustomers(); k++)
+  if (cafe->get_customer(k).get_isActive() == true){
+    cafe->get_customer(k).get_customerInfo().setPosition(cafe->get_customer(k).get_x(),
+                           cafe->get_customer(k).get_y());
   }
 }
 
@@ -161,11 +168,3 @@ void Game::run() {
   }
 }
 
-std::string Game::get_customerAttributes(Customer* customer){
-  std::string text;
-  text = "hunger: " + std::to_string(customer->get_hunger()) + "/5\n";
-  text += "thirst: " + std::to_string(customer->get_thirst()) + "/5\n";
-  text += "disgust: " + std::to_string(customer->get_disgust()) + "/5\n";
-  text += "happiness: " + std::to_string(customer->get_happiness()) + "/15\n";
-  return text;
-}

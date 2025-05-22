@@ -1,9 +1,9 @@
 #include "Customer.h"
 
+#include <SFML/Graphics.hpp>
 #include <ctime>
 #include <iostream>
 #include <random>
-#include <SFML/Graphics.hpp>
 
 #include "Table.h"
 
@@ -38,17 +38,21 @@ Customer::Customer(Table tableNo, int customerNo) {
   body = new sf::RectangleShape(sf::Vector2f(10, 40));
   body->setFillColor(sf::Color::Red);
   body->setOrigin(5, 20);
+
+  if (!font.loadFromFile("fonts/MyFont.ttf")) {
+    std::cerr << "Failed to load font!" << std::endl;
+  }
+
+  customerInfo.setFont(font);
+  customerInfo.setFillColor(sf::Color::White);
+  customerInfo.setCharacterSize(20);
 }
 
-sf::RectangleShape* Customer::get_body(){
-  return body;
-}
+sf::RectangleShape* Customer::get_body() { return body; }
 
-sf::Text Customer::get_customerInfo(){
-  return customerInfo;
-}
+sf::Text Customer::get_customerInfo() { return customerInfo; }
 
-std::string Customer::get_customerAttributes(){
+std::string Customer::get_customerAttributes() {
   std::string text;
   text = "hunger: " + std::to_string(hunger) + "/5\n";
   text += "thirst: " + std::to_string(thirst) + "/5\n";
@@ -60,10 +64,19 @@ std::string Customer::get_customerAttributes(){
 void Customer::draw(sf::RenderWindow* win) {
   if (isActive) {
     win->draw(*body);
-  } 
+  }
 }
 
-void Customer::set_isActive(bool state) { isActive = state; }
+int Customer::get_x() { return body->getPosition().x; }
+int Customer::get_y() { return body->getPosition().y; }
+void Customer::set_position(sf::Vector2f position) {
+  body->setPosition(position);
+}
+
+void Customer::set_isActive(bool state) {
+  isActive = state;
+  customerInfo.setString(customerAttributes);
+}
 
 bool Customer::get_isActive() { return isActive; }
 
@@ -74,6 +87,7 @@ void Customer::increase_hunger() {
     hunger = 5;
   }
   happiness = hunger + thirst + disgust;
+  customerInfo.setString(customerAttributes);
 }
 
 void Customer::decrease_hunger() {
@@ -82,6 +96,7 @@ void Customer::decrease_hunger() {
     hunger = 0;
   }
   happiness = hunger + thirst + disgust;
+  customerInfo.setString(customerAttributes);
 }
 
 int Customer::get_hunger() { return hunger; }
@@ -93,6 +108,7 @@ void Customer::increase_thirst() {
     thirst = 5;
   }
   happiness = hunger + thirst + disgust;
+  customerInfo.setString(customerAttributes);
 }
 
 void Customer::decrease_thirst() {
@@ -101,6 +117,7 @@ void Customer::decrease_thirst() {
     thirst = 0;
   }
   happiness = hunger + thirst + disgust;
+  customerInfo.setString(customerAttributes);
 }
 
 int Customer::get_thirst() { return thirst; }
@@ -109,20 +126,22 @@ void Customer::increase_disgust() {
   // disgust is maxed out to 5
   disgust = 5;
   happiness = hunger + thirst + disgust;
+  customerInfo.setString(customerAttributes);
 }
 
 void Customer::decrease_disgust(Table table) {
   sf::Clock disgustClock;
-  if (disgustClock.getElapsedTime().asSeconds() >= 10.0f){
-  disgust--;
-  if (disgust < 0) {
-    disgust = 0;
-  }
-  if (disgust < 5){
-    table.set_isClean(false);
-  }
-  happiness = hunger + thirst + disgust;
-  disgustClock.restart();
+  if (disgustClock.getElapsedTime().asSeconds() >= 10.0f) {
+    disgust--;
+    if (disgust < 0) {
+      disgust = 0;
+    }
+    if (disgust < 5) {
+      table.set_isClean(false);
+    }
+    happiness = hunger + thirst + disgust;
+    customerInfo.setString(customerAttributes);
+    disgustClock.restart();
   }
 }
 
@@ -130,8 +149,9 @@ int Customer::get_disgust() { return disgust; }
 
 int Customer::get_happiness() { return happiness; }
 
-void Customer::print_attributes(){
-  std::cout << "hunger: " << hunger << ", thirst: " << thirst << ", disgust: " << disgust << std::endl;
+void Customer::print_attributes() {  // TO BE DELETED
+  std::cout << "hunger: " << hunger << ", thirst: " << thirst
+            << ", disgust: " << disgust << std::endl;
 }
 
 // I NEED TO REMEMBER WHAT'S GOING ON WITH TABLE NUMBER BC WTF

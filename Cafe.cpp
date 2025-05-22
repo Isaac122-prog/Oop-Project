@@ -118,7 +118,7 @@ void Cafe::customerLeaves() {
       // numActiveCustomers--; TESTING SOMETHING HERE
     }
   }
-}
+} // FINAL CUSTOMER WON'T LEAVE WHY IS THAT...
 
 // view the customer's scoring
 void Cafe::viewPerformance() {
