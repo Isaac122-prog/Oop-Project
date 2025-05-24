@@ -91,7 +91,6 @@ int Cafe::get_activeCustomer() { return activeCustomer; }
 
 int Cafe::get_numActiveCustomers() { return numActiveCustomers; }
 
-
 int Cafe::get_maxEmployees() { return maxEmployees; }
 Employee* Cafe::get_employee(int i) { return employees[i]; }
 
@@ -135,7 +134,7 @@ void Cafe::newCustomer() {
   for (int i = 1; i < maxCustomers; i++) {
     if ((!customers[i].get_isActive() &&
          customers[i - 1].get_happiness() >= 12) ||
-        std::time_t(nullptr) >= customers[i-1].get_endTime()) {
+        std::time_t(nullptr) >= customers[i - 1].get_endTime()) {
       if (numActiveCustomers < maxCustomers) {
         customers[i].set_isActive(true);
         numActiveCustomers++;
@@ -145,7 +144,8 @@ void Cafe::newCustomer() {
       }
     }
   }
-  if (customers[maxCustomers-1].get_isActive() && customers[maxCustomers - 1].get_happiness() == 15){
+  if (customers[maxCustomers - 1].get_isActive() &&
+      customers[maxCustomers - 1].get_happiness() == 15) {
     numActiveCustomers++;
   }
 }
@@ -163,7 +163,10 @@ void Cafe::customerLeaves() {
 
 // add a new employee
 int Cafe::add_employee() {
-  if (numActiveCustomers > 2 && maxEmployees == 4) {
+  if (maxCustomers <= 2) {
+    newEmployee = -1;
+  } else if (!customers[1].get_isActive() && customers[2].get_isActive() &&
+             maxEmployees == 4) {
     char employee;
     std::cout << "congrats! you can now add a new employee" << std::endl;
     std::cout
@@ -209,12 +212,13 @@ int Cafe::add_employee() {
 void Cafe::viewPerformance() {
   cout << "performance:" << endl;
   int count = 0;
-  for (int i = 0; i < numActiveCustomers-1; i++) {
-    cout << "customer " << i + 1 << " score: " << get_customer(i).get_happiness()
-         << "/15" << endl;
+  for (int i = 0; i < numActiveCustomers - 1; i++) {
+    cout << "customer " << i + 1
+         << " score: " << get_customer(i).get_happiness() << "/15" << endl;
     count += get_customer(i).get_happiness();
   }
-  cout << "final score: " << count << "/" << (numActiveCustomers-1) * 15 << endl;
+  cout << "final score: " << count << "/" << (numActiveCustomers - 1) * 15
+       << endl;
   ;
 }
 
