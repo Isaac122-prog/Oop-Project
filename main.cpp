@@ -18,7 +18,7 @@ int main() {
   }
 
   Cafe cafe = Cafe(customers);
-  Game game = Game(500, "cafe game", &cafe);
+  Game game = Game("cafe game", &cafe);
   game.run();
 
   // cafe.viewPerformance();

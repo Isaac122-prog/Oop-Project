@@ -7,120 +7,80 @@
 
 using namespace sf;
 
-Game::Game(int size, std::string title, Cafe* cafe) {
-  win = new ::sf::RenderWindow(sf::VideoMode(size, size), title);
+Game::Game(std::string title, Cafe* cafe) {
   this->cafe = cafe;
-
   customerKey = 0;
+
+  win = new ::sf::RenderWindow(sf::VideoMode(700, 700),
+                               title);  // generates window
 
   // setting up font
   if (!font.loadFromFile("fonts/MyFont.ttf")) {
     std::cerr << "Failed to load font!" << std::endl;
   }
 
+  // setting up waiterTimer
   waiterTimer.setFont(font);
   waiterTimer.setCharacterSize(15);
   waiterTimer.setFillColor(sf::Color::White);
   waiterTimer.setString("waiter");
-  waiterTimer.setPosition(300, 400);
+  sf::FloatRect bounds = waiterTimer.getLocalBounds();
+  waiterTimer.setOrigin(bounds.left + bounds.width / 2,
+                        bounds.top + bounds.height / 2);
 
+  waiterTimer.setPosition(420, 440);
+
+  // setting up cleanerTimer
   cleanerTimer.setFont(font);
   cleanerTimer.setCharacterSize(15);
   cleanerTimer.setFillColor(sf::Color::White);
   cleanerTimer.setString("cleaner");
-  cleanerTimer.setPosition(400, 400);
+  bounds = cleanerTimer.getLocalBounds();
+  cleanerTimer.setOrigin(bounds.left + bounds.width / 2,
+                         bounds.top + bounds.height / 2);
+  cleanerTimer.setPosition(560, 440);
 
+  // setting up baristaTimer
   baristaTimer.setFont(font);
   baristaTimer.setCharacterSize(15);
   baristaTimer.setFillColor(sf::Color::White);
   baristaTimer.setString("barista");
-  baristaTimer.setPosition(100, 400);
+  bounds = baristaTimer.getLocalBounds();
+  baristaTimer.setOrigin(bounds.left + bounds.width / 2,
+                         bounds.top + bounds.height / 2);
+  baristaTimer.setPosition(140, 440);
 
+  // setting up chefTimer
   chefTimer.setFont(font);
   chefTimer.setCharacterSize(15);
   chefTimer.setFillColor(sf::Color::White);
   chefTimer.setString("chef");
-  chefTimer.setPosition(200, 400);
+  bounds = chefTimer.getLocalBounds();
+  chefTimer.setOrigin(bounds.left + bounds.width / 2,
+                      bounds.top + bounds.height / 2);
+  chefTimer.setPosition(280, 440);
 }
 
 void Game::drawFrame() {
   for (int i = 0; i < cafe->get_maxCustomers(); i++) {
-    cafe->get_table(i).draw(win);
+    cafe->get_table(i).draw(win);  // draw tables
   }
   for (int j = 0; j < cafe->get_maxCustomers(); j++) {
-    cafe->get_customer(j).draw(win);
+    cafe->get_customer(j).draw(win);  // draw active customers
   }
 
   if (cafe->get_numFood() > 0) {
-    cafe->get_chef().get_food().draw(win);
+    cafe->get_chef().get_food().draw(win);  // draw food if available
   }
 
   if (cafe->get_numDrink() > 0) {
-    cafe->get_barista().get_drink().draw(win);
+    cafe->get_barista().get_drink().draw(win);  // draw drink if available
   }
 
-  if (cafe->get_barista().get_waitTime() <= std::time(nullptr) - 10 &&
-      cafe->get_barista().get_wasCalled()) {
-    cafe->increase_numDrink();
-    baristaTimer.setString("barista");
-    std::cout << "number of drinks: " << cafe->get_numDrink() << std::endl;
-  } else if (cafe->get_barista().get_waitTime() > std::time(nullptr) - 10 &&
-             cafe->get_barista().get_wasCalled()) {
-              baristaTimer.setString("barista\n" + std::to_string(10-(std::time(nullptr) - cafe->get_baristaPointer()->get_waitTime())));
-  }
-
-  if (cafe->get_chef().get_waitTime() <= std::time(nullptr) - 10 &&
-      cafe->get_chef().get_wasCalled()) {
-    cafe->increase_numFood();
-    chefTimer.setString("chef");
-    std::cout << "servings of food: " << cafe->get_numFood() << std::endl;
-  } else if (cafe->get_chef().get_waitTime() > std::time(nullptr) - 10 &&
-             cafe->get_chef().get_wasCalled()) {
-              chefTimer.setString("chef\n" + std::to_string(10-(std::time(nullptr) - cafe->get_chefPointer()->get_waitTime())));
-  }
-
-  // NOTE: IF PLAYER PRESSES ANOTHER NUMBER, THIS WILL ASSIGN TO THE WRONG
-  // CUSTOMER
-  if (cafe->get_cleaner().get_waitTime() <= std::time(nullptr) - 10 &&
-      cafe->get_cleaner().get_wasCalled()) {
-    cafe->get_cleanerPointer()->set_wasCalled(false);
-    cafe->get_customerPointer(customerKey)->get_tableNo().set_isClean(true);
-    cafe->get_customerPointer(customerKey)->increase_disgust();
-    cleanerTimer.setString("cleaner");
-    // std::cout << "function was happily called!" << std::endl;
-  } else if (cafe->get_cleaner().get_waitTime() > std::time(nullptr) - 10 &&
-             cafe->get_cleaner().get_wasCalled()) {
-              cleanerTimer.setString("cleaner\n" + std::to_string(10-(std::time(nullptr) - cafe->get_cleanerPointer()->get_waitTime())));
-  }
-
-  // NOTE: IF PLAYER PRESSES ANOTHER NUMBER, THIS WILL ASSIGN TO THE WRONG
-  // CUSTOMER
-  if (cafe->get_waiter().get_waitTime() <= std::time(nullptr) - 5 &&
-      cafe->get_waiter().get_wasCalled()) {
-    cafe->get_waiterPointer()->set_wasCalled(false);
-
-    if (cafe->get_customerPointer(customerKey)->get_hunger() < 5) {
-      // food is served!
-      cafe->decrease_numFood();
-      // customer.get_Food().set_isActive(true);
-      // increase customer hunger
-      cafe->get_customerPointer(customerKey)->increase_hunger();
-    }
-    if (cafe->get_customerPointer(customerKey)->get_thirst() < 5) {
-      // drink is served!
-      cafe->decrease_numDrink();
-      // customer.get_drink().set_isActive(true);
-      // increase customer thirst
-      cafe->get_customerPointer(customerKey)->increase_thirst();
-    }
-    std::cout << "function was happily called!" << std::endl;
-    std::cout << "number of drinks: " << cafe->get_numDrink() << std::endl;
-    std::cout << "servings of food: " << cafe->get_numFood() << std::endl;
-  } else if (cafe->get_waiter().get_waitTime() > std::time(nullptr) - 10 &&
-             cafe->get_waiter().get_wasCalled()) {
-              waiterTimer.setString("waiter\n" + std::to_string(10-(std::time(nullptr) - cafe->get_waiterPointer()->get_waitTime())));
-  }
-
+  baristaAction();
+  chefAction();
+  waiterAction();
+  cleanerAction();
 
   for (int k = 0; k < cafe->get_maxCustomers(); k++) {
     // THIS SECTION IS TAKEN FROM CHAT GPT
@@ -129,19 +89,25 @@ void Game::drawFrame() {
     sf::Text label;
     label.setFont(font);
     label.setCharacterSize(16);
-    label.setString(std::to_string(k+1) + "\n" + customer.get_customerAttributes());
-    label.setPosition(customer.get_x(), customer.get_y() - 20);
+    label.setString(std::to_string(k + 1) + "\n" +
+                    customer.get_customerAttributes());
+    sf::FloatRect bounds = waiterTimer.getLocalBounds();
+    label.setOrigin(bounds.left + bounds.width / 2,
+                    bounds.top + bounds.height / 2);
+    label.setPosition(customer.get_x(), customer.get_y() + 20);
     label.setFillColor(sf::Color::White);
     if (cafe->get_customer(k).get_isActive()) {
       win->draw(label);
     }
   }
 
+  // draw objects
   cafe->get_cleaner().draw(win);
   cafe->get_chef().draw(win);
   cafe->get_barista().draw(win);
   cafe->get_waiter().draw(win);
 
+  // draw labels/timers
   win->draw(baristaTimer);
   win->draw(chefTimer);
   win->draw(waiterTimer);
@@ -151,6 +117,7 @@ void Game::drawFrame() {
 void Game::keyBindings(sf::Event e) {
   if (e.type == sf::Event::KeyPressed) {
     switch (e.key.code) {
+      // numbers set the customer
       case Keyboard::Num1:
         cafe->set_activeCustomer(0);
         customerKey = 0;
@@ -195,6 +162,7 @@ void Game::keyBindings(sf::Event e) {
         cafe->set_activeCustomer(-1);
         break;
 
+      //  Q W E R  set barista, chef, waiter, cleaner actions
       case Keyboard::Q:
         if (cafe->get_activeCustomer() >= 0) {
           cafe->get_baristaPointer()->doTask(
@@ -258,11 +226,11 @@ void Game::run() {
     if (cafe->startTime.getElapsedTime().asSeconds() <
         cafe->get_gameDuration()) {
       // every 1 second
-      if (actionClock.getElapsedTime().asSeconds() >=
-          1.0f) {  // should this be in Game::run or Game::drawFrame
+      if (actionClock.getElapsedTime().asSeconds() >= 1.0f) {
         cafe->newCustomer();
         cafe->customerLeaves();
         actionClock.restart();
+        // decreases active customer's disgust based on their disgust timer
         for (int i = 0; i < cafe->get_maxCustomers(); i++) {
           if (cafe->get_customer(i).get_isActive() &&
               cafe->get_customer(i).get_disgustTime() <=
@@ -279,3 +247,86 @@ void Game::run() {
     win->display();
   }
 }
+
+// generate drink if barista finished brewing, otherwise displays timer
+void Game::baristaAction() {
+  if (cafe->get_barista().get_waitTime() <= std::time(nullptr) - 10 &&
+      cafe->get_barista().get_wasCalled()) {
+    cafe->increase_numDrink();
+    baristaTimer.setString("barista");
+    std::cout << "number of drinks: " << cafe->get_numDrink() << std::endl;
+  } else if (cafe->get_barista().get_waitTime() > std::time(nullptr) - 10 &&
+             cafe->get_barista().get_wasCalled()) {
+    baristaTimer.setString(
+        "barista\n" +
+        std::to_string(10 - (std::time(nullptr) -
+                             cafe->get_baristaPointer()->get_waitTime())));
+  }
+}
+
+// generate food is chef finished cooking, otherwise displays timer
+void Game::chefAction() {
+  if (cafe->get_chef().get_waitTime() <= std::time(nullptr) - 10 &&
+      cafe->get_chef().get_wasCalled()) {
+    cafe->increase_numFood();
+    chefTimer.setString("chef");
+    std::cout << "servings of food: " << cafe->get_numFood() << std::endl;
+  } else if (cafe->get_chef().get_waitTime() > std::time(nullptr) - 10 &&
+             cafe->get_chef().get_wasCalled()) {
+    chefTimer.setString(
+        "chef\n" +
+        std::to_string(10 - (std::time(nullptr) -
+                             cafe->get_chefPointer()->get_waitTime())));
+  }
+}
+
+//  NOTE: IF PLAYER PRESSES ANOTHER NUMBER, THIS WILL ASSIGN TO THE WRONG
+// CUSTOMER
+// serves food if waiter finished serving, otherwise displays timer
+void Game::waiterAction() {
+  if (cafe->get_waiter().get_waitTime() <= std::time(nullptr) - 10 &&
+      cafe->get_waiter().get_wasCalled()) {
+    cafe->get_waiterPointer()->set_wasCalled(false);
+    if (cafe->get_customerPointer(customerKey)->get_hunger() < 5) {
+      cafe->decrease_numFood();  // food is served!
+      cafe->get_customerPointer(customerKey)
+          ->increase_hunger();  // increase customer hunger
+    }
+    if (cafe->get_customerPointer(customerKey)->get_thirst() < 5) {
+      cafe->decrease_numDrink();  // drink is served!
+      cafe->get_customerPointer(customerKey)
+          ->increase_thirst();  // increase customer thirst
+    }
+    // std::cout << "function was happily called!" << std::endl;
+    std::cout << "number of drinks: " << cafe->get_numDrink() << std::endl;
+    std::cout << "servings of food: " << cafe->get_numFood() << std::endl;
+  } else if (cafe->get_waiter().get_waitTime() > std::time(nullptr) - 10 &&
+             cafe->get_waiter().get_wasCalled()) {
+    waiterTimer.setString(
+        "waiter\n" +
+        std::to_string(10 - (std::time(nullptr) -
+                             cafe->get_waiterPointer()->get_waitTime())));
+  }
+}
+
+// NOTE: IF PLAYER PRESSES ANOTHER NUMBER, THIS WILL ASSIGN TO THE WRONG
+// CUSTOMER
+// sets table to clean if cleaner finished cleaning, otherwise displays timer
+void Game::cleanerAction() {
+  if (cafe->get_cleaner().get_waitTime() <= std::time(nullptr) - 10 &&
+      cafe->get_cleaner().get_wasCalled()) {
+    cafe->get_cleanerPointer()->set_wasCalled(false);
+    cafe->get_customerPointer(customerKey)->get_tableNo().set_isClean(true);
+    cafe->get_customerPointer(customerKey)->increase_disgust();
+    cleanerTimer.setString("cleaner");
+  } else if (cafe->get_cleaner().get_waitTime() > std::time(nullptr) - 10 &&
+             cafe->get_cleaner().get_wasCalled()) {
+    cleanerTimer.setString(
+        "cleaner\n" +
+        std::to_string(10 - (std::time(nullptr) -
+                             cafe->get_cleanerPointer()->get_waitTime())));
+  }
+}
+
+// destructor
+Game::~Game() {}

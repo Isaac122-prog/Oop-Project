@@ -1,77 +1,80 @@
 #ifndef CUSTOMER_H
 #define CUSTOMER_H
 
-#include "Table.h"
-// #include "Food.h"
-// #include "Drink.h"
-
+#include <SFML/Graphics.hpp>
 #include <ctime>
+#include <iostream>
 #include <random>
+
+#include "Table.h"
 
 class Customer {
  protected:
+  bool isActive;
+  Table tableNo;  // corresponding table of the customer
+
   int hunger;
   int disgust;
   int thirst;
   int happiness;
-  bool isActive;
-
-  Table tableNo;  // was originally a pointer but i've changed it bc of the
-                  // error...
-  // Food foodServing;
-  // Drink drinkServing;
-
-  std::time_t startTime;
-  std::time_t endTime;
-
-  std::time_t disgustTime;
-
-  sf::RectangleShape* body;
   std::string customerAttributes;
 
+  std::time_t startTime;  // customer's timer
+  std::time_t endTime;
+  std::time_t disgustTime;  // customer's timer for depleting disgust
+
+  sf::RectangleShape* body;
+
  public:
-  Customer();  // default constructor
+  // default constructor
+  Customer();
+  // constructor
   Customer(Table tableNo, int customerNo);
 
-  void draw(sf::RenderWindow* win);
-  sf::RectangleShape* get_body();
-
+  // getters and setters
   void set_customerAttributes();
   std::string get_customerAttributes() const;
-
-  int get_x() const;
-  int get_y() const;
-  void set_position(sf::Vector2f position);
 
   void set_isActive(bool state);
   bool get_isActive();
 
-  void increase_hunger();
-  void decrease_hunger();
-  int get_hunger();
-
-  void increase_thirst();
-  void decrease_thirst();
-  int get_thirst();
-
-  void increase_disgust();
-  void decrease_disgust(Table table);
-  int get_disgust();
-
   void set_tableNo(Table tableNo);
   Table get_tableNo();
 
-  // Drink get_drink();
-  // Food get_food();
-
   int get_happiness();
-  void print_attributes();
-  // void draw_text(sf::RenderWindow* win);
 
   std::time_t get_startTime();
   std::time_t get_endTime();
   std::time_t get_disgustTime();
 
+  // getters and setters: hunger
+  void increase_hunger();
+  void decrease_hunger();
+  int get_hunger();
+
+  // getters and setters: thirst
+  void increase_thirst();
+  void decrease_thirst();
+  int get_thirst();
+
+  // getters and setters: disgust
+  void increase_disgust();
+  void decrease_disgust(Table table);
+  int get_disgust();
+
+  // for debugging: print customer stats
+  void print_attributes();
+
+  // draw customer
+  void draw(sf::RenderWindow* win);
+
+  // graphics getters and setters
+  int get_x() const;
+  int get_y() const;
+  sf::RectangleShape* get_body();
+  void set_position(sf::Vector2f position);
+
+  // destructor
   ~Customer();
 };
 

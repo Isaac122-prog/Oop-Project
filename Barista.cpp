@@ -3,35 +3,37 @@
 #include <SFML/Graphics.hpp>
 #include <iostream>
 
+#include "Cafe.h"
+#include "Consumable.h"
 #include "Customer.h"
 #include "Employee.h"
 #include "KitchenStaff.h"
-#include "Cafe.h"
-#include "Consumable.h"
 
 using namespace std;
 
+// constructor
 Barista::Barista() : KitchenStaff() {
   body->setFillColor(sf::Color::Magenta);
-  body->setPosition(100, 400);
+  body->setPosition(140, 400);
 
-  drink.get_body()->setPosition(100,400);
+  drink.get_body()->setPosition(145, 400);
 }
 
+// doTask: sets the barista to busy and sets their timer for brewing the drinks
 void Barista::doTask(Customer* customer, Cafe* cafe) {
-  // the barista's task is to make the drinks
-  if (!customer->get_isActive()){
-    std::cout << "Customer is not in cafe!" << std:: endl;
+  if (!customer->get_isActive()) {
+    std::cout << "Customer is not in cafe!" << std::endl;
   } else if (customer->get_thirst() == 5) {
     std::cout << "Customer is not thirsty!" << std::endl;
   } else {
-    if (waitTime <= std::time(nullptr)-10 ) {
+    // check if barista's busy time has expired
+    if (waitTime <= std::time(nullptr) - 10) {
       isBusy = false;
     }
-    // check barista is not busy
     if (isBusy == true) {
       cout << "barista is busy!" << endl;
     } else {
+      // start brewing process
       std::cout << "brewing..." << std::endl;
       isBusy = true;
       waitTime = std::time(nullptr);
@@ -40,4 +42,5 @@ void Barista::doTask(Customer* customer, Cafe* cafe) {
   }
 }
 
+// destructor
 Barista::~Barista() {}

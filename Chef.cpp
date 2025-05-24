@@ -11,27 +11,29 @@
 
 using namespace std;
 
+// constructor
 Chef::Chef() : KitchenStaff() {
   body->setFillColor(sf::Color::Cyan);
-  body->setPosition(200, 400);
+  body->setPosition(280, 400);
 
-  food.get_body()->setPosition(200, 400);
+  food.get_body()->setPosition(285, 400);
 }
 
+// doTask: sets the chef to busy and sets their timer for cooking the food
 void Chef::doTask(Customer* customer, Cafe* cafe) {
-  // the chef's task is to make the food servings
   if (!customer->get_isActive()) {
     std::cout << "Customer is not in cafe!" << std::endl;
   } else if (customer->get_hunger() == 5) {
     std::cout << "Customer is not hungry!" << std::endl;
   } else {
-    if (waitTime <= std::time(nullptr)-10) {
+    // check if chef's busy time has expired
+    if (waitTime <= std::time(nullptr) - 10) {
       isBusy = false;
     }
-    // check chef is not busy
     if (isBusy == true) {
       std::cout << "chef is busy!" << std::endl;
     } else {
+      // begin cooking process
       std::cout << "cooking..." << std::endl;
       isBusy = true;
       waitTime = std::time(nullptr);
@@ -40,4 +42,5 @@ void Chef::doTask(Customer* customer, Cafe* cafe) {
   }
 }
 
+// destructor
 Chef::~Chef() {}

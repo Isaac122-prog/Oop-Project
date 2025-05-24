@@ -1,29 +1,31 @@
 #ifndef TABLE_H
 #define TABLE_H
 
+#include <iostream>
 #include <SFML/Graphics.hpp>
 
-class Table{
-    protected:
-        sf::RectangleShape* body;
-        bool isClean;
-        int depth;
-        // bool isOccupied; only need if customers are assigned tables randomly
-    public:
-        Table();
-        Table(int depth);
+class Table {
+ private:
+  sf::RectangleShape* body;
+  bool isClean;
+  int depth;
 
-        void draw(sf::RenderWindow* win);
+ public:
+  // default constructor
+  Table();
+  // constructor
+  Table(int depth);
 
-        sf::RectangleShape* get_body();
-    
+  // getters and setters
+  sf::RectangleShape* get_body();
+  void set_isClean(bool cleanliness);
+  bool get_isClean();
 
-        void set_isClean(bool cleanliness);
-        bool get_isClean();
+  // graphics: draws table
+  void draw(sf::RenderWindow* win);
 
-        // void set_isOccupied(bool occupation);
-        // bool get_isOccupied();
-        ~Table();
+  // destructor
+  ~Table();
 };
 
 #endif

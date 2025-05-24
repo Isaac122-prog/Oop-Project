@@ -8,8 +8,8 @@
 #include "Barista.h"
 #include "Chef.h"
 #include "Cleaner.h"
-#include "Customer.h"
 #include "Consumable.h"
+#include "Customer.h"
 #include "Employee.h"
 #include "KitchenStaff.h"
 #include "Player.h"
@@ -25,57 +25,44 @@ class Barista;
 class Chef;
 
 class Cafe {
- protected:
-    sf::RenderWindow* win;
+ private:
+  // sf::RenderWindow* win; TO BE DELETED
 
-  int runTime;
+  int runTime;  // runtime of the cafe
 
+  // customer objects and properties
   int maxCustomers;
   Customer* customers;
-  int numActiveCustomers;
+  int numActiveCustomers; // no. customer that have been/are active
   int activeCustomer;
 
-  Consumable baristaDrink;
-  Consumable chefFood;
-  Table* tables;
-
-  int numFood;
-  int numDrink;
-
+  // objects in the cafe
   Player player;
   Waiter waiter;
   Cleaner cleaner;
   Chef chef;
   Barista barista;
+  Table* tables;
+
+  // number of consumables available to serve
+  int numFood;
+  int numDrink;
 
  public:
   sf::Clock startTime;  // CHECK WHERE THIS SHOULD BE
 
+  // default constructor
   Cafe();
+
+  // constructor
   Cafe(int max);
 
+  // getters and setters
   int get_maxCustomers();
   int get_gameDuration();
 
-  void newCustomer();     // introduces the next customer based on the previous
-                          // customer's stats
-  void customerLeaves();  // customer leaves based on their stats
-
-  void viewPerformance();
-
-  Customer get_customer(int customerNumber);
-  Customer* get_customerPointer(int customerNumber);
-  Table get_table(int tableNo);
-  Player get_player();
-  Cleaner get_cleaner();
-  Waiter get_waiter();
-  Chef get_chef();
-  Barista get_barista();
-  
-  Cleaner* get_cleanerPointer();
-  Waiter* get_waiterPointer();
-  Chef* get_chefPointer();
-  Barista* get_baristaPointer();
+  void set_activeCustomer(int customerNo);
+  int get_activeCustomer();
 
   int get_numFood();
   void increase_numFood();
@@ -84,12 +71,33 @@ class Cafe {
   void increase_numDrink();
   void decrease_numDrink();
 
-  void set_baristaDrink(bool status);
-  void set_chefFood(bool status);
+  // object getters
+  Customer get_customer(int customerNumber);
+  Table get_table(int tableNo);
+  Player get_player();
+  Cleaner get_cleaner();
+  Waiter get_waiter();
+  Chef get_chef();
+  Barista get_barista();
 
-  void set_activeCustomer(int customerNo);
-  int get_activeCustomer();
+  // object pointer getters
+  Customer* get_customerPointer(int customerNumber);
+  Cleaner* get_cleanerPointer();
+  Waiter* get_waiterPointer();
+  Chef* get_chefPointer();
+  Barista* get_baristaPointer();
 
+  // introduces the next customer based on the previous
+  // customer's stats
+  void newCustomer();
+
+  // customer leaves based on their stats
+  void customerLeaves();
+
+  // displays performance to player
+  void viewPerformance();
+
+  // destructor
   ~Cafe();
 };
 
