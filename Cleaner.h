@@ -8,6 +8,8 @@
 #include "Employee.h"
 #include "Table.h"
 
+class Cafe;
+
 class Cleaner : public Employee {
  protected:
  public:

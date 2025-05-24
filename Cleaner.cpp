@@ -13,6 +13,7 @@ using namespace std;
 Cleaner::Cleaner() : Employee() {
   body->setFillColor(sf::Color::Green);
   body->setPosition(480, 400);
+  label = "cleaner";
 }
 
 // doTask: sets the cleaner to busy and sets their timer for cleaning the
@@ -35,6 +36,7 @@ void Cleaner::doTask(Customer* customer, Cafe* cafe) {
       isBusy = true;
       waitTime = std::time(nullptr);
       wasCalled = true;
+      this-> customerNo = customer->get_customerNo();
     }
   }
 }

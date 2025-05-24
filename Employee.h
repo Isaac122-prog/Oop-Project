@@ -13,8 +13,11 @@ class Employee {
  protected:
   bool isBusy;  // whether an employee is busy or not
   sf::Shape* body;
+  std::string label;
   int depth;  // unsure if we actually need this yet
   sf::Clock busyTimer;
+
+  int customerNo;
 
   std::time_t waitTime;
   bool wasCalled;
@@ -32,6 +35,8 @@ class Employee {
   bool get_isBusy();
   void set_isBusy(bool status);
   std::time_t get_waitTime();
+  std::string get_label();
+  int get_customerNo();
 
   // draw employee
   void draw(sf::RenderWindow* win);

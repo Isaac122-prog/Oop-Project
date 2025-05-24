@@ -25,6 +25,7 @@ Customer::Customer(Table tableNo, int customerNo) {
   thirst = std::rand() % 5;
 
   this->tableNo = tableNo;
+  this->customerNo = customerNo;
 
   // to ensure customer score is not 15 on entry to the cafe
   if (hunger == 5 && thirst == 5) {
@@ -66,6 +67,8 @@ bool Customer::get_isActive() { return isActive; }
 // I NEED TO REMEMBER WHAT'S GOING ON WITH TABLE NUMBER BC WTF
 Table Customer::get_tableNo() { return tableNo; }
 void Customer::set_tableNo(Table tableNo) { this->tableNo = tableNo; }
+
+int Customer::get_customerNo() { return customerNo; }
 
 int Customer::get_happiness() { return happiness; }
 

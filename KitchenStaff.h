@@ -10,6 +10,8 @@
 
 using namespace std;
 
+class Cafe;  // FORWARD DECLARATION OF CAFE TO AVOID CIRCLE OF PAIN
+
 class KitchenStaff : public Employee {
  protected:
   Consumable food;

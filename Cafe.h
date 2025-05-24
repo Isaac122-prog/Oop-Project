@@ -39,14 +39,15 @@ class Cafe {
 
   // objects in the cafe
   Player player;
-  Waiter waiter;
-  Cleaner cleaner;
-  Chef chef;
-  Barista barista;
+  // Waiter waiter;
+  // Cleaner cleaner;
+  // Chef chef;
+  // Barista barista;
   Table* tables;
 
   vector<Employee*> employees;
   int maxEmployees;
+  int newEmployee;
 
   // number of consumables available to serve
   int numFood;
@@ -67,6 +68,8 @@ class Cafe {
 
   void set_activeCustomer(int customerNo);
   int get_activeCustomer();
+
+  int get_numActiveCustomers();
 
   int get_maxEmployees();
   Employee* get_employee( int i);
@@ -102,7 +105,7 @@ class Cafe {
   void customerLeaves();
 
   // add a new employee
-  void add_employee();
+  int add_employee();
 
   // displays performance to player
   void viewPerformance();

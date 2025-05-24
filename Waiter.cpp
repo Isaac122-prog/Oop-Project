@@ -14,6 +14,7 @@ using namespace std;
 Waiter::Waiter() : Employee() {
   body->setFillColor(sf::Color::Yellow);
   body->setPosition(360, 400);
+  label = "waiter";
 }
 
 // doTask: sets the waiter to busy and sets their timer for serving the
@@ -34,6 +35,7 @@ void Waiter::doTask(Customer* customer, Cafe* cafe) {
       if (cafe->get_numFood() > 0 && customer->get_hunger() < 5) {
         // begin serving food
         std::cout << "serving food... " << std::endl;
+        cafe->decrease_numFood();
         isBusy = true;
         waitTime = std::time(nullptr);
         wasCalled = true;
@@ -41,9 +43,11 @@ void Waiter::doTask(Customer* customer, Cafe* cafe) {
       if (cafe->get_numDrink() > 0 && customer->get_thirst() < 5) {
         // begin serving drink
         std::cout << "serving drink..." << std::endl;
+        cafe->decrease_numDrink();
         isBusy = true;
         waitTime = std::time(nullptr);
         wasCalled = true;
+        this-> customerNo = customer->get_customerNo();
       }
     }
   }

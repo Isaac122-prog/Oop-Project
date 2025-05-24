@@ -15,6 +15,7 @@ using namespace std;
 Barista::Barista() : KitchenStaff() {
   body->setFillColor(sf::Color::Magenta);
   body->setPosition(120, 400);
+  label = "barista";
 
   drink.get_body()->setPosition(145, 400);
 }
@@ -38,6 +39,7 @@ void Barista::doTask(Customer* customer, Cafe* cafe) {
       isBusy = true;
       waitTime = std::time(nullptr);
       wasCalled = true;
+      this-> customerNo = customer->get_customerNo();
     }
   }
 }

@@ -9,15 +9,18 @@ class Game {
  private:
   Cafe* cafe;
   int customerKey;
+  int newEmployee;
 
   sf::RenderWindow* win;
   sf::Font font;
 
   std::vector<sf::Text> customerTexts;  // FROM CHATGPT
-  sf::Text waiterTimer;
-  sf::Text cleanerTimer;
-  sf::Text baristaTimer;
-  sf::Text chefTimer;
+  std::vector<sf::Text> employeeTimers;
+  // sf::Text waiterTimer;
+  // sf::Text cleanerTimer;
+  // sf::Text baristaTimer;
+  // sf::Text chefTimer;
+  // sf::Text employeeTimer;
 
  public:
   // constructor
@@ -33,14 +36,15 @@ class Game {
   void run();
 
   // checks actions/graphics of employees based on their busy timers
-  void baristaAction();  // generate drink if barista finished brewing,
+  void baristaAction(int i);  // generate drink if barista finished brewing,
                          // otherwise displays timer
-  void chefAction();     // generate food is chef finished cooking, otherwise
+  void chefAction(int i);     // generate food is chef finished cooking, otherwise
                          // displays timer
-  void waiterAction();   // serves food if waiter finished serving, otherwise
+  void waiterAction(int i);   // serves food if waiter finished serving, otherwise
                          // displays timer
-  void cleanerAction();  // sets table to clean if cleaner finished cleaning,
+  void cleanerAction(int i);  // sets table to clean if cleaner finished cleaning,
                          // otherwise displays timer
+  void newEmployeeAction(int i);
 
   // destructor
   ~Game();

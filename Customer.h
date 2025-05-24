@@ -12,6 +12,7 @@ class Customer {
  protected:
   bool isActive;
   Table tableNo;  // corresponding table of the customer
+  int customerNo;
 
   int hunger;
   int disgust;
@@ -40,6 +41,8 @@ class Customer {
 
   void set_tableNo(Table tableNo);
   Table get_tableNo();
+
+  int get_customerNo();
 
   int get_happiness();
 

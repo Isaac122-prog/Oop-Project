@@ -1,6 +1,8 @@
 #include "KitchenStaff.h"
 
 #include <iostream>
+
+#include "Cafe.h"
 #include "Employee.h"
 
 using namespace std;
