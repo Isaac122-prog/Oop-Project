@@ -19,13 +19,12 @@ Customer::Customer() {
 
 // constructor
 Customer::Customer(Table tableNo, int customerNo) {
-  srand(time(0));
-
+  
   hunger = std::rand() % 5;  // generate random integer from 0 to 5
   disgust = 5;
   thirst = std::rand() % 5;
 
-  tableNo = this->tableNo;
+  this->tableNo = tableNo;
 
   // to ensure customer score is not 15 on entry to the cafe
   if (hunger == 5 && thirst == 5) {
@@ -33,8 +32,8 @@ Customer::Customer(Table tableNo, int customerNo) {
   }
   happiness = hunger + thirst + disgust;
 
-  customerAttributes = "hunger: " + std::to_string(hunger) + "/5\n";
-  customerAttributes += "thirst: " + std::to_string(thirst) + "/5\n";
+  customerAttributes = "thirst: " + std::to_string(thirst) + "/5\n";
+  customerAttributes += "hunger: " + std::to_string(hunger) + "/5\n";
   customerAttributes += "disgust: " + std::to_string(disgust) + "/5\n";
   customerAttributes += "happiness: " + std::to_string(happiness) + "/15\n";
 
@@ -48,21 +47,12 @@ Customer::Customer(Table tableNo, int customerNo) {
   body = new sf::RectangleShape(sf::Vector2f(10, 40));
   body->setFillColor(sf::Color::Red);
   body->setOrigin(5, 20);
-
-  // if (!font.loadFromFile("fonts/MyFont.ttf")) {
-  //   std::cerr << "Failed to load font!" << std::endl;
-  // }
-
-  // customerInfo->setFont(font);
-  // customerInfo->setFillColor(sf::Color::White);
-  // customerInfo->setCharacterSize(20);
-  // customerInfo->setString("TEST");
 }
 
 // getters and setters
 void Customer::set_customerAttributes() {
-  customerAttributes = "hunger:" + std::to_string(hunger) + "/5\n";
-  customerAttributes += "thirst:" + std::to_string(thirst) + "/5\n";
+  customerAttributes = "thirst:" + std::to_string(thirst) + "/5\n";
+  customerAttributes += "hunger:" + std::to_string(hunger) + "/5\n";
   customerAttributes += "disgust:" + std::to_string(disgust) + "/5\n";
   customerAttributes += "happiness:" + std::to_string(happiness) + "/15\n";
 }
@@ -81,7 +71,12 @@ int Customer::get_happiness() { return happiness; }
 
 std::time_t Customer::get_startTime() { return startTime; }
 std::time_t Customer::get_endTime() { return endTime; }
+void Customer::set_startTime() {
+  startTime = std::time(nullptr);
+  endTime = startTime + 120;
+}
 std::time_t Customer::get_disgustTime() { return disgustTime; }
+void Customer::set_disgustTime() { disgustTime = std::time(nullptr); }
 
 // getters and setters: hunger
 void Customer::increase_hunger() {

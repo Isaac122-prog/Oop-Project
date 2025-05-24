@@ -6,11 +6,10 @@
 
 #include "Customer.h"
 #include "Employee.h"
-#include "KitchenStaff.h"
 
 class Cafe;
 
-class Waiter : public KitchenStaff {
+class Waiter : public Employee {
  protected:
  public:
   // constructor

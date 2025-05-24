@@ -1,8 +1,6 @@
 #include "KitchenStaff.h"
 
 #include <iostream>
-
-#include "Cafe.h"
 #include "Employee.h"
 
 using namespace std;
@@ -11,11 +9,6 @@ using namespace std;
 KitchenStaff::KitchenStaff() : Employee() {
   food = Consumable();
   drink = Consumable();
-}
-
-// HELPPPPPPP
-void KitchenStaff::doTask(Customer* customer) {
-  std::cout << "HELP I NEED TO FIX THIS" << std::endl;
 }
 
 // getters and setters

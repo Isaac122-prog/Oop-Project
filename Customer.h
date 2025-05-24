@@ -44,8 +44,10 @@ class Customer {
   int get_happiness();
 
   std::time_t get_startTime();
+  void set_startTime();
   std::time_t get_endTime();
   std::time_t get_disgustTime();
+  void set_disgustTime();
 
   // getters and setters: hunger
   void increase_hunger();

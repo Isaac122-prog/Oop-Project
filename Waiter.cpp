@@ -11,9 +11,9 @@
 using namespace std;
 
 // constructor
-Waiter::Waiter() : KitchenStaff() {
+Waiter::Waiter() : Employee() {
   body->setFillColor(sf::Color::Yellow);
-  body->setPosition(420, 400);
+  body->setPosition(360, 400);
 }
 
 // doTask: sets the waiter to busy and sets their timer for serving the

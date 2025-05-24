@@ -4,6 +4,7 @@
 #include <SFML/Graphics.hpp>
 #include <ctime>
 #include <iostream>
+#include <vector>
 
 #include "Barista.h"
 #include "Chef.h"
@@ -44,6 +45,9 @@ class Cafe {
   Barista barista;
   Table* tables;
 
+  vector<Employee*> employees;
+  int maxEmployees;
+
   // number of consumables available to serve
   int numFood;
   int numDrink;
@@ -63,6 +67,9 @@ class Cafe {
 
   void set_activeCustomer(int customerNo);
   int get_activeCustomer();
+
+  int get_maxEmployees();
+  Employee* get_employee( int i);
 
   int get_numFood();
   void increase_numFood();
@@ -93,6 +100,9 @@ class Cafe {
 
   // customer leaves based on their stats
   void customerLeaves();
+
+  // add a new employee
+  void add_employee();
 
   // displays performance to player
   void viewPerformance();

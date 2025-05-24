@@ -1,6 +1,7 @@
 #include <chrono>
 #include <iostream>
 #include <SFML/Graphics.hpp>
+#include <random>
 
 #include "Cafe.h"
 #include "Game.h"
@@ -9,6 +10,9 @@
 using namespace std;
 
 int main() {
+  srand(time(0));
+
+
   int customers;
   cout << "How many customers do you want?" << endl;
   cin >> customers;

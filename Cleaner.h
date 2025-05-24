@@ -15,7 +15,7 @@ class Cleaner : public Employee {
   Cleaner();
   // doTask: sets the cleaner to busy and sets their timer for cleaning the
   // customer's table
-  void doTask(Customer* customer) override;
+  void doTask(Customer* customer, Cafe* cafe) override;
   // destructor
   ~Cleaner();
 };

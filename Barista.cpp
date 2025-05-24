@@ -14,7 +14,7 @@ using namespace std;
 // constructor
 Barista::Barista() : KitchenStaff() {
   body->setFillColor(sf::Color::Magenta);
-  body->setPosition(140, 400);
+  body->setPosition(120, 400);
 
   drink.get_body()->setPosition(145, 400);
 }

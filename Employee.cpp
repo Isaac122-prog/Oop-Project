@@ -3,6 +3,8 @@
 #include <SFML/Graphics.hpp>
 #include <iostream>
 
+#include "Cafe.h"
+
 using namespace std;
 
 // constructor
@@ -32,6 +34,7 @@ int Employee::get_depth() { return depth; }
 void Employee::set_position(sf::Vector2f position) {
   body->setPosition(position);
 }
+sf::Shape* Employee::get_body(){return body;}
 
 // destructor
 Employee::~Employee() {}

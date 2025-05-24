@@ -14,7 +14,7 @@ using namespace std;
 // constructor
 Chef::Chef() : KitchenStaff() {
   body->setFillColor(sf::Color::Cyan);
-  body->setPosition(280, 400);
+  body->setPosition(240, 400);
 
   food.get_body()->setPosition(285, 400);
 }

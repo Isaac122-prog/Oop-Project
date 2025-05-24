@@ -5,7 +5,9 @@
 #include <SFML/Graphics.hpp>
 #include <ctime>
 
-#include "Customer.h"
+#include "Customer.h" 
+
+class Cafe; // FORWARD DECLARATION OF CAFE TO AVOID CIRCLE OF PAIN
 
 class Employee {
  protected:
@@ -22,7 +24,7 @@ class Employee {
   Employee();
 
   // virtual function making Employee an abstract class
-  virtual void doTask(Customer* customer) = 0;
+  virtual void doTask(Customer* customer, Cafe* cafe) = 0;
 
   // getters and setters
   bool get_wasCalled();
@@ -31,14 +33,15 @@ class Employee {
   void set_isBusy(bool status);
   std::time_t get_waitTime();
 
-  // graphics functions
+  // draw employee
   void draw(sf::RenderWindow* win);
-  void set_position(sf::Vector2f position);
-
-  // getters for graphics properties
+  
+  // getters and setters for graphics properties
   int get_x();
   int get_y();
   int get_depth();
+  void set_position(sf::Vector2f position);
+  sf::Shape* get_body();
 
   // destructor
   ~Employee();

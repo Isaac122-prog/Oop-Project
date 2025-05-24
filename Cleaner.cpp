@@ -12,12 +12,12 @@ using namespace std;
 // constructor
 Cleaner::Cleaner() : Employee() {
   body->setFillColor(sf::Color::Green);
-  body->setPosition(560, 400);
+  body->setPosition(480, 400);
 }
 
 // doTask: sets the cleaner to busy and sets their timer for cleaning the
 // customer's table
-void Cleaner::doTask(Customer* customer) {
+void Cleaner::doTask(Customer* customer, Cafe* cafe) {
   if (!customer->get_isActive()) {
     std::cout << "Customer is not in cafe!" << std::endl;
   } else if (customer->get_disgust() == 5) {
