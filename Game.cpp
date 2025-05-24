@@ -203,6 +203,9 @@ void Game::keyBindings(sf::Event e) {
         }
         break;
 
+        case Keyboard::P:
+        cafe->viewPerformance();
+
       default:
         break;
     }
@@ -287,19 +290,20 @@ void Game::waiterAction() {
   if (cafe->get_waiter().get_waitTime() <= std::time(nullptr) - 10 &&
       cafe->get_waiter().get_wasCalled()) {
     cafe->get_waiterPointer()->set_wasCalled(false);
+    waiterTimer.setString("waiter");
     if (cafe->get_customerPointer(customerKey)->get_hunger() < 5) {
       cafe->decrease_numFood();  // food is served!
       cafe->get_customerPointer(customerKey)
           ->increase_hunger();  // increase customer hunger
+      std::cout << "servings of food: " << cafe->get_numFood() << std::endl;
     }
     if (cafe->get_customerPointer(customerKey)->get_thirst() < 5) {
       cafe->decrease_numDrink();  // drink is served!
       cafe->get_customerPointer(customerKey)
           ->increase_thirst();  // increase customer thirst
+      std::cout << "number of drinks: " << cafe->get_numDrink() << std::endl;
     }
     // std::cout << "function was happily called!" << std::endl;
-    std::cout << "number of drinks: " << cafe->get_numDrink() << std::endl;
-    std::cout << "servings of food: " << cafe->get_numFood() << std::endl;
   } else if (cafe->get_waiter().get_waitTime() > std::time(nullptr) - 10 &&
              cafe->get_waiter().get_wasCalled()) {
     waiterTimer.setString(
@@ -329,4 +333,5 @@ void Game::cleanerAction() {
 }
 
 // destructor
-Game::~Game() {}
+Game::~Game() {
+}

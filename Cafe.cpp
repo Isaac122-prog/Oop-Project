@@ -7,22 +7,7 @@
 using namespace sf;
 
 Cafe::Cafe() {
-  runTime = 0;
-
-  maxCustomers = 0;
-  customers = new Customer[maxCustomers];
-  numActiveCustomers = 0;
-
-  tables = new Table[maxCustomers];
-
-  player = Player();
-  waiter = Waiter();
-  cleaner = Cleaner();
-  chef = Chef();
-  barista = Barista();
-
-  numFood = 0;
-  numDrink = 0;
+  std::cout << "function is unusable" << endl;
 }
 
 Cafe::Cafe(int max) {
@@ -119,8 +104,8 @@ Barista* Cafe::get_baristaPointer() { return &barista; }
 // introduces the next customer based on the previous customer's stats
 void Cafe::newCustomer() {
   for (int i = 1; i < maxCustomers; i++) {
-    if (customers[i].get_isActive() == false &&
-            customers[i - 1].get_happiness() >= 13 ||
+    if ((customers[i].get_isActive() == false &&
+            customers[i - 1].get_happiness() >= 13 )||
         std::time_t(nullptr) >= customers[i].get_endTime()) {
       if (numActiveCustomers < maxCustomers) {
         customers[i].set_isActive(true);
@@ -136,8 +121,8 @@ void Cafe::newCustomer() {
 // customers will leave if they have a happiness of 15
 void Cafe::customerLeaves() {
   for (int i = 0; i < maxCustomers; i++) {
-    if (customers[i].get_isActive() == true &&
-            customers[i].get_happiness() == 15 ||
+    if ((customers[i].get_isActive() == true &&
+            customers[i].get_happiness() == 15 )||
         std::time_t(nullptr) >= customers[i].get_endTime()) {
       customers[i].set_isActive(false);
     }
@@ -146,11 +131,14 @@ void Cafe::customerLeaves() {
 
 // view the customer's scoring
 void Cafe::viewPerformance() {
-  cout << maxCustomers << endl;
-  for (int i = 0; i < maxCustomers; i++) {
-    cout << "customer " << i << " score: " << get_customer(i).get_happiness()
+  cout << "performance:" << endl;
+  int count = 0;
+  for (int i = 0; i < numActiveCustomers; i++) {
+    cout << "customer " << i << " score: " << get_customer(i).get_happiness() << "/15"
          << endl;
+    count += get_customer(i).get_happiness();
   }
+  cout << "final score: " << count << "/" << numActiveCustomers*15 << endl;;
 }
 
 // destructor
