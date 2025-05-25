@@ -51,10 +51,53 @@ class UnitTest {
     }
     return 0;
   }
+
   void testPlayer() {
     Cafe playerCafe = Cafe(1);
     Player player;
   }
+
+  void testTable() {
+    Cafe tableCafe = Cafe(1);
+    Table table;
+  }
+
+  void testCustomer() {
+    Cafe customerCafe = Cafe(1);
+    Customer customer;
+  }
+
+  void testEmployee() {
+    Cafe employeeCafe = Cafe(1);
+    Employee employee;
+  }
+
+  void testCleaner() {
+    Cafe cleanerCafe = Cafe(1);
+    Cleaner cleaner;
+  }
+
+  void testKitchenStaff() {
+    Cafe kitchenstaffCafe = Cafe(1);
+    KitchenStaff kitchenstaff;
+  }
+
+  void testChef() {
+    Cafe chefCafe = Cafe(1);
+    Chef chef;
+  }
+
+  void testBarista() {
+    Cafe baristaCafe = Cafe(1);
+    Barista barista;
+  }
+
+  void testWaiter() {
+    Cafe waiterCafe = Cafe(1);
+    Waiter waiter;
+  }
+
 };
 
 #endif
+
