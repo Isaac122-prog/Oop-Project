@@ -55,26 +55,49 @@ class UnitTest {
   void testPlayer() {
     Cafe playerCafe = Cafe(1);
     Player player;
+    // test 1: receive customer ID
+    // test 2: assign task to employee
+    // test 3: rest only goes back to max energy
+    // test 4: player name correct
   }
 
   void testTable() {
     Cafe tableCafe = Cafe(1);
     Table table;
+    // test 1: table starts clean
+    // test 2: table gets dirty
+    // test 3: table gets clean when cleaned
   }
 
   void testCustomer() {
     Cafe customerCafe = Cafe(1);
     Customer customer;
+    // test 1: max time of customer timer == 2mins
+    // test 2: initial value of disgust == 5
+    // test 3: intial value of hunger is between 0 and 5
+    // test 4: initial value of thirst is between 0 and 5
+    // test 5: initial value of happiness != 15
+    // test 6: getting food increases hunger count
+    // test 7: getting drink increases thirsty count
+    // test 8: disgust not 5 means table not clean
   }
 
   void testEmployee() {
     Cafe employeeCafe = Cafe(1);
     Employee employee;
+    // test 1: set is busy and returned value are the same
+    // test 2: set is called and returned value are the same
+    // test 3: get wait time
+    // test 4: get label
+    // test 5: get customer number
   }
 
   void testCleaner() {
     Cafe cleanerCafe = Cafe(1);
     Cleaner cleaner;
+    // test 1: customer in cafe check is working
+    // test 2: customer disgust level agrees with cleanliness of table
+    // test 3: having cleaned the table the customer disgust level increases
   }
 
   void testKitchenStaff() {
@@ -85,16 +108,28 @@ class UnitTest {
   void testChef() {
     Cafe chefCafe = Cafe(1);
     Chef chef;
+    // test 1: customer in cafe check is working
+    // test 2: cooking food increasing food count
   }
 
   void testBarista() {
     Cafe baristaCafe = Cafe(1);
     Barista barista;
+    // test 1: customer in cafe check is working
+    // test 2: brewing drinks increases drink count
   }
 
   void testWaiter() {
     Cafe waiterCafe = Cafe(1);
     Waiter waiter;
+    // test 1: customer in cafe check is working
+    // test 2: numfood + numdrink == 0 produces correct message
+    // test 3: receive customer hunger correct
+    // test 4: receive customer thirsty correct
+    // test 5: serve a drink decreases numDrink
+    // test 6: serve a drink increases customer thirst
+    // test 7: serve a food decreases numFood
+    // test 8: serve a food increases customer hunger
   }
 
 };
