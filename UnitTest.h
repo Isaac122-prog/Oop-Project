@@ -104,6 +104,10 @@ class UnitTest {
       cout << "Customer test 2 failed!" << endl;
     }
     // test 3: getting food increases hunger count
+    int initialHunger = customer.get_hunger();
+    while (cafe.get_customer(0).get_hunger() != 5){
+      
+    }
     // test 4: getting drink increases thirsty count
 
     // test 5: table clean means disgust == 5
