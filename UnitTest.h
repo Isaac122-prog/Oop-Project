@@ -52,17 +52,34 @@ class UnitTest {
     return 0;
   }
 
+
+
   void testPlayer() {
     Cafe playerCafe = Cafe(1);
     Player player;
     // test 1: tasks are done and energy decreases by 10 when task list non empty and energy above 10
-    //here
-    // test 2: error message when task list empty OR energy below 10
+    int prePerformTask = player.getEnergy();
+    player.performTask();
+    int currentEnergy = player.getEnergy();
+    int theoreticalEnergy = prePerformTask - 10;
+    if (currentEnergy > 10) {
+      if (currentEnergy != theoreticalEnergy) {
+        cout << "Player test 1 failed!" << endl;
+      }
+    }
+
+    // test 2: performTask not done if energy less then 10
+    player.performTask();
+    if (player.getEnergy < 0) {
+      cout << "Player test 2 failed!" << endl;
+    }
     // test 3: rest only gets energy back to max energy
     if (player.getEnergy > player.getMaxEnergy) {
       cout << "Player test 3 failed!" << endl;
     }
   }
+
+
 
   void testTable() {
     Cafe tableCafe = Cafe(1);
@@ -72,18 +89,35 @@ class UnitTest {
     // test 3: table gets clean when cleaned
   }
 
+
+
   void testCustomer() {
     Cafe customerCafe = Cafe(1);
     Customer customer;
     // test 1: max time of customer timer == 2mins
+    if (customer.get_endTime - customer.get_startTime != 120) {
+      cout << "Customer test 1 failed!" << endl;
+    }
     // test 2: initial value of disgust == 5
     // test 3: intial value of hunger is between 0 and 5
     // test 4: initial value of thirst is between 0 and 5
     // test 5: initial value of happiness != 15
-    // test 6: getting food increases hunger count
-    // test 7: getting drink increases thirsty count
-    // test 8: disgust not 5 means table not clean
+    // test 6: happiness does not exceed 15
+    if (customer.get_happiness > 15) {
+      cout << "Customer test 6 failed!" << endl;
+    }
+    // test 7: getting food increases hunger count
+    // test 8: getting drink increases thirsty count
+    
+    // test 9: table clean means disgust == 5
+    if (table.get_isClean == true) {
+      if (customer.get_disgust != 5) {
+        cout << "Customer test 9 failed!" << endl;
+      }
+    }
   }
+
+
 
   void testEmployee() {
     Cafe employeeCafe = Cafe(1);
@@ -95,6 +129,8 @@ class UnitTest {
     // test 5: get customer number
   }
 
+
+
   void testCleaner() {
     Cafe cleanerCafe = Cafe(1);
     Cleaner cleaner;
@@ -103,10 +139,14 @@ class UnitTest {
     // test 3: having cleaned the table the customer disgust level increases
   }
 
+
+
   void testKitchenStaff() {
     Cafe kitchenstaffCafe = Cafe(1);
     KitchenStaff kitchenstaff;
   }
+
+
 
   void testChef() {
     Cafe chefCafe = Cafe(1);
@@ -115,12 +155,16 @@ class UnitTest {
     // test 2: cooking food increasing food count
   }
 
+
+
   void testBarista() {
     Cafe baristaCafe = Cafe(1);
     Barista barista;
     // test 1: customer in cafe check is working
     // test 2: brewing drinks increases drink count
   }
+
+
 
   void testWaiter() {
     Cafe waiterCafe = Cafe(1);
@@ -134,7 +178,6 @@ class UnitTest {
     // test 7: serve a food decreases numFood
     // test 8: serve a food increases customer hunger
   }
-
 };
 
 #endif
