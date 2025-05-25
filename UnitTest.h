@@ -58,9 +58,7 @@ class UnitTest {
     // test 1: receive customer ID
     // test 2: assign task to employee
     // test 3: rest only goes back to max energy
-    player.getEnergy();
-    player.getMaxEnergy();
-    if (Energy > maxEnergy) {
+    if (player.getEnergy > player.getMaxEnergy) {
       cout << "Player test 3 failed!" << endl;
     }
   }
