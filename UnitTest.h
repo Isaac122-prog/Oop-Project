@@ -67,7 +67,6 @@ class UnitTest {
         cout << "Player test 1 failed!" << endl;
       }
     }
-
     // test 2: performTask not done if energy less then 10
     player.performTask();
     if (player.getEnergy < 0) {
@@ -84,9 +83,11 @@ class UnitTest {
   void testTable() {
     Cafe tableCafe = Cafe(1);
     Table table;
-    // test 1: table starts clean
-    // test 2: table gets dirty
-    // test 3: table gets clean when cleaned
+    // test 1: table gets clean when cleaned
+    cleaner.doTask();
+    if (table.get_isClean != true) {
+      cout << "Cleaner test 1 failed!" << endl;
+    }
   }
 
 
@@ -108,7 +109,7 @@ class UnitTest {
     }
     // test 7: getting food increases hunger count
     // test 8: getting drink increases thirsty count
-    
+
     // test 9: table clean means disgust == 5
     if (table.get_isClean == true) {
       if (customer.get_disgust != 5) {
