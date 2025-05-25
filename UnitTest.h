@@ -86,7 +86,7 @@ class UnitTest {
     // test 1: table gets clean when cleaned
     cleaner.doTask();
     if (table.get_isClean != true) {
-      cout << "Cleaner test 1 failed!" << endl;
+      cout << "Table test 1 failed!" << endl;
     }
   }
 
@@ -99,21 +99,17 @@ class UnitTest {
     if (customer.get_endTime - customer.get_startTime != 120) {
       cout << "Customer test 1 failed!" << endl;
     }
-    // test 2: initial value of disgust == 5
-    // test 3: intial value of hunger is between 0 and 5
-    // test 4: initial value of thirst is between 0 and 5
-    // test 5: initial value of happiness != 15
-    // test 6: happiness does not exceed 15
+    // test 2: happiness does not exceed 15
     if (customer.get_happiness > 15) {
-      cout << "Customer test 6 failed!" << endl;
+      cout << "Customer test 2 failed!" << endl;
     }
-    // test 7: getting food increases hunger count
-    // test 8: getting drink increases thirsty count
+    // test 3: getting food increases hunger count
+    // test 4: getting drink increases thirsty count
 
-    // test 9: table clean means disgust == 5
+    // test 5: table clean means disgust == 5
     if (table.get_isClean == true) {
       if (customer.get_disgust != 5) {
-        cout << "Customer test 9 failed!" << endl;
+        cout << "Customer test 5 failed!" << endl;
       }
     }
   }
@@ -135,9 +131,8 @@ class UnitTest {
   void testCleaner() {
     Cafe cleanerCafe = Cafe(1);
     Cleaner cleaner;
-    // test 1: customer in cafe check is working
-    // test 2: customer disgust level agrees with cleanliness of table
-    // test 3: having cleaned the table the customer disgust level increases
+    // test 1: customer disgust level agrees with cleanliness of table
+    // test 2: having cleaned the table the customer disgust level increases
   }
 
 
@@ -180,14 +175,10 @@ class UnitTest {
   void testWaiter() {
     Cafe waiterCafe = Cafe(1);
     Waiter waiter;
-    // test 1: customer in cafe check is working
-    // test 2: numfood + numdrink == 0 produces correct message
-    // test 3: receive customer hunger correct
-    // test 4: receive customer thirsty correct
-    // test 5: serve a drink decreases numDrink
-    // test 6: serve a drink increases customer thirst
-    // test 7: serve a food decreases numFood
-    // test 8: serve a food increases customer hunger
+    // test 1: serve a drink decreases numDrink
+    // test 2: serve a drink increases customer thirst
+    // test 3: serve a food decreases numFood
+    // test 4: serve a food increases customer hunger
   }
 };
 
