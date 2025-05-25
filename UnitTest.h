@@ -142,18 +142,19 @@ class UnitTest {
 
 
 
-  void testKitchenStaff() {
-    Cafe kitchenstaffCafe = Cafe(1);
-    KitchenStaff kitchenstaff;
-  }
-
-
-
   void testChef() {
     Cafe chefCafe = Cafe(1);
     Chef chef;
-    // test 1: customer in cafe check is working
-    // test 2: cooking food increasing food count
+    // test 1: cooking food increasing food count
+    int initialNumFood = cafe.get_numFood();
+    int expectedNumFood = initialNumFood + 1;
+    chef.doTask();
+    while (cafe.get_customer(0).get_hunger() < 5){
+      int currentNumFood = cafe.get_numFood();
+      if (currentNumFood != expectedNumFood) {
+        cout << "Chef test 1 failed!" << endl;
+      }
+    }
   }
 
 
@@ -161,8 +162,17 @@ class UnitTest {
   void testBarista() {
     Cafe baristaCafe = Cafe(1);
     Barista barista;
-    // test 1: customer in cafe check is working
-    // test 2: brewing drinks increases drink count
+    // test 1: brewing drinks increases drink count
+    int initialNumDrink = cafe.get_numDrink();
+    int expectedNumDrink = initialNumDrink + 1;
+    barista.doTask();
+    while (cafe.get_customer(0).get_thirst() < 5){
+      int currentNumDrink = cafe.get_numDrink();
+      if (currentNumDrink != expectedNumDrink) {
+        cout << "Chef test 1 failed!" << endl;
+      }
+    }
+
   }
 
 
