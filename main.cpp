@@ -9,6 +9,43 @@
 
 using namespace std;
 
+// Showing instructions
+void showInstructions() {
+  cout << "\n====== INSTRUCTIONS ======\n";
+  cout << "Welcome to the Cafe Game!\n\n";
+  cout << "Goal:\n";
+  cout << "  - Serve all the customers efficiently.\n\n";
+  cout << "How to Play:\n";
+  cout << "  - Choose the number of customers (1 to 10).\n";
+  cout << "  - Use the mouse to interact with the game elements.\n";
+  cout << "  - Complete all customer orders to win.\n\n";
+  cout << "Tips:\n";
+  cout << "  - Be quick! Customers may get impatient.\n";
+  cout << "  - Watch for hints and feedback during gameplay.\n";
+  cout << "===========================\n\n";
+}
+
+//displaying the menu
+int showMenu() {
+  int choice;
+  cout << "===== CAFE GAME MENU =====" << endl;
+  cout << "1. Start Game" << endl;
+  cout << "2. Instructions" << endl;
+  cout << "0. Quit" << endl;
+  cout << "===========================" << endl;
+  cout << "Enter your choice: ";
+  cin >> choice;
+
+  //checking if input is lower than 0 or above 2
+  if (choice < 0 || choice > 2){
+    cin.clear();
+    cout << "Invalid input. Please enter 0, 1, or 2: ";
+    cin >> choice;
+  }
+ 
+  return choice;
+}
+
 int main() {
   srand(time(0));
 
