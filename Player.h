@@ -23,6 +23,7 @@ public:
     void rest(); // rests a players energy to max energy
 
     int getEnergy() const; //Grabs the current energy level
+    int getMaxEnergy() const; //Gets max energy for unit testing
     std::string getName() const; //Grabs the player name
     void displayStatus() const; //Displays players current status
 };

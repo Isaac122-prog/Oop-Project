@@ -44,6 +44,11 @@ int Player::getEnergy() const {
     return energy;
 }
 
+//return max energy for testing
+int Player::getMaxEnergy() const {
+    return maxEnergy;
+}
+
 // returns the name of the player
 std::string Player::getName() const {
     return name;
