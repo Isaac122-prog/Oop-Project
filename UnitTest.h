@@ -36,7 +36,7 @@ class UnitTest {
       cout << "Cafe test 1 failed!" << endl;
     }
     // test 2: game duration
-    if (cafe.get_gameDuration().count() !=300){
+    if (cafe.get_gameDuration() !=300){
       cout << "Cafe test 2 failed!" << endl;
     }
     // test 3: newCustomer()
@@ -45,7 +45,7 @@ class UnitTest {
       cout << "Cafe test 3 failed!" << endl;
     }
     // test 4: CustomerLeaves()
-    cafe.CustomerLeaves();
+    cafe.customerLeaves();
     if (cafe.get_customer(0).get_isActive() == true){
       cout << "Cafe test 4 failed!" << endl;
     }
@@ -83,8 +83,9 @@ class UnitTest {
   void testTable() {
     Cafe tableCafe = Cafe(1);
     Table table;
+    Cleaner cleaner;
     // test 1: table gets clean when cleaned
-    cleaner.doTask();
+    cleaner.doTask(0,0);
     if (table.get_isClean() != true) {
       cout << "Table test 1 failed!" << endl;
     }
@@ -95,6 +96,8 @@ class UnitTest {
   void testCustomer() {
     Cafe customerCafe = Cafe(1);
     Customer customer;
+    Cafe cafe;
+    Table table;
     // test 1: max time of customer timer == 2mins
     if (customer.get_endTime() - customer.get_startTime() != 120) {
       cout << "Customer test 1 failed!" << endl;
@@ -120,16 +123,6 @@ class UnitTest {
 
 
 
-  void testEmployee() {
-    Cafe employeeCafe = Cafe(1);
-    Employee employee;
-    // test 1: set is busy and returned value are the same
-    // test 2: set is called and returned value are the same
-    // test 3: get wait time
-    // test 4: get label
-    // test 5: get customer number
-  }
-
 
 
   void testCleaner() {
@@ -144,10 +137,11 @@ class UnitTest {
   void testChef() {
     Cafe chefCafe = Cafe(1);
     Chef chef;
+    Cafe cafe;
     // test 1: cooking food increasing food count
     int initialNumFood = cafe.get_numFood();
     int expectedNumFood = initialNumFood + 1;
-    chef.doTask();
+    chef.doTask(0,0);
     while (cafe.get_customer(0).get_hunger() < 5){
       int currentNumFood = cafe.get_numFood();
       if (currentNumFood != expectedNumFood) {
@@ -161,10 +155,11 @@ class UnitTest {
   void testBarista() {
     Cafe baristaCafe = Cafe(1);
     Barista barista;
+    Cafe cafe;
     // test 1: brewing drinks increases drink count
     int initialNumDrink = cafe.get_numDrink();
     int expectedNumDrink = initialNumDrink + 1;
-    barista.doTask();
+    barista.doTask(0,0);
     while (cafe.get_customer(0).get_thirst() < 5){
       int currentNumDrink = cafe.get_numDrink();
       if (currentNumDrink != expectedNumDrink) {
