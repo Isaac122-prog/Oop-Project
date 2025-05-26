@@ -54,7 +54,7 @@ class UnitTest {
 
 
 
-  void testPlayer() {
+  int testPlayer() {
     Cafe playerCafe = Cafe(1);
     Player player;
     // test 1: tasks are done and energy decreases by 10 when task list non empty and energy above 10
@@ -76,11 +76,12 @@ class UnitTest {
     if (player.getEnergy() > player.getMaxEnergy()) {
       cout << "Player test 3 failed!" << endl;
     }
+    return 0;
   }
 
 
 
-  void testTable() {
+  int testTable() {
     Cafe tableCafe = Cafe(1);
     Table table;
     Cleaner cleaner;
@@ -89,11 +90,12 @@ class UnitTest {
     if (table.get_isClean() != true) {
       cout << "Table test 1 failed!" << endl;
     }
+    return 0;
   }
 
 
 
-  void testCustomer() {
+  int testCustomer() {
     Cafe customerCafe = Cafe(1);
     Customer customer;
     Cafe cafe;
@@ -119,22 +121,24 @@ class UnitTest {
         cout << "Customer test 5 failed!" << endl;
       }
     }
+    return 0;
   }
 
 
 
 
 
-  void testCleaner() {
+  int testCleaner() {
     Cafe cleanerCafe = Cafe(1);
     Cleaner cleaner;
     // test 1: customer disgust level agrees with cleanliness of table
     // test 2: having cleaned the table the customer disgust level increases
+    return 0;
   }
 
 
 
-  void testChef() {
+  int testChef() {
     Cafe chefCafe = Cafe(1);
     Chef chef;
     Cafe cafe;
@@ -148,11 +152,12 @@ class UnitTest {
         cout << "Chef test 1 failed!" << endl;
       }
     }
+    return 0;
   }
 
 
 
-  void testBarista() {
+  int testBarista() {
     Cafe baristaCafe = Cafe(1);
     Barista barista;
     Cafe cafe;
@@ -166,18 +171,19 @@ class UnitTest {
         cout << "Chef test 1 failed!" << endl;
       }
     }
-
+    return 0;
   }
 
 
 
-  void testWaiter() {
+  int testWaiter() {
     Cafe waiterCafe = Cafe(1);
     Waiter waiter;
     // test 1: serve a drink decreases numDrink
     // test 2: serve a drink increases customer thirst
     // test 3: serve a food decreases numFood
     // test 4: serve a food increases customer hunger
+    return 0;
   }
 };
 
