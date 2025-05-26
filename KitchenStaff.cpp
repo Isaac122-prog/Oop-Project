@@ -13,7 +13,7 @@ KitchenStaff::KitchenStaff() : Employee() {
   drink = Consumable();
 }
 
-// getters and setters
+// getters 
 Consumable KitchenStaff::get_food() { return food; }
 Consumable KitchenStaff::get_drink() { return drink; }
 

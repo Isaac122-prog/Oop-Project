@@ -14,23 +14,23 @@ Game::Game(std::string title, Cafe* cafe) {
   this->cafe = cafe;
   customerKey = 0;
   newEmployee = -1;
-  customerSave = 2;
+  customerSave = 3;  // players can save after every 3 customers
 
   win = new ::sf::RenderWindow(sf::VideoMode(800, 600),
-                               title);  // generates window
+                               title);  // generates 800x600 window
 
   // setting up font
   if (!font.loadFromFile("fonts/MyFont.ttf")) {
     std::cerr << "Failed to load font!" << std::endl;
   }
 
+  // set no. graphics labels to match no. customers/employees
   employeeTimers.resize(cafe->get_maxEmployees());
   customerTexts.resize(cafe->get_maxCustomers());
 
   // this for loop was written with help from generative AI 24/05/2024
   for (int i = 0; i < cafe->get_maxEmployees(); i++) {
     Employee* employee = cafe->get_employee(i);  // get a single employee
-
     sf::Text label;
     label.setFont(font);
     label.setCharacterSize(16);
@@ -55,32 +55,27 @@ void Game::drawFrame() {
   }
 
   if (cafe->get_numFood() > 0) {
-    // cafe->employees[1]->get_food().draw(win);  // draw food if available
-
     // written with help from generative AI 24/05/2025
     KitchenStaff* ks = dynamic_cast<KitchenStaff*>(cafe->get_employee(1));
     if (ks != nullptr && cafe->get_numFood() > 0) {
-      ks->get_food().draw(win);
+      ks->get_food().draw(win);  // draw food if available
     }
   }
 
   if (cafe->get_numDrink() > 0) {
-    // cafe->employees[0]->get_drink().draw(win);  // draw drink if available
-
     // written with help from generative AI 24/05/2025
     KitchenStaff* ks = dynamic_cast<KitchenStaff*>(cafe->get_employee(0));
     if (ks != nullptr && cafe->get_numDrink() > 0) {
-      ks->get_drink().draw(win);
+      ks->get_drink().draw(win);  // draw drink if available
     }
   }
 
-  // add employee is player has finished serving 2 customers
+  // add employee if player has finished serving the 2nd customer
   newEmployee = cafe->add_employee();
 
   // add new employee graphics when user adds new employee to the game
   if (cafe->get_maxEmployees() > 4) {
     employeeTimers.resize(cafe->get_maxEmployees());
-
     employeeTimers[4].setFont(font);
     employeeTimers[4].setCharacterSize(15);
     employeeTimers[4].setFillColor(sf::Color::White);
@@ -100,6 +95,7 @@ void Game::drawFrame() {
     newEmployeeAction(4);
   }
 
+  // generates and displays graphics for customers
   // this for loop was written with help from generative AI 24/05/2025
   for (int k = 0; k < cafe->get_maxCustomers(); k++) {
     const Customer& customer = cafe->get_customer(k);  // get a single customer
@@ -175,7 +171,7 @@ void Game::keyBindings(sf::Event e) {
         cafe->set_activeCustomer(-1);
         break;
 
-      //  Q W E R T set barista, chef, waiter, cleaner, +employee actions
+      //  Q W E R T executes barista, chef, waiter, cleaner, & employee doTask()
       case Keyboard::Q:
         if (cafe->get_activeCustomer() >= 0) {
           if (cafe->get_numDrink() == 1) {
@@ -224,6 +220,7 @@ void Game::keyBindings(sf::Event e) {
             }
             break;
 
+            // view the player's current performance
           case Keyboard::P:
             cafe->viewPerformance();
 
@@ -243,7 +240,7 @@ void Game::run() {
       if (e.type == Event::Closed) {
         win->close();
       }
-      keyBindings(e);
+      keyBindings(e);  // set keybindings
     }
 
     // if the cafe timer is below the game duration
@@ -252,6 +249,7 @@ void Game::run() {
       cafe->newCustomer();
       cafe->customerLeaves();
       actionClock.restart();
+
       // decreases active customer's disgust based on their disgust timer
       for (int i = 0; i < cafe->get_maxCustomers(); i++) {
         if (cafe->get_customer(i).get_isActive() &&
@@ -262,14 +260,19 @@ void Game::run() {
       }
     }
 
-    if (cafe->get_numActiveCustomers() % 2 == 0 &&
-        cafe->get_numActiveCustomers() == customerSave) {
+    // give player option to save game file after 3 customers
+    if (cafe->get_numActiveCustomers() % 3 == 0 &&
+        cafe->get_numActiveCustomers() == customerSave &&
+        cafe->get_customer(cafe->get_numActiveCustomers() - 1)
+                .get_happiness() == 15) {
       int save = 0;
-      customerSave += 2;
+      customerSave += 3;
       std::cout << "press 1 if you want to save the game" << std::endl;
       std::cin >> save;
       if (save == 1) {
         saveFile();
+      } else {
+        std::cout << "game unsaved" << std::endl;
       }
     }
 
@@ -293,12 +296,12 @@ void Game::run() {
 void Game::baristaAction(int i) {
   if (cafe->get_employee(i)->get_waitTime() <= std::time(nullptr) - 10 &&
       cafe->get_employee(i)->get_wasCalled()) {
-    cafe->increase_numDrink();
-    employeeTimers[i].setString("barista");
+    cafe->increase_numDrink();               // increase number of drinks
+    employeeTimers[i].setString("barista");  // reset graphics
     cafe->get_employee(i)->set_wasCalled(false);
-    // std::cout << "number of drinks: " << cafe->get_numDrink() << std::endl;
   } else if (cafe->get_employee(i)->get_waitTime() > std::time(nullptr) - 10 &&
              cafe->get_employee(i)->get_wasCalled()) {
+    // set graphics to show timer
     employeeTimers[i].setString(
         "barista\n" +
         std::to_string(
@@ -310,12 +313,12 @@ void Game::baristaAction(int i) {
 void Game::chefAction(int i) {
   if (cafe->get_employee(i)->get_waitTime() <= std::time(nullptr) - 10 &&
       cafe->get_employee(i)->get_wasCalled()) {
-    cafe->increase_numFood();
+    cafe->increase_numFood();             // increase number of food servings
+    employeeTimers[i].setString("chef");  // reset graphics
     cafe->get_employee(i)->set_wasCalled(false);
-    employeeTimers[i].setString("chef");
-    // std::cout << "servings of food: " << cafe->get_numFood() << std::endl;
   } else if (cafe->get_employee(i)->get_waitTime() > std::time(nullptr) - 10 &&
              cafe->get_employee(i)->get_wasCalled()) {
+    // set graphics to show timer
     employeeTimers[i].setString(
         "chef\n" +
         std::to_string(
@@ -327,7 +330,8 @@ void Game::chefAction(int i) {
 void Game::waiterAction(int i) {
   if (cafe->get_employee(i)->get_waitTime() <= std::time(nullptr) - 10) {
     cafe->get_employee(i)->get_body()->setPosition(
-        employeeTimers[i].getPosition() + sf::Vector2f(0, -40));
+        employeeTimers[i].getPosition() +
+        sf::Vector2f(0, -40));  // move waiter to original position
     if (cafe->get_employee(i)->get_wasCalled()) {
       cafe->get_employee(i)->set_wasCalled(false);
       employeeTimers[i].setString("waiter");
@@ -335,24 +339,21 @@ void Game::waiterAction(int i) {
               ->get_hunger() < 5) {
         cafe->get_customerPointer(cafe->get_employee(i)->get_customerNo())
             ->increase_hunger();  // increase customer hunger
-        // std::cout << "servings of food: " << cafe->get_numFood() <<
-        // std::endl;
       }
       if (cafe->get_customerPointer(cafe->get_employee(i)->get_customerNo())
               ->get_thirst() < 5) {
         cafe->get_customerPointer(cafe->get_employee(i)->get_customerNo())
             ->increase_thirst();  // increase customer thirst
-        // std::cout << "number of drinks: " << cafe->get_numDrink() <<
-        // std::endl;
       }
-      // std::cout << "function was happily called!" << std::endl;
     }
   } else if (cafe->get_employee(i)->get_waitTime() > std::time(nullptr) - 10 &&
              cafe->get_employee(i)->get_wasCalled()) {
+    // set graphics to show timer
     employeeTimers[i].setString(
         "waiter\n" +
         std::to_string(
             10 - (std::time(nullptr) - cafe->get_employee(i)->get_waitTime())));
+    // move waiter to customer's table
     cafe->get_employee(i)->get_body()->setPosition(
         cafe->get_customer(cafe->get_employee(i)->get_customerNo())
             .get_body()
@@ -370,18 +371,19 @@ void Game::cleanerAction(int i) {
       cafe->get_employee(i)->set_wasCalled(false);
       cafe->get_customerPointer(cafe->get_employee(i)->get_customerNo())
           ->get_tableNo()
-          .set_isClean(true);
+          .set_isClean(true);  // set table to clean
       cafe->get_customerPointer(cafe->get_employee(i)->get_customerNo())
-          ->increase_disgust();
+          ->increase_disgust();  // max out disgust
       employeeTimers[i].setString("cleaner");
     }
   } else if (cafe->get_employee(i)->get_waitTime() > std::time(nullptr) - 10 &&
              cafe->get_employee(i)->get_wasCalled()) {
+    // set graphics to show timer
     employeeTimers[i].setString(
         "cleaner\n" +
         std::to_string(
             10 - (std::time(nullptr) - cafe->get_employee(i)->get_waitTime())));
-
+    // move cleaner to customer's table
     cafe->get_employee(i)->get_body()->setPosition(
         cafe->get_customer(cafe->get_employee(i)->get_customerNo())
             .get_body()
@@ -390,6 +392,7 @@ void Game::cleanerAction(int i) {
   }
 }
 
+// completes new employee's action based on employee type
 void Game::newEmployeeAction(int i) {
   switch (newEmployee) {
     case 0:
@@ -403,46 +406,49 @@ void Game::newEmployeeAction(int i) {
   }
 }
 
+// saves current progress to event_data.json
 void Game::saveFile() {
-  Json::Value data;
+  Json::Value data;  // initialise
+
+  // set data
   data["maxCustomers"] = cafe->get_maxCustomers();
-  // data["numActiveCustomers"] = cafe->get_numActiveCustomers();
   data["numFood"] = cafe->get_numFood();
   data["numDrink"] = cafe->get_numDrink();
   data["numEmployees"] = cafe->get_maxEmployees();
-  data["newEmployee"] = cafe->get_newEmployee();
+  data["newEmployee"] = cafe->get_employeeType();
 
+  // create customerArray to store each customer's info
   Json::Value customerArray(Json::arrayValue);
 
   for (int i = 0; i < cafe->get_maxCustomers(); i++) {
-    Customer* cust = cafe->get_customerPointer(
-        i);  // or Customer* cust = cafe->get_customer(i);
-
+    Customer* cust = cafe->get_customerPointer(i);
     Json::Value customerJson;
     customerJson["thirst"] = cust->get_thirst();
     customerJson["hunger"] = cust->get_hunger();
     customerJson["disgust"] = cust->get_disgust();
     customerJson["isActive"] = cust->get_isActive();
+    customerJson["happiness"] = cust->get_happiness();
     customerJson["number"] = i;
-    // customerJson["startTime"] = cust->get_startTime();
-
     customerArray.append(customerJson);
   }
 
+  // store customerArray
   data["customers"] = customerArray;
 
+  // upload to file
   std::string output_file_path = "event_data.json";
   std::ofstream file(output_file_path);
 
   Json::StreamWriterBuilder writer;
-  writer["indentation"] = "    ";  // For pretty print with 4 spaces
+  writer["indentation"] = "    ";
   Json::StreamWriter* jsonWriter = writer.newStreamWriter();
   jsonWriter->write(data, &file);
   file.close();
   std::cout << "Data written to " << output_file_path << " as JSON."
-            << std::endl;
+            << std::endl;  // output message for confirmation
 }
 
+// getter for cafe attribute
 Cafe* Game::get_cafe() { return cafe; }
 
 // destructor

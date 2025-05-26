@@ -20,12 +20,24 @@ void showInstructions() {
   cout << "  - Serve all the customers efficiently.\n\n";
   cout << "How to Play:\n";
   cout << "  - Choose the number of customers (1 to 10).\n";
-  cout << "  - Use the mouse to interact with the game elements.\n";
+  cout
+      << "  - Use the mouse to interact with the game elements.\n";  // yo this
+                                                                     // is wrong
   cout << "  - Complete all customer orders to win.\n\n";
   cout << "Tips:\n";
-  cout << "  - Be quick! Customers may get impatient.\n";
-  cout << "  - Watch for hints and feedback during gameplay.\n";
+  cout << "  - Be quick! Customers may get impatient.\n";  // may get disgusted
+                                                           // by their dirty
+                                                           // tables quickly?
+  cout
+      << "  - Watch for hints and feedback during gameplay.\n";  // umm what
+                                                                 // hints, maybe
+                                                                 // mention that
+                                                                 // feedback
+                                                                 // will be
+                                                                 // given in the
+                                                                 // terminal
   cout << "===========================\n\n";
+  // note you can view performance by pressing p
 }
 
 // displaying the menu
@@ -49,51 +61,76 @@ int showMenu() {
   return choice;
 }
 
-// assign values from save file
-// void openSaved(Game game) {
-//   int maxCustomers = save["maxCustomers"].asInt();
-//   bool isActive = save["customers"]["cust"]["isActive"].asBool();
-//   int hunger = save["customers"]["cust"]["hunger"].asInt();
-// }
-
 int main() {
-  srand(time(0));
+  srand(time(0));  // set rand timer
 
   int customers = 1;
   int yesNo;
   int typeGame;
 
+  // starting game
   cout << "would you like to start the game?\npress 1 for yes, 0 for no"
        << endl;
   cin >> yesNo;
-  // ADD A WHILE LOOP HERE
+
+  // checking input
+  while (yesNo != 1 && yesNo != 0 || cin.fail()) {
+    cin.clear();             // clear error flag
+    cin.ignore(1000, '\n');  // discard bad input
+    std::cout << "invalid input. Please try again." << std::endl;
+    cin >> yesNo;
+  }
 
   while (yesNo == 1) {
-    cout << "press 1 to play saved version, press 0 to play new game" << endl;
+    Cafe* cafe;
+
+    // prompt for type of game
+    cout << "press 1 to play previously saved version, press 0 to play new game"
+         << endl;
     cin >> typeGame;
-    // ADD DEFENCE STUFF HERE
+
+    // checking input
+    while (typeGame != 1 && typeGame != 0 || cin.fail()) {
+      cin.clear();             // clear error flag
+      cin.ignore(1000, '\n');  // discard bad input
+      std::cout << "invalid input. Please try again." << std::endl;
+      cin >> typeGame;
+    }
     if (typeGame == 1) {
+      // checking if saved file exists and implementing
       if (std::ifstream infile{"event_data.json"}) {
         std::ifstream save_file("event_data.json", std::ifstream::binary);
         Json::Value save;
         save_file >> save;
 
         customers = save["maxCustomers"].asInt();
+        std::cout << "customers from file: " << customers << endl;
+      } else {
+        std::cout << "no saved file! starting new game" << std::endl;
+        typeGame = 0;
       }
-    } else if (typeGame == 0) {
-      cout << "How many customers do you want?" << endl;
+    }
+    if (typeGame == 0) {
+      // prompt for max number of customers
+      cout << "How many customers do you want? (between 1 and 10)" << endl;
       cin >> customers;
       while (customers > 10 || customers < 1 || cin.fail()) {
-        cin.clear();  // clear error flags
-        cin.ignore(std::numeric_limits<std::streamsize>::max(),
-                   '\n');  // discard invalid input
+        cin.clear();             // clear error flag
+        cin.ignore(1000, '\n');  // discard bad input
         cout << "Must be between 1 and 10! Try again: " << endl;
         cin >> customers;
       }
+    } else {
+      cin.clear();             // clear error flag
+      cin.ignore(1000, '\n');  // discard bad input
+      std::cout << "no game selected. Ending." << std::endl;
+      return 0;
     }
-    // create cafe
-    Cafe* cafe = new Cafe(customers);
 
+    // create cafe
+    cafe = new Cafe(customers);
+
+    // set saved attributes into cafe
     if (typeGame == 1) {
       if (std::ifstream infile{"event_data.json"}) {
         std::ifstream save_file("event_data.json", std::ifstream::binary);
@@ -101,7 +138,7 @@ int main() {
         save_file >> save;
 
         cafe->set_maxEmployees(save["numEmployees"].asInt());
-        cafe->set_newEmployee(save["newEmployee"].asInt());
+        cafe->set_employeeType(save["newEmployee"].asInt());
 
         if (cafe->get_maxEmployees() > 4) {
           cafe->add_newEmployee();
@@ -119,10 +156,12 @@ int main() {
           cafe->get_customerPointer(i)->set_hunger(cust["hunger"].asInt());
           cafe->get_customerPointer(i)->set_disgust(cust["disgust"].asInt());
           cafe->get_customerPointer(i)->set_isActive(cust["isActive"].asBool());
+          cafe->get_customerPointer(i)->set_happiness(
+              cust["happiness"].asBool());
           cafe->get_customerPointer(i)->set_startTime();
-          // number field can be ignored since i is the index
-          if (cafe->get_customerPointer(i)->get_isActive()){
-            maxActiveCustomers = i;
+          // set maxActiveCustomers
+          if (cafe->get_customerPointer(i)->get_isActive()) {
+            maxActiveCustomers = i + 1;
           }
         }
 
@@ -133,10 +172,22 @@ int main() {
     Game* game = new Game("cafe game", cafe);
     game->run();
 
+    if (cafe != nullptr) {
+      delete cafe;
+      cafe = nullptr;
+    }
+
     std::cout << "you have completed the game. Would you like to play again?\n "
                  "press 1 for yes and 0 for no"
               << std::endl;
     cin >> yesNo;
+    // checking input
+    while (yesNo != 1 && yesNo != 0 || cin.fail()) {
+      cin.clear();             // clear error flag
+      cin.ignore(1000, '\n');  // discard bad input
+      std::cout << "invalid input. Please try again." << std::endl;
+      cin >> yesNo;
+    }
   }
   // UnitTest unitTest;S
   // unitTest.runTests();

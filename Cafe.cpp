@@ -69,11 +69,12 @@ Cafe::Cafe(int max) {
   employees.push_back(new Waiter());
   employees.push_back(new Cleaner());
 
-  maxEmployees = 4;
-  newEmployee = -1;
+  maxEmployees = 4;   // initialising number of employees
+  employeeType = -1;  // initialising type of new employee (currently invalid)
 
   player = Player();
 
+  // initialising number available to serve
   numFood = 0;
   numDrink = 0;
 }
@@ -91,24 +92,21 @@ void Cafe::set_activeCustomer(int customerNo) { activeCustomer = customerNo; }
 int Cafe::get_activeCustomer() { return activeCustomer; }
 
 int Cafe::get_numActiveCustomers() { return numActiveCustomers; }
-void Cafe::set_numActiveCustomers(int i){
-  numActiveCustomers = i;
+void Cafe::set_numActiveCustomers(int activeCustomers) {
+  numActiveCustomers = activeCustomers;
 }
 
 int Cafe::get_maxEmployees() { return maxEmployees; }
-void Cafe::set_maxEmployees(int i) { maxEmployees = i; }
-
-Employee* Cafe::get_employee(int i) { return employees[i]; }
-void Cafe::add_newEmployee() {
-  if (newEmployee == 0) {
-    employees.push_back(new Waiter());
-  } else if (newEmployee == 1) {
-    employees.push_back(new Cleaner());
-  }
+void Cafe::set_maxEmployees(int maxEmployees) {
+  this->maxEmployees = maxEmployees;
 }
 
-int Cafe::get_newEmployee() { return newEmployee; }
-void Cafe::set_newEmployee(int i) { newEmployee = i; }
+Employee* Cafe::get_employee(int employeeNo) { return employees[employeeNo]; }
+
+int Cafe::get_employeeType() { return employeeType; }
+void Cafe::set_employeeType(int employeeType) {
+  this->employeeType = employeeType;
+}
 
 int Cafe::get_numFood() { return numFood; }
 void Cafe::increase_numFood() {
@@ -137,24 +135,35 @@ Customer* Cafe::get_customerPointer(int customerNumber) {
   return &customers[customerNumber];
 }
 
+// adds a new employee based on employeeType
+void Cafe::add_newEmployee() {
+  if (employeeType == 0) {
+    employees.push_back(new Waiter());
+  } else if (employeeType == 1) {
+    employees.push_back(new Cleaner());
+  }
+}
+
 // introduces the next customer based on the previous customer's stats
 void Cafe::newCustomer() {
   for (int i = 1; i < maxCustomers; i++) {
     if ((!customers[i].get_isActive() &&
          customers[i - 1].get_happiness() >= 12) ||
         std::time_t(nullptr) >= customers[i - 1].get_endTime()) {
-      // if (numActiveCustomers < maxCustomers) {
-        customers[i].set_isActive(true);
-        numActiveCustomers++;
-        get_customerPointer(i)->set_disgustTime();
-        get_customerPointer(i)->set_startTime();
+      customers[i].set_isActive(true);            // set next customer to active
+      get_customerPointer(i)->set_disgustTime();  // set disgust time
+      get_customerPointer(i)->set_startTime();    // set start time
+      if (numActiveCustomers < maxCustomers) {
+        numActiveCustomers++;  // increase number of active customers
         break;
-      // }
+      }
     }
   }
-  if (customers[maxCustomers - 1].get_isActive() &&
-      customers[maxCustomers - 1].get_happiness() == 15) {
-    numActiveCustomers++;
+  if ((customers[maxCustomers - 1].get_isActive() &&
+       customers[maxCustomers - 1].get_happiness() == 15) ||
+      std::time_t(nullptr) >= customers[maxCustomers - 1].get_endTime()) {
+    numActiveCustomers++;  // increment if last customer has
+                           // left
   }
 }
 
@@ -172,7 +181,7 @@ void Cafe::customerLeaves() {
 // add a new employee
 int Cafe::add_employee() {
   if (maxCustomers <= 2) {
-    newEmployee = -1;
+    employeeType = -1;  // ensure there are enough customers
   } else if (!customers[1].get_isActive() && customers[2].get_isActive() &&
              maxEmployees == 4) {
     char employee;
@@ -186,28 +195,29 @@ int Cafe::add_employee() {
     switch (employee) {
       case 'z':
         std::cout << "you selected: waiter" << std::endl;
-        employees.push_back(new Waiter());
-        newEmployee = 0;
+        employees.push_back(new Waiter());  // add waiter to vector
+        employeeType = 0;                   // set employee type to waiter
 
         break;
       case 'x':
         std::cout << "you selected: cleaner" << std::endl;
-        employees.push_back(new Cleaner());
-        newEmployee = 1;
+        employees.push_back(new Cleaner());  // add cleaner to vector
+        employeeType = 1;                    // set employee type to cleaner
 
         break;
       default:
         std::cout << "you have not selected an employee" << std::endl;
         break;
     }
-    maxEmployees++;
-    employees[4]->get_body()->setPosition(600, 400);
+    maxEmployees++;                                   // increase no employees
+    employees[4]->get_body()->setPosition(600, 400);  // set graphics posiiton
   }
-  return newEmployee;
+  return employeeType;
 }
 
 // view the customer's scoring
 void Cafe::viewPerformance() {
+  std::cout << "active customers final: " << numActiveCustomers << std::endl;
   cout << "performance:" << endl;
   int count = 0;
   for (int i = 0; i < numActiveCustomers - 1; i++) {

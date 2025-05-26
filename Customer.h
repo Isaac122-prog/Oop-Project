@@ -45,10 +45,11 @@ class Customer {
   int get_customerNo();
 
   int get_happiness();
+  void set_happiness(int hapiness);
 
   std::time_t get_startTime();
-  void set_startTime();
   std::time_t get_endTime();
+  void set_startTime();
   std::time_t get_disgustTime();
   void set_disgustTime();
 
@@ -69,9 +70,6 @@ class Customer {
   void decrease_disgust(Table table);
   void set_disgust(int disgust);
   int get_disgust();
-
-  // for debugging: print customer stats
-  void print_attributes();
 
   // draw customer
   void draw(sf::RenderWindow* win);

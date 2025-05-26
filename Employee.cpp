@@ -34,7 +34,6 @@ void Employee::draw(sf::RenderWindow* win) { win->draw(*body); }
 // getters and setters for graphics
 int Employee::get_x() { return body->getPosition().x; }
 int Employee::get_y() { return body->getPosition().y; }
-int Employee::get_depth() { return depth; }
 void Employee::set_position(sf::Vector2f position) {
   body->setPosition(position);
 }

@@ -27,34 +27,28 @@ class Chef;
 
 class Cafe {
  private:
-  // sf::RenderWindow* win; TO BE DELETED
-
   int runTime;  // runtime of the cafe
 
   // customer objects and properties
   int maxCustomers;
   Customer* customers;
   int numActiveCustomers; // no. customer that have been/are active
-  int activeCustomer;
+  int activeCustomer; // for keybindings
 
   // objects in the cafe
   Player player;
-  // Waiter waiter;
-  // Cleaner cleaner;
-  // Chef chef;
-  // Barista barista;
   Table* tables;
 
-  vector<Employee*> employees;
+  vector<Employee*> employees; 
   int maxEmployees;
-  int newEmployee;
+  int employeeType;
 
   // number of consumables available to serve
   int numFood;
   int numDrink;
 
  public:
-  sf::Clock startTime;  // CHECK WHERE THIS SHOULD BE
+  sf::Clock startTime; 
 
   // default constructor
   Cafe();
@@ -73,21 +67,20 @@ class Cafe {
   int get_activeCustomer();
 
   int get_numActiveCustomers();
-  void set_numActiveCustomers(int i);
+  void set_numActiveCustomers(int activeCustomers);
 
   int get_maxEmployees();
-  void set_maxEmployees(int i);
+  void set_maxEmployees(int maxEmployees);
 
-  Employee* get_employee(int i);
-  Employee* set_employee(int i);
-  void add_newEmployee();
+  Employee* get_employee(int employeeNo);
 
-  int get_newEmployee();
-  void set_newEmployee(int i);
+  int get_employeeType();
+  void set_employeeType(int employeeType);
 
   int get_numFood();
   void increase_numFood();
   void decrease_numFood();
+
   int get_numDrink();
   void increase_numDrink();
   void decrease_numDrink();
@@ -96,17 +89,12 @@ class Cafe {
   Customer get_customer(int customerNumber);
   Table get_table(int tableNo);
   Player get_player();
-  Cleaner get_cleaner();
-  Waiter get_waiter();
-  Chef get_chef();
-  Barista get_barista();
 
   // object pointer getters
   Customer* get_customerPointer(int customerNumber);
-  Cleaner* get_cleanerPointer();
-  Waiter* get_waiterPointer();
-  Chef* get_chefPointer();
-  Barista* get_baristaPointer();
+
+  // adds a new employee based on employeeType
+  void add_newEmployee();
 
   // introduces the next customer based on the previous
   // customer's stats

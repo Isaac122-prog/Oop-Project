@@ -19,7 +19,6 @@ Customer::Customer() {
 
 // constructor
 Customer::Customer(Table tableNo, int customerNo) {
-  
   hunger = std::rand() % 5;  // generate random integer from 0 to 5
   disgust = 5;
   thirst = std::rand() % 5;
@@ -33,18 +32,22 @@ Customer::Customer(Table tableNo, int customerNo) {
   }
   happiness = hunger + thirst + disgust;
 
+  // set customerAttributes for label
   customerAttributes = "thirst: " + std::to_string(thirst) + "/5\n";
   customerAttributes += "hunger: " + std::to_string(hunger) + "/5\n";
   customerAttributes += "disgust: " + std::to_string(disgust) + "/5\n";
   customerAttributes += "happiness: " + std::to_string(happiness) + "/15\n";
 
-  isActive = false;
+  // set to inactive
+  isActive = false; 
 
+  // set start/end times for timers
   startTime = std::time(nullptr);
   endTime = startTime + 120;
 
   disgustTime = std::time(nullptr);
 
+  // set graphics
   body = new sf::RectangleShape(sf::Vector2f(10, 40));
   body->setFillColor(sf::Color::Red);
   body->setOrigin(5, 20);
@@ -69,7 +72,11 @@ void Customer::set_tableNo(Table tableNo) { this->tableNo = tableNo; }
 
 int Customer::get_customerNo() { return customerNo; }
 
-int Customer::get_happiness() { return happiness; }
+int Customer::get_happiness() {
+  happiness = hunger + thirst + disgust;
+  return happiness;
+}
+void Customer::set_happiness(int happiness) { this->happiness = happiness; }
 
 std::time_t Customer::get_startTime() { return startTime; }
 std::time_t Customer::get_endTime() { return endTime; }
@@ -97,7 +104,7 @@ void Customer::decrease_hunger() {
   happiness = hunger + thirst + disgust;
   set_customerAttributes();
 }
-void Customer::set_hunger(int hunger){
+void Customer::set_hunger(int hunger) {
   this->hunger = hunger;
   happiness = hunger + thirst + disgust;
   set_customerAttributes();
@@ -121,7 +128,7 @@ void Customer::decrease_thirst() {
   happiness = hunger + thirst + disgust;
   set_customerAttributes();
 }
-void Customer::set_thirst(int thirst){
+void Customer::set_thirst(int thirst) {
   this->thirst = thirst;
   happiness = hunger + thirst + disgust;
   set_customerAttributes();
@@ -146,18 +153,12 @@ void Customer::decrease_disgust(Table table) {
   set_customerAttributes();
   disgustTime = std::time(nullptr);
 }
-void Customer::set_disgust(int disgust){
+void Customer::set_disgust(int disgust) {
   this->disgust = disgust;
   happiness = hunger + thirst + disgust;
   set_customerAttributes();
 }
 int Customer::get_disgust() { return disgust; }
-
-// for debugging: print customer stats
-void Customer::print_attributes() {
-  std::cout << "hunger: " << hunger << ", thirst: " << thirst
-            << ", disgust: " << disgust << std::endl;
-}
 
 // draw customer
 void Customer::draw(sf::RenderWindow* win) {
