@@ -69,11 +69,11 @@ class UnitTest {
     }
     // test 2: performTask not done if energy less then 10
     player.performTask();
-    if (player.getEnergy < 0) {
+    if (player.getEnergy() < 0) {
       cout << "Player test 2 failed!" << endl;
     }
     // test 3: rest only gets energy back to max energy
-    if (player.getEnergy > player.getMaxEnergy) {
+    if (player.getEnergy() > player.getMaxEnergy()) {
       cout << "Player test 3 failed!" << endl;
     }
   }
@@ -85,7 +85,7 @@ class UnitTest {
     Table table;
     // test 1: table gets clean when cleaned
     cleaner.doTask();
-    if (table.get_isClean != true) {
+    if (table.get_isClean() != true) {
       cout << "Table test 1 failed!" << endl;
     }
   }
@@ -96,11 +96,11 @@ class UnitTest {
     Cafe customerCafe = Cafe(1);
     Customer customer;
     // test 1: max time of customer timer == 2mins
-    if (customer.get_endTime - customer.get_startTime != 120) {
+    if (customer.get_endTime() - customer.get_startTime() != 120) {
       cout << "Customer test 1 failed!" << endl;
     }
     // test 2: happiness does not exceed 15
-    if (customer.get_happiness > 15) {
+    if (customer.get_happiness() > 15) {
       cout << "Customer test 2 failed!" << endl;
     }
     // test 3: getting food increases hunger count
@@ -111,8 +111,8 @@ class UnitTest {
     // test 4: getting drink increases thirsty count
 
     // test 5: table clean means disgust == 5
-    if (table.get_isClean == true) {
-      if (customer.get_disgust != 5) {
+    if (table.get_isClean() == true) {
+      if (customer.get_disgust() != 5) {
         cout << "Customer test 5 failed!" << endl;
       }
     }
