@@ -44,8 +44,9 @@ int showMenu() {
   cin >> choice;
 
   // checking if input is lower than 0 or above 2
-  if (choice < 0 || choice > 2) {
+  while ((choice < 0 || choice > 2) || cin.fail()) {
     cin.clear();
+    cin.ignore(1000, '\n');
     cout << "Invalid input. Please enter 0, 1, or 2: ";
     cin >> choice;
   }
@@ -72,6 +73,20 @@ int main() {
     std::cout << "invalid input. Please try again." << std::endl;
     cin >> yesNo;
   }
+    // Menu / instructions
+if (yesNo == 1) {
+    int menuChoice = showMenu();  // menu choice should show
+    
+    while (menuChoice == 2) { 
+        showInstructions(); // shows instructions
+        menuChoice = showMenu(); // show menu again after instructions
+    }
+
+    if (menuChoice == 0) { // happens if they want to quit
+        cout << "Exiting game. See you next time!" << endl;
+        return 0;
+    }
+}
 
   while (yesNo == 1) {
     Cafe* cafe;
