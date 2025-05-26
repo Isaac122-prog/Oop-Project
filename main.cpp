@@ -12,32 +12,24 @@
 
 using namespace std;
 
-// Showing instructions
+// Display Instructions
 void showInstructions() {
-  cout << "\n====== INSTRUCTIONS ======\n";
-  cout << "Welcome to the Cafe Game!\n\n";
-  cout << "Goal:\n";
-  cout << "  - Serve all the customers efficiently.\n\n";
-  cout << "How to Play:\n";
-  cout << "  - Choose the number of customers (1 to 10).\n";
-  cout
-      << "  - Use the mouse to interact with the game elements.\n";  // yo this
-                                                                     // is wrong
-  cout << "  - Complete all customer orders to win.\n\n";
-  cout << "Tips:\n";
-  cout << "  - Be quick! Customers may get impatient.\n";  // may get disgusted
-                                                           // by their dirty
-                                                           // tables quickly?
-  cout
-      << "  - Watch for hints and feedback during gameplay.\n";  // umm what
-                                                                 // hints, maybe
-                                                                 // mention that
-                                                                 // feedback
-                                                                 // will be
-                                                                 // given in the
-                                                                 // terminal
-  cout << "===========================\n\n";
-  // note you can view performance by pressing p
+    cout << "\n======== GAME INSTRUCTIONS ========\n";
+    cout << "Welcome to Cafe Game!\n\n";
+    cout << "Objective:\n";
+    cout << "  - Serve all customers efficiently using your cafe staff.\n\n";
+    cout << "Controls:\n";
+    cout << "      Q → Barista (serve drink)\n";
+    cout << "      W → Chef (prepare food)\n";
+    cout << "      E → Waiter (deliver food/drink)\n";
+    cout << "      R → Cleaner (clean table)\n";
+    cout << "      T → Extra employee (unlocked after 2nd customer leaves)\n";
+    cout << "  - Press the space bar to skip idle time during animations.\n\n";
+    cout << "Note:\n";
+    cout << "  - The mouse is NOT used during gameplay.\n";
+    cout << "  - Use it only to click between the graphics window and terminal if needed.\n";
+    cout << "You can view your in game performance by pressing P";
+    cout << "====================================\n\n";
 }
 
 // displaying the menu
