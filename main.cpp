@@ -133,7 +133,7 @@ if (yesNo == 1) {
         cout << "Must be between 1 and 10! Try again: " << endl;
         cin >> customers;
       }
-    } else {
+    } else if (typeGame!=1 && typeGame!=0 || cin.fail()){
       cin.clear();             // clear error flag
       cin.ignore(1000, '\n');  // discard bad input
       std::cout << "no game selected. Ending." << std::endl;
@@ -149,6 +149,8 @@ if (yesNo == 1) {
         std::ifstream save_file("event_data.json", std::ifstream::binary);
         Json::Value save;
         save_file >> save;
+
+        cafe->set_savedVersion(true);
 
         cafe->set_maxEmployees(save["numEmployees"].asInt());
         cafe->set_employeeType(save["newEmployee"].asInt());
