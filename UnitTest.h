@@ -202,10 +202,41 @@ class UnitTest {
   void testWaiter() {
     Cafe waiterCafe = Cafe(1);
     Waiter waiter;
-    // test 1: serve a drink decreases numDrink
-    // test 2: serve a drink increases customer thirst
-    // test 3: serve a food decreases numFood
-    // test 4: serve a food increases customer hunger
+    //SECTION A: DRINKS
+    while (cafe.get_customer(0).get_thirst() < 5) {
+      barista.doTask();
+      int initialNumDrink = cafe.get_numDrink();
+      int initialThirst = cafe.get_customer(0).get_thirst();
+      waiter.doTask();
+      int currentNumDrink = cafe.get_numDrink();
+      int currentThirst = cafe.get_customer(0).get_thirst();
+      // test 1: serve a drink decreases numDrink
+      if (initialNumDrink < currentNumDrink) {
+        cout<< "Waiter test 1 failed!" << endl;
+      }
+      // test 2: serve a drink increases customer thirst
+      if (initialThirst > currentThirst) {
+        cout << "Waiter test 2 failed!" << endl;
+      }
+    }
+
+    //SECTION B: THIRST
+    while (cafe.get_customer(0).get_hunger() <5) {
+      chef.doTask();
+      int initialNumFood = cafe.get_numFood();
+      int initialHunger = cafe.get_customer(0).get_hunger();
+      waiter.doTask();
+      int currentNumFood = cafe.get_numFood();
+      int currentHunger = cafe.get_customer(0).get_hunger();
+      // test 3: serve a food decreases numFood
+      if (initialNumFood < currentNumFood) {
+        cout << "Waiter test 3 failed!" << endl;
+      }
+      // test 4: serve a food increases customer hunger
+      if (initialHunger > currentHunger) {
+        cout << "Waiter test 4 failed!" << endl;
+      }
+    }
   }
 };
 
