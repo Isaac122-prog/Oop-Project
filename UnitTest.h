@@ -5,6 +5,13 @@
 
 #include "Cafe.h"
 #include "Player.h"
+#include "Table.h"
+#include "Customer.h"
+#include "Employee.h"
+#include "Cleaner.h"
+#include "Chef.h"
+#include "Barista.h"
+#include "Waiter.h"
 
 using namespace std;
 
@@ -96,23 +103,34 @@ class UnitTest {
     Cafe customerCafe = Cafe(1);
     Customer customer;
     // test 1: max time of customer timer == 2mins
-    if (customer.get_endTime - customer.get_startTime != 120) {
+    if (cafe.get_customer(0).get_endTime() - cafe.get_customer(0).get_startTime() != 120) {
       cout << "Customer test 1 failed!" << endl;
     }
     // test 2: happiness does not exceed 15
-    if (customer.get_happiness > 15) {
+    if (cafe.get_customer(0).get_happiness() > 15) {
       cout << "Customer test 2 failed!" << endl;
     }
     // test 3: getting food increases hunger count
     int initialHunger = customer.get_hunger();
     while (cafe.get_customer(0).get_hunger() != 5){
-      
+      chef.doTask();
+      waiter.doTask();
+      if (cafe.get_customer(0).get_hunger() = initialHunger) {
+        cout << "Customer test 3 failed!" << endl;
+      }
     }
     // test 4: getting drink increases thirsty count
-
+    int initialThirst = customer.get_thirst();
+    while (cafe.get_customer(0).get_thirst() != 5) {
+      barista.doTask();
+      waiter.doTask();
+      if (cafe.get_customer(0).get_thirst() = initialThirst){
+        cout << "Customer test 4 failed!" << endl;
+      }
+    }
     // test 5: table clean means disgust == 5
     if (table.get_isClean == true) {
-      if (customer.get_disgust != 5) {
+      if (cafe.get_customer(0).get_disgust() != 5) {
         cout << "Customer test 5 failed!" << endl;
       }
     }
@@ -123,11 +141,12 @@ class UnitTest {
   void testEmployee() {
     Cafe employeeCafe = Cafe(1);
     Employee employee;
-    // test 1: set is busy and returned value are the same
-    // test 2: set is called and returned value are the same
-    // test 3: get wait time
-    // test 4: get label
-    // test 5: get customer number
+    // test 1: get customer number
+    int customer_says_number = cafe.get_customer(0).get_customerNo();
+    int employee_says_number = employee.get_customerNo();
+    if (customer_says_number != employee_says_number) {
+      cout << "Employee test 1 failed!" <<endl;
+    }
   }
 
 
@@ -136,7 +155,11 @@ class UnitTest {
     Cafe cleanerCafe = Cafe(1);
     Cleaner cleaner;
     // test 1: customer disgust level agrees with cleanliness of table
-    // test 2: having cleaned the table the customer disgust level increases
+    if (cafe.get_customer(0).get_disgust()=5) {
+      if (table.get_isClean()!=true) {
+        cout << "Cleaner test 1 failed!" << endl;
+      }
+    }
   }
 
 
@@ -179,10 +202,41 @@ class UnitTest {
   void testWaiter() {
     Cafe waiterCafe = Cafe(1);
     Waiter waiter;
-    // test 1: serve a drink decreases numDrink
-    // test 2: serve a drink increases customer thirst
-    // test 3: serve a food decreases numFood
-    // test 4: serve a food increases customer hunger
+    //SECTION A: DRINKS
+    while (cafe.get_customer(0).get_thirst() < 5) {
+      barista.doTask();
+      int initialNumDrink = cafe.get_numDrink();
+      int initialThirst = cafe.get_customer(0).get_thirst();
+      waiter.doTask();
+      int currentNumDrink = cafe.get_numDrink();
+      int currentThirst = cafe.get_customer(0).get_thirst();
+      // test 1: serve a drink decreases numDrink
+      if (initialNumDrink < currentNumDrink) {
+        cout<< "Waiter test 1 failed!" << endl;
+      }
+      // test 2: serve a drink increases customer thirst
+      if (initialThirst > currentThirst) {
+        cout << "Waiter test 2 failed!" << endl;
+      }
+    }
+
+    //SECTION B: THIRST
+    while (cafe.get_customer(0).get_hunger() <5) {
+      chef.doTask();
+      int initialNumFood = cafe.get_numFood();
+      int initialHunger = cafe.get_customer(0).get_hunger();
+      waiter.doTask();
+      int currentNumFood = cafe.get_numFood();
+      int currentHunger = cafe.get_customer(0).get_hunger();
+      // test 3: serve a food decreases numFood
+      if (initialNumFood < currentNumFood) {
+        cout << "Waiter test 3 failed!" << endl;
+      }
+      // test 4: serve a food increases customer hunger
+      if (initialHunger > currentHunger) {
+        cout << "Waiter test 4 failed!" << endl;
+      }
+    }
   }
 };
 
