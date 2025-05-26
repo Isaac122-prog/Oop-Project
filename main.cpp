@@ -21,7 +21,7 @@ void showInstructions() {
     cout << "Objective:\n";
     cout << "  - Serve all customers efficiently using your cafe staff to max out their scores before they leave. \n\n";
     cout << "Controls:\n";
-    cout << "      1, 2, 3, etc. → allocate customer for task. MUST BE PRESSED BEFORE ACTIVATING AN EMPLOYEE\n";
+    cout << "      1, 2, 3, etc. → allocate customer for task. MUST BE PRESSED BEFORE ACTIVATING EACH EMPLOYEE\n";
     cout << "      Q → Barista (serve drink)\n";
     cout << "      W → Chef (prepare food)\n";
     cout << "      E → Waiter (deliver food/drink to customer)\n";
@@ -31,6 +31,9 @@ void showInstructions() {
     cout << "Note:\n";
     cout << "  - The mouse is NOT used during gameplay.\n";
     cout << "  - Use it only to click between the graphics window and terminal if needed.\n";
+    cout << "  - available food and drink appear as white squares\n";
+    cout << "  - customer's disgust score will continually decrease over time.\n";
+    cout << "  - if gameplay pauses, check the terminal for a message!\n";
     cout << "You can view your in game performance by pressing P";
     cout << "====================================\n\n";
 }
