@@ -106,9 +106,22 @@ class UnitTest {
     // test 3: getting food increases hunger count
     int initialHunger = customer.get_hunger();
     while (cafe.get_customer(0).get_hunger() != 5){
+      chef.doTask();
+      waiter.doTask();
+      if (cafe.get_customer(0).get_hunger() = initialHunger) {
+        cout << "Customer test 3 failed!" << endl;
+      }
       
     }
     // test 4: getting drink increases thirsty count
+    int initialThirst = customer.get_thirst();
+    while (cafe.get_customer(0).get_thirst() != 5) {
+      barista.doTask();
+      waiter.doTask();
+      if (cafe.get_customer(0).get_thirst() = initialThirst){
+        cout << "Customer test 4 failed!" << endl;
+      }
+    }
 
     // test 5: table clean means disgust == 5
     if (table.get_isClean == true) {
@@ -136,6 +149,7 @@ class UnitTest {
     Cafe cleanerCafe = Cafe(1);
     Cleaner cleaner;
     // test 1: customer disgust level agrees with cleanliness of table
+    if (customer.get_disgust())
     // test 2: having cleaned the table the customer disgust level increases
   }
 
