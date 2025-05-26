@@ -73,10 +73,6 @@ Cafe::Cafe(int max) {
   newEmployee = -1;
 
   player = Player();
-  // waiter = Waiter();
-  // cleaner = Cleaner();
-  // chef = Chef();
-  // barista = Barista();
 
   numFood = 0;
   numDrink = 0;
@@ -84,15 +80,35 @@ Cafe::Cafe(int max) {
 
 // getters and setters
 int Cafe::get_maxCustomers() { return maxCustomers; }
+void Cafe::set_maxCustomers(int maxCustomers) {
+  this->maxCustomers = maxCustomers;
+}
+
 int Cafe::get_gameDuration() { return runTime; }
+void Cafe::set_gameDuration() { runTime = maxCustomers * 120; }
 
 void Cafe::set_activeCustomer(int customerNo) { activeCustomer = customerNo; }
 int Cafe::get_activeCustomer() { return activeCustomer; }
 
 int Cafe::get_numActiveCustomers() { return numActiveCustomers; }
+void Cafe::set_numActiveCustomers(int i){
+  numActiveCustomers = i;
+}
 
 int Cafe::get_maxEmployees() { return maxEmployees; }
+void Cafe::set_maxEmployees(int i) { maxEmployees = i; }
+
 Employee* Cafe::get_employee(int i) { return employees[i]; }
+void Cafe::add_newEmployee() {
+  if (newEmployee == 0) {
+    employees.push_back(new Waiter());
+  } else if (newEmployee == 1) {
+    employees.push_back(new Cleaner());
+  }
+}
+
+int Cafe::get_newEmployee() { return newEmployee; }
+void Cafe::set_newEmployee(int i) { newEmployee = i; }
 
 int Cafe::get_numFood() { return numFood; }
 void Cafe::increase_numFood() {
@@ -115,19 +131,11 @@ Customer Cafe::get_customer(int customerNumber) {
 }
 Table Cafe::get_table(int tableNo) { return tables[tableNo]; }
 Player Cafe::get_player() { return player; }
-// Cleaner Cafe::get_cleaner() { return cleaner; }
-// Waiter Cafe::get_waiter() { return waiter; }
-// Chef Cafe::get_chef() { return chef; }
-// Barista Cafe::get_barista() { return barista; }
 
 // object pointer getters
 Customer* Cafe::get_customerPointer(int customerNumber) {
   return &customers[customerNumber];
 }
-// Cleaner* Cafe::get_cleanerPointer() { return &cleaner; }
-// Waiter* Cafe::get_waiterPointer() { return &waiter; }
-// Chef* Cafe::get_chefPointer() { return &chef; }
-// Barista* Cafe::get_baristaPointer() { return &barista; }
 
 // introduces the next customer based on the previous customer's stats
 void Cafe::newCustomer() {
@@ -135,13 +143,13 @@ void Cafe::newCustomer() {
     if ((!customers[i].get_isActive() &&
          customers[i - 1].get_happiness() >= 12) ||
         std::time_t(nullptr) >= customers[i - 1].get_endTime()) {
-      if (numActiveCustomers < maxCustomers) {
+      // if (numActiveCustomers < maxCustomers) {
         customers[i].set_isActive(true);
         numActiveCustomers++;
         get_customerPointer(i)->set_disgustTime();
         get_customerPointer(i)->set_startTime();
         break;
-      }
+      // }
     }
   }
   if (customers[maxCustomers - 1].get_isActive() &&
@@ -169,37 +177,27 @@ int Cafe::add_employee() {
              maxEmployees == 4) {
     char employee;
     std::cout << "congrats! you can now add a new employee" << std::endl;
-    std::cout
-        << "press Z for barista, X for chef, C for waiter, and V for cleaner"
-        << std::endl;
-    cin >> employee;
-    while (employee != 'z' && employee != 'x' && employee != 'c' &&
-           employee != 'v') {
+    std::cout << "press Z for waiter, or X for cleaner" << std::endl;
+    std::cin >> employee;
+    while (employee != 'z' && employee != 'x') {
       std::cout << "wrong key! please type a valid option" << std::endl;
+      std::cin >> employee;
     }
     switch (employee) {
       case 'z':
-        std::cout << "you selected: barista" << std::endl;
-        employees.push_back(new Barista());
-        newEmployee = 0;
-        // employees[4]->get_drink().get_body()->setPosition(145, 400);
-        break;
-      case 'x':
-        std::cout << "you selected: chef" << std::endl;
-        employees.push_back(new Chef());
-        newEmployee = 1;
-        break;
-      case 'c':
         std::cout << "you selected: waiter" << std::endl;
         employees.push_back(new Waiter());
-        newEmployee = 2;
+        newEmployee = 0;
+
         break;
-      case 'v':
+      case 'x':
         std::cout << "you selected: cleaner" << std::endl;
         employees.push_back(new Cleaner());
-        newEmployee = 3;
+        newEmployee = 1;
+
         break;
       default:
+        std::cout << "you have not selected an employee" << std::endl;
         break;
     }
     maxEmployees++;

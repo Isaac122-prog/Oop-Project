@@ -64,7 +64,6 @@ std::string Customer::get_customerAttributes() const {
 void Customer::set_isActive(bool state) { isActive = state; }
 bool Customer::get_isActive() { return isActive; }
 
-// I NEED TO REMEMBER WHAT'S GOING ON WITH TABLE NUMBER BC WTF
 Table Customer::get_tableNo() { return tableNo; }
 void Customer::set_tableNo(Table tableNo) { this->tableNo = tableNo; }
 
@@ -98,6 +97,11 @@ void Customer::decrease_hunger() {
   happiness = hunger + thirst + disgust;
   set_customerAttributes();
 }
+void Customer::set_hunger(int hunger){
+  this->hunger = hunger;
+  happiness = hunger + thirst + disgust;
+  set_customerAttributes();
+}
 int Customer::get_hunger() { return hunger; }
 
 // getters and setters: thirst
@@ -114,6 +118,11 @@ void Customer::decrease_thirst() {
   if (thirst < 0) {
     thirst = 0;
   }
+  happiness = hunger + thirst + disgust;
+  set_customerAttributes();
+}
+void Customer::set_thirst(int thirst){
+  this->thirst = thirst;
   happiness = hunger + thirst + disgust;
   set_customerAttributes();
 }
@@ -136,6 +145,11 @@ void Customer::decrease_disgust(Table table) {
   happiness = hunger + thirst + disgust;
   set_customerAttributes();
   disgustTime = std::time(nullptr);
+}
+void Customer::set_disgust(int disgust){
+  this->disgust = disgust;
+  happiness = hunger + thirst + disgust;
+  set_customerAttributes();
 }
 int Customer::get_disgust() { return disgust; }
 

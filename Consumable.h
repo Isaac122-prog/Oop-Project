@@ -9,7 +9,7 @@ class Consumable {
   bool isActive;
 
   sf::Shape* body;
-  int depth;  // UNSURE IF WE NEED THIS
+  int depth;  
  public:
   // constructor
   Consumable();

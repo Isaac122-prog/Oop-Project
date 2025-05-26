@@ -1,6 +1,9 @@
 #include "Game.h"
 
+#include <jsoncpp/json/json.h>
+
 #include <SFML/Graphics.hpp>
+#include <fstream>
 #include <iostream>
 
 #include "Cafe.h"
@@ -11,6 +14,7 @@ Game::Game(std::string title, Cafe* cafe) {
   this->cafe = cafe;
   customerKey = 0;
   newEmployee = -1;
+  customerSave = 2;
 
   win = new ::sf::RenderWindow(sf::VideoMode(800, 600),
                                title);  // generates window
@@ -23,8 +27,8 @@ Game::Game(std::string title, Cafe* cafe) {
   employeeTimers.resize(cafe->get_maxEmployees());
   customerTexts.resize(cafe->get_maxCustomers());
 
+  // this for loop was written with help from generative AI 24/05/2024
   for (int i = 0; i < cafe->get_maxEmployees(); i++) {
-    // THIS SECTION IS TAKEN FROM CHAT GPT
     Employee* employee = cafe->get_employee(i);  // get a single employee
 
     sf::Text label;
@@ -40,57 +44,6 @@ Game::Game(std::string title, Cafe* cafe) {
     employeeTimers[i] = label;
     win->draw(label);
   }
-
-  // setting up waiterTimer
-  // waiterTimer.setFont(font);
-  // waiterTimer.setCharacterSize(15);
-  // waiterTimer.setFillColor(sf::Color::White);
-  // waiterTimer.setString("waiter");
-  // sf::FloatRect bounds = waiterTimer.getLocalBounds();
-  // waiterTimer.setOrigin(bounds.left + bounds.width / 2,
-  //                       bounds.top + bounds.height / 2);
-
-  // waiterTimer.setPosition(360, 440);
-
-  // setting up cleanerTimer
-  // cleanerTimer.setFont(font);
-  // cleanerTimer.setCharacterSize(15);
-  // cleanerTimer.setFillColor(sf::Color::White);
-  // cleanerTimer.setString("cleaner");
-  // bounds = cleanerTimer.getLocalBounds();
-  // cleanerTimer.setOrigin(bounds.left + bounds.width / 2,
-  //                        bounds.top + bounds.height / 2);
-  // cleanerTimer.setPosition(480, 440);
-
-  // setting up baristaTimer
-  // baristaTimer.setFont(font);
-  // baristaTimer.setCharacterSize(15);
-  // baristaTimer.setFillColor(sf::Color::White);
-  // baristaTimer.setString("barista");
-  // bounds = baristaTimer.getLocalBounds();
-  // baristaTimer.setOrigin(bounds.left + bounds.width / 2,
-  //                        bounds.top + bounds.height / 2);
-  // baristaTimer.setPosition(120, 440);
-
-  // setting up chefTimer
-  // chefTimer.setFont(font);
-  // chefTimer.setCharacterSize(15);
-  // chefTimer.setFillColor(sf::Color::White);
-  // chefTimer.setString("chef");
-  // bounds = chefTimer.getLocalBounds();
-  // chefTimer.setOrigin(bounds.left + bounds.width / 2,
-  //                     bounds.top + bounds.height / 2);
-  // chefTimer.setPosition(240, 440);
-
-  // setting up employeeTimer
-  // employeeTimer.setFont(font);
-  // employeeTimer.setCharacterSize(15);
-  // employeeTimer.setFillColor(sf::Color::White);
-  // employeeTimer.setString("");
-  // bounds = chefTimer.getLocalBounds();
-  // employeeTimer.setOrigin(bounds.left + bounds.width / 2,
-  //                         bounds.top + bounds.height / 2);
-  // employeeTimer.setPosition(600, 440);
 }
 
 void Game::drawFrame() {
@@ -104,7 +57,7 @@ void Game::drawFrame() {
   if (cafe->get_numFood() > 0) {
     // cafe->employees[1]->get_food().draw(win);  // draw food if available
 
-    // FROM CHAT GPT
+    // written with help from generative AI 24/05/2025
     KitchenStaff* ks = dynamic_cast<KitchenStaff*>(cafe->get_employee(1));
     if (ks != nullptr && cafe->get_numFood() > 0) {
       ks->get_food().draw(win);
@@ -114,7 +67,7 @@ void Game::drawFrame() {
   if (cafe->get_numDrink() > 0) {
     // cafe->employees[0]->get_drink().draw(win);  // draw drink if available
 
-    // FROM CHAT GPT
+    // written with help from generative AI 24/05/2025
     KitchenStaff* ks = dynamic_cast<KitchenStaff*>(cafe->get_employee(0));
     if (ks != nullptr && cafe->get_numDrink() > 0) {
       ks->get_drink().draw(win);
@@ -123,9 +76,10 @@ void Game::drawFrame() {
 
   // add employee is player has finished serving 2 customers
   newEmployee = cafe->add_employee();
+
+  // add new employee graphics when user adds new employee to the game
   if (cafe->get_maxEmployees() > 4) {
     employeeTimers.resize(cafe->get_maxEmployees());
-    employeeTimers[4].setString(cafe->get_employee(4)->get_label());
 
     employeeTimers[4].setFont(font);
     employeeTimers[4].setCharacterSize(15);
@@ -137,6 +91,7 @@ void Game::drawFrame() {
     employeeTimers[4].setPosition(600, 440);
   }
 
+  // executes ongoing employee actions
   baristaAction(0);
   chefAction(1);
   waiterAction(2);
@@ -145,8 +100,8 @@ void Game::drawFrame() {
     newEmployeeAction(4);
   }
 
+  // this for loop was written with help from generative AI 24/05/2025
   for (int k = 0; k < cafe->get_maxCustomers(); k++) {
-    // THIS SECTION IS TAKEN FROM CHAT GPT
     const Customer& customer = cafe->get_customer(k);  // get a single customer
 
     sf::Text label;
@@ -170,14 +125,6 @@ void Game::drawFrame() {
     cafe->get_employee(l)->draw(win);
     win->draw(employeeTimers[l]);
   }
-
-  // draw labels/timers
-  //   for (int m=0; m<cafe->)
-  //   win->draw(baristaTimer);
-  //   win->draw(chefTimer);
-  //   win->draw(waiterTimer);
-  //   win->draw(cleanerTimer);
-  //   win->draw(employeeTimer);
 }
 
 void Game::keyBindings(sf::Event e) {
@@ -228,7 +175,7 @@ void Game::keyBindings(sf::Event e) {
         cafe->set_activeCustomer(-1);
         break;
 
-      //  Q W E R  set barista, chef, waiter, cleaner actions
+      //  Q W E R T set barista, chef, waiter, cleaner, +employee actions
       case Keyboard::Q:
         if (cafe->get_activeCustomer() >= 0) {
           if (cafe->get_numDrink() == 1) {
@@ -290,7 +237,6 @@ void Game::keyBindings(sf::Event e) {
 void Game::run() {
   sf::Clock actionClock;  // clock for incrementing how often things are
                           // checked in while loops
-
   while (win->isOpen()) {
     sf::Event e;
     while (win->pollEvent(e)) {
@@ -303,8 +249,6 @@ void Game::run() {
     // if the cafe timer is below the game duration
     if (cafe->startTime.getElapsedTime().asSeconds() <
         cafe->get_gameDuration()) {
-      // every 1 second
-      // if (actionClock.getElapsedTime().asSeconds() >= 1.0f) {
       cafe->newCustomer();
       cafe->customerLeaves();
       actionClock.restart();
@@ -317,12 +261,23 @@ void Game::run() {
         }
       }
     }
-    // }
+
+    if (cafe->get_numActiveCustomers() % 2 == 0 &&
+        cafe->get_numActiveCustomers() == customerSave) {
+      int save = 0;
+      customerSave += 2;
+      std::cout << "press 1 if you want to save the game" << std::endl;
+      std::cin >> save;
+      if (save == 1) {
+        saveFile();
+      }
+    }
 
     win->clear();
     drawFrame();
     win->display();
 
+    // close window when player has completed game and display final scores
     if ((cafe->get_numActiveCustomers() > cafe->get_maxCustomers() ||
          cafe->startTime.getElapsedTime().asSeconds() >
              cafe->get_gameDuration()) &&
@@ -368,8 +323,6 @@ void Game::chefAction(int i) {
   }
 }
 
-//  NOTE: IF PLAYER PRESSES ANOTHER NUMBER, THIS WILL ASSIGN TO THE WRONG
-// CUSTOMER
 // serves food if waiter finished serving, otherwise displays timer
 void Game::waiterAction(int i) {
   if (cafe->get_employee(i)->get_waitTime() <= std::time(nullptr) - 10) {
@@ -408,8 +361,6 @@ void Game::waiterAction(int i) {
   }
 }
 
-// NOTE: IF PLAYER PRESSES ANOTHER NUMBER, THIS WILL ASSIGN TO THE WRONG
-// CUSTOMER
 // sets table to clean if cleaner finished cleaning, otherwise displays timer
 void Game::cleanerAction(int i) {
   if (cafe->get_employee(i)->get_waitTime() <= std::time(nullptr) - 10) {
@@ -430,9 +381,7 @@ void Game::cleanerAction(int i) {
         "cleaner\n" +
         std::to_string(
             10 - (std::time(nullptr) - cafe->get_employee(i)->get_waitTime())));
-    // cafe->get_customerPointer(cafe->get_employee(i)->get_customerNo())
-    //     ->get_body()
-    //     ->setPosition(cafe->get_customer(i).get_body()->getPosition());
+
     cafe->get_employee(i)->get_body()->setPosition(
         cafe->get_customer(cafe->get_employee(i)->get_customerNo())
             .get_body()
@@ -444,21 +393,57 @@ void Game::cleanerAction(int i) {
 void Game::newEmployeeAction(int i) {
   switch (newEmployee) {
     case 0:
-      baristaAction(i);
-      break;
-    case 1:
-      chefAction(i);
-      break;
-    case 2:
       waiterAction(i);
       break;
-    case 3:
+    case 1:
       cleanerAction(i);
       break;
     default:
       break;
   }
 }
+
+void Game::saveFile() {
+  Json::Value data;
+  data["maxCustomers"] = cafe->get_maxCustomers();
+  // data["numActiveCustomers"] = cafe->get_numActiveCustomers();
+  data["numFood"] = cafe->get_numFood();
+  data["numDrink"] = cafe->get_numDrink();
+  data["numEmployees"] = cafe->get_maxEmployees();
+  data["newEmployee"] = cafe->get_newEmployee();
+
+  Json::Value customerArray(Json::arrayValue);
+
+  for (int i = 0; i < cafe->get_maxCustomers(); i++) {
+    Customer* cust = cafe->get_customerPointer(
+        i);  // or Customer* cust = cafe->get_customer(i);
+
+    Json::Value customerJson;
+    customerJson["thirst"] = cust->get_thirst();
+    customerJson["hunger"] = cust->get_hunger();
+    customerJson["disgust"] = cust->get_disgust();
+    customerJson["isActive"] = cust->get_isActive();
+    customerJson["number"] = i;
+    // customerJson["startTime"] = cust->get_startTime();
+
+    customerArray.append(customerJson);
+  }
+
+  data["customers"] = customerArray;
+
+  std::string output_file_path = "event_data.json";
+  std::ofstream file(output_file_path);
+
+  Json::StreamWriterBuilder writer;
+  writer["indentation"] = "    ";  // For pretty print with 4 spaces
+  Json::StreamWriter* jsonWriter = writer.newStreamWriter();
+  jsonWriter->write(data, &file);
+  file.close();
+  std::cout << "Data written to " << output_file_path << " as JSON."
+            << std::endl;
+}
+
+Cafe* Game::get_cafe() { return cafe; }
 
 // destructor
 Game::~Game() {}

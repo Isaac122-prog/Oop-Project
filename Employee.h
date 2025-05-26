@@ -7,14 +7,14 @@
 
 #include "Customer.h" 
 
-class Cafe; // FORWARD DECLARATION OF CAFE TO AVOID CIRCLE OF PAIN
+class Cafe; // forward declaration of cafe
 
 class Employee {
  protected:
   bool isBusy;  // whether an employee is busy or not
   sf::Shape* body;
   std::string label;
-  int depth;  // unsure if we actually need this yet
+  int depth;  
   sf::Clock busyTimer;
 
   int customerNo;

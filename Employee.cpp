@@ -25,7 +25,7 @@ void Employee::set_isBusy(bool status) { isBusy = status; }
 bool Employee::get_wasCalled() { return wasCalled; }
 void Employee::set_wasCalled(bool status) { wasCalled = status; }
 std::time_t Employee::get_waitTime() { return waitTime; }
-std::string Employee::get_label() { return label; }
+std::string Employee::get_label() { return this->label; }
 int Employee::get_customerNo() { return customerNo; }
 
 // draw employee

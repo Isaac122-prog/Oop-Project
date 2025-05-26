@@ -2,6 +2,7 @@
 #define GAME_H
 
 #include <SFML/Graphics.hpp>
+#include <jsoncpp/json/json.h>
 
 #include "Cafe.h"
 
@@ -14,13 +15,13 @@ class Game {
   sf::RenderWindow* win;
   sf::Font font;
 
-  std::vector<sf::Text> customerTexts;  // FROM CHATGPT
+  std::vector<sf::Text> customerTexts;  
   std::vector<sf::Text> employeeTimers;
-  // sf::Text waiterTimer;
-  // sf::Text cleanerTimer;
-  // sf::Text baristaTimer;
-  // sf::Text chefTimer;
-  // sf::Text employeeTimer;
+  
+  int activeBarista;
+  int activeChef;
+
+  int customerSave;
 
  public:
   // constructor
@@ -45,6 +46,10 @@ class Game {
   void cleanerAction(int i);  // sets table to clean if cleaner finished cleaning,
                          // otherwise displays timer
   void newEmployeeAction(int i);
+
+  void saveFile();
+
+  Cafe* get_cafe();
 
   // destructor
   ~Game();

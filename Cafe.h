@@ -64,15 +64,26 @@ class Cafe {
 
   // getters and setters
   int get_maxCustomers();
+  void set_maxCustomers(int maxCustomers);
+
   int get_gameDuration();
+  void set_gameDuration();
 
   void set_activeCustomer(int customerNo);
   int get_activeCustomer();
 
   int get_numActiveCustomers();
+  void set_numActiveCustomers(int i);
 
   int get_maxEmployees();
-  Employee* get_employee( int i);
+  void set_maxEmployees(int i);
+
+  Employee* get_employee(int i);
+  Employee* set_employee(int i);
+  void add_newEmployee();
+
+  int get_newEmployee();
+  void set_newEmployee(int i);
 
   int get_numFood();
   void increase_numFood();

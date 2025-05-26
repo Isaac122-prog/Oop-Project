@@ -55,16 +55,19 @@ class Customer {
   // getters and setters: hunger
   void increase_hunger();
   void decrease_hunger();
+  void set_hunger(int hunger);
   int get_hunger();
 
   // getters and setters: thirst
   void increase_thirst();
   void decrease_thirst();
+  void set_thirst(int thirst);
   int get_thirst();
 
   // getters and setters: disgust
   void increase_disgust();
   void decrease_disgust(Table table);
+  void set_disgust(int disgust);
   int get_disgust();
 
   // for debugging: print customer stats
