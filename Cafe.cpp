@@ -148,7 +148,7 @@ void Cafe::add_newEmployee() {
 void Cafe::newCustomer() {
   for (int i = 1; i < maxCustomers; i++) {
     if ((!customers[i].get_isActive() &&
-         customers[i - 1].get_happiness() >= 12) ||
+         customers[i - 1].get_happiness() >= 12 && numActiveCustomers == i) ||
         std::time_t(nullptr) >= customers[i - 1].get_endTime()) {
       customers[i].set_isActive(true);            // set next customer to active
       get_customerPointer(i)->set_disgustTime();  // set disgust time

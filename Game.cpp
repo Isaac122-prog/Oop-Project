@@ -262,9 +262,9 @@ void Game::run() {
 
     // give player option to save game file after 3 customers
     if (cafe->get_numActiveCustomers() % 3 == 0 &&
-        cafe->get_numActiveCustomers() == customerSave &&
-        cafe->get_customer(cafe->get_numActiveCustomers() - 1)
-                .get_happiness() == 15) {
+        cafe->get_numActiveCustomers() == customerSave) {
+      // && cafe->get_customer(cafe->get_numActiveCustomers() -
+      // 1).get_happiness() == 15
       int save = 0;
       customerSave += 3;
       std::cout << "press 1 if you want to save the game" << std::endl;
