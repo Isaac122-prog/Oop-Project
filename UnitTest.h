@@ -5,6 +5,13 @@
 
 #include "Cafe.h"
 #include "Player.h"
+#include "Table.h"
+#include "Customer.h"
+#include "Employee.h"
+#include "Cleaner.h"
+#include "Chef.h"
+#include "Barista.h"
+#include "Waiter.h"
 
 using namespace std;
 
@@ -96,11 +103,11 @@ class UnitTest {
     Cafe customerCafe = Cafe(1);
     Customer customer;
     // test 1: max time of customer timer == 2mins
-    if (customer.get_endTime - customer.get_startTime != 120) {
+    if (cafe.get_customer(0).get_endTime() - cafe.get_customer(0).get_startTime() != 120) {
       cout << "Customer test 1 failed!" << endl;
     }
     // test 2: happiness does not exceed 15
-    if (customer.get_happiness > 15) {
+    if (cafe.get_customer(0).get_happiness() > 15) {
       cout << "Customer test 2 failed!" << endl;
     }
     // test 3: getting food increases hunger count
@@ -123,7 +130,7 @@ class UnitTest {
     }
     // test 5: table clean means disgust == 5
     if (table.get_isClean == true) {
-      if (customer.get_disgust != 5) {
+      if (cafe.get_customer(0).get_disgust() != 5) {
         cout << "Customer test 5 failed!" << endl;
       }
     }
@@ -134,11 +141,12 @@ class UnitTest {
   void testEmployee() {
     Cafe employeeCafe = Cafe(1);
     Employee employee;
-    // test 1: set is busy and returned value are the same
-    // test 2: set is called and returned value are the same
-    // test 3: get wait time
-    // test 4: get label
-    // test 5: get customer number
+    // test 1: get customer number
+    int customer_says_number = cafe.get_customer(0).get_customerNo();
+    int employee_says_number = employee.get_customerNo();
+    if (customer_says_number != employee_says_number) {
+      cout << "Employee test 1 failed!" <<endl;
+    }
   }
 
 
@@ -147,7 +155,7 @@ class UnitTest {
     Cafe cleanerCafe = Cafe(1);
     Cleaner cleaner;
     // test 1: customer disgust level agrees with cleanliness of table
-    if (customer.get_disgust()=5) {
+    if (cafe.get_customer(0).get_disgust()=5) {
       if (table.get_isClean()!=true) {
         cout << "Cleaner test 1 failed!" << endl;
       }
