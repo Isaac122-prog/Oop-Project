@@ -8,33 +8,37 @@
 
 #include "Cafe.h"
 #include "Game.h"
-// #include "UnitTest.h"
+#include "UnitTest.h"
 
 using namespace std;
 
 // Display Instructions
 void showInstructions() {
-    cout << "\n======== GAME INSTRUCTIONS ========\n";
-    cout << "Welcome to Cafe Game!\n\n";
-    cout << "Context: \n";
-    cout << "Customers will enter the cafe with low scores in hunger, thirst, and disgust out of 5\n";
-    cout << "Objective:\n";
-    cout << "  - Serve all customers efficiently using your cafe staff to max out their scores before they leave. \n\n";
-    cout << "Controls:\n";
-    cout << "      1, 2, 3, etc. → allocate customer for task. MUST BE PRESSED BEFORE ACTIVATING EACH EMPLOYEE\n";
-    cout << "      Q → Barista (serve drink)\n";
-    cout << "      W → Chef (prepare food)\n";
-    cout << "      E → Waiter (deliver food/drink to customer)\n";
-    cout << "      R → Cleaner (clean customer's table)\n";
-    cout << "      T → Extra employee (unlocked after 2nd customer leaves)\n";
-    cout << "Note:\n";
-    cout << "  - The mouse is NOT used during gameplay.\n";
-    cout << "  - Use it only to click between the graphics window and terminal if needed.\n";
-    cout << "  - available food and drink appear as white squares\n";
-    cout << "  - customer's disgust score will continually decrease over time.\n";
-    cout << "  - if gameplay pauses, check the terminal for a message!\n";
-    cout << "You can view your in game performance by pressing P";
-    cout << "====================================\n\n";
+  cout << "\n======== GAME INSTRUCTIONS ========\n";
+  cout << "Welcome to Cafe Game!\n\n";
+  cout << "Context: \n";
+  cout << "Customers will enter the cafe with low scores in hunger, thirst, "
+          "and disgust out of 5\n";
+  cout << "Objective:\n";
+  cout << "  - Serve all customers efficiently using your cafe staff to max "
+          "out their scores before they leave. \n\n";
+  cout << "Controls:\n";
+  cout << "      1, 2, 3, etc. → allocate customer for task. MUST BE PRESSED "
+          "BEFORE ACTIVATING EACH EMPLOYEE\n";
+  cout << "      Q → Barista (serve drink)\n";
+  cout << "      W → Chef (prepare food)\n";
+  cout << "      E → Waiter (deliver food/drink to customer)\n";
+  cout << "      R → Cleaner (clean customer's table)\n";
+  cout << "      T → Extra employee (unlocked after 2nd customer leaves)\n";
+  cout << "Note:\n";
+  cout << "  - The mouse is NOT used during gameplay.\n";
+  cout << "  - Use it only to click between the graphics window and terminal "
+          "if needed.\n";
+  cout << "  - available food and drink appear as white squares\n";
+  cout << "  - customer's disgust score will continually decrease over time.\n";
+  cout << "  - if gameplay pauses, check the terminal for a message!\n";
+  cout << "You can view your in game performance by pressing P";
+  cout << "====================================\n\n";
 }
 
 // displaying the menu
@@ -62,6 +66,9 @@ int showMenu() {
 int main() {
   srand(time(0));  // set rand timer
 
+  // UnitTest unitTest;
+  // unitTest.runTests();
+
   int customers = 1;
   int yesNo;
   int typeGame;
@@ -78,20 +85,20 @@ int main() {
     std::cout << "invalid input. Please try again." << std::endl;
     cin >> yesNo;
   }
-    // Menu / instructions
-if (yesNo == 1) {
+  // Menu / instructions
+  if (yesNo == 1) {
     int menuChoice = showMenu();  // menu choice should show
-    
-    while (menuChoice == 2) { 
-        showInstructions(); // shows instructions
-        menuChoice = showMenu(); // show menu again after instructions
+
+    while (menuChoice == 2) {
+      showInstructions();       // shows instructions
+      menuChoice = showMenu();  // show menu again after instructions
     }
 
-    if (menuChoice == 0) { // happens if they want to quit
-        cout << "Exiting game. See you next time!" << endl;
-        return 0;
+    if (menuChoice == 0) {  // happens if they want to quit
+      cout << "Exiting game. See you next time!" << endl;
+      return 0;
     }
-}
+  }
 
   while (yesNo == 1) {
     Cafe* cafe;
@@ -132,7 +139,7 @@ if (yesNo == 1) {
         cout << "Must be between 1 and 10! Try again: " << endl;
         cin >> customers;
       }
-    } else if (typeGame!=1 && typeGame!=0 || cin.fail()){
+    } else if (typeGame != 1 && typeGame != 0 || cin.fail()) {
       cin.clear();             // clear error flag
       cin.ignore(1000, '\n');  // discard bad input
       std::cout << "no game selected. Ending." << std::endl;
@@ -203,8 +210,6 @@ if (yesNo == 1) {
       cin >> yesNo;
     }
   }
-  // UnitTest unitTest;S
-  // unitTest.runTests();
 
   return 0;
 }
