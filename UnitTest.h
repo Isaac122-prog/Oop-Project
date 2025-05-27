@@ -16,7 +16,7 @@ using namespace std;
 
 class UnitTest {
  public:
-  void runTests() { testCafe(); }
+  void runTests() { testCafe(); testPlayer(); testTable(); testCustomer(); testCleaner(); testChef(); testBarista(); testWaiter(); }
 
  private:
   int testCafe() {
