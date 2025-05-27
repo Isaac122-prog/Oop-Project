@@ -33,10 +33,10 @@ Customer::Customer(Table tableNo, int customerNo) {
   happiness = hunger + thirst + disgust;
 
   // set customerAttributes for label
-  customerAttributes = "thirst: " + std::to_string(thirst) + "/5\n";
-  customerAttributes += "hunger: " + std::to_string(hunger) + "/5\n";
-  customerAttributes += "disgust: " + std::to_string(disgust) + "/5\n";
-  customerAttributes += "happiness: " + std::to_string(happiness) + "/15\n";
+  customerAttributes  = std::string("thirst:") + std::to_string(thirst) + "/5\n";
+  customerAttributes += std::string("hunger:") + std::to_string(hunger) + "/5\n";
+  customerAttributes += std::string("disgust:") + std::to_string(disgust) + "/5\n";
+  customerAttributes += std::string("happiness:") + std::to_string(happiness) + "/15\n";
 
   // set to inactive
   isActive = false; 
@@ -55,10 +55,11 @@ Customer::Customer(Table tableNo, int customerNo) {
 
 // getters and setters
 void Customer::set_customerAttributes() {
-  customerAttributes = "thirst:" + std::to_string(thirst) + "/5\n";
-  customerAttributes += "hunger:" + std::to_string(hunger) + "/5\n";
-  customerAttributes += "disgust:" + std::to_string(disgust) + "/5\n";
-  customerAttributes += "happiness:" + std::to_string(happiness) + "/15\n";
+  customerAttributes.clear();
+  customerAttributes  = std::string("thirst:") + std::to_string(thirst) + "/5\n";
+  customerAttributes += std::string("hunger:") + std::to_string(hunger) + "/5\n";
+  customerAttributes += std::string("disgust:") + std::to_string(disgust) + "/5\n";
+  customerAttributes += std::string("happiness:") + std::to_string(happiness) + "/15\n";
 }
 std::string Customer::get_customerAttributes() const {
   return customerAttributes;
