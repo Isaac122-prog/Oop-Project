@@ -8,7 +8,7 @@
 
 #include "Cafe.h"
 #include "Game.h"
-// #include "UnitTest.h"
+#include "UnitTest.h"
 
 using namespace std;
 
@@ -28,7 +28,7 @@ void showInstructions() {
     cout << "      E → Waiter (deliver food/drink to customer)\n";
     cout << "      R → Cleaner (clean customer's table)\n";
     cout << "      T → Extra employee (unlocked after 2nd customer leaves)\n";
-    cout << "      P → To check your in game performance\n"
+    cout << "      P → To check your in game performance\n";
     cout << "Note:\n";
     cout << "  - The mouse is NOT used during gameplay.\n";
     cout << "  - Use it only to click between the graphics window and terminal if needed.\n";
