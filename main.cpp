@@ -16,18 +16,24 @@ using namespace std;
 void showInstructions() {
     cout << "\n======== GAME INSTRUCTIONS ========\n";
     cout << "Welcome to Cafe Game!\n\n";
+    cout << "Context: \n";
+    cout << "Customers will enter the cafe with low scores in hunger, thirst, and disgust out of 5\n";
     cout << "Objective:\n";
-    cout << "  - Serve all customers efficiently using your cafe staff.\n\n";
+    cout << "  - Serve all customers efficiently using your cafe staff to max out their scores before they leave. \n\n";
     cout << "Controls:\n";
+    cout << "      1, 2, 3, etc. → allocate customer for task. MUST BE PRESSED BEFORE ACTIVATING EACH EMPLOYEE\n";
     cout << "      Q → Barista (serve drink)\n";
     cout << "      W → Chef (prepare food)\n";
-    cout << "      E → Waiter (deliver food/drink)\n";
-    cout << "      R → Cleaner (clean table)\n";
+    cout << "      E → Waiter (deliver food/drink to customer)\n";
+    cout << "      R → Cleaner (clean customer's table)\n";
     cout << "      T → Extra employee (unlocked after 2nd customer leaves)\n";
     cout << "  - Press the space bar to skip idle time during animations.\n\n";
     cout << "Note:\n";
     cout << "  - The mouse is NOT used during gameplay.\n";
     cout << "  - Use it only to click between the graphics window and terminal if needed.\n";
+    cout << "  - available food and drink appear as white squares\n";
+    cout << "  - customer's disgust score will continually decrease over time.\n";
+    cout << "  - if gameplay pauses, check the terminal for a message!\n";
     cout << "You can view your in game performance by pressing P";
     cout << "====================================\n\n";
 }
@@ -127,7 +133,7 @@ if (yesNo == 1) {
         cout << "Must be between 1 and 10! Try again: " << endl;
         cin >> customers;
       }
-    } else {
+    } else if (typeGame!=1 && typeGame!=0 || cin.fail()){
       cin.clear();             // clear error flag
       cin.ignore(1000, '\n');  // discard bad input
       std::cout << "no game selected. Ending." << std::endl;
@@ -143,6 +149,8 @@ if (yesNo == 1) {
         std::ifstream save_file("event_data.json", std::ifstream::binary);
         Json::Value save;
         save_file >> save;
+
+        cafe->set_savedVersion(true);
 
         cafe->set_maxEmployees(save["numEmployees"].asInt());
         cafe->set_employeeType(save["newEmployee"].asInt());
