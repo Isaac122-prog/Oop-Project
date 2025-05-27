@@ -67,6 +67,9 @@ int main() {
   int yesNo;
   int typeGame;
 
+  // UnitTest unitTest;S
+  // unitTest.runTests();
+
   // starting game
   cout << "would you like to start the game?\npress 1 for yes, 0 for no"
        << endl;
@@ -204,8 +207,6 @@ if (yesNo == 1) {
       cin >> yesNo;
     }
   }
-  // UnitTest unitTest;S
-  // unitTest.runTests();
 
   return 0;
 }
