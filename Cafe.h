@@ -91,9 +91,6 @@ class Cafe {
   void increase_numDrink();
   void decrease_numDrink();
 
-  bool get_savedVersion();
-  void set_savedVersion(bool status);
-
   // object getters
   Customer get_customer(int customerNumber);
   Table get_table(int tableNo);
