@@ -77,6 +77,9 @@ Cafe::Cafe(int max) {
   // initialising number available to serve
   numFood = 0;
   numDrink = 0;
+
+  // set to new game
+  savedVersion = false;
 }
 
 // getters and setters
@@ -87,6 +90,9 @@ void Cafe::set_maxCustomers(int maxCustomers) {
 
 int Cafe::get_gameDuration() { return runTime; }
 void Cafe::set_gameDuration() { runTime = maxCustomers * 120; }
+
+bool Cafe::get_savedVersion() { return savedVersion; }
+void Cafe::set_savedVersion(bool status) { savedVersion = status; }
 
 void Cafe::set_activeCustomer(int customerNo) { activeCustomer = customerNo; }
 int Cafe::get_activeCustomer() { return activeCustomer; }

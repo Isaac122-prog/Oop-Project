@@ -47,6 +47,9 @@ class Cafe {
   int numFood;
   int numDrink;
 
+  // attribute for savedVersion
+  bool savedVersion;
+
  public:
   sf::Clock startTime; 
 
@@ -84,6 +87,9 @@ class Cafe {
   int get_numDrink();
   void increase_numDrink();
   void decrease_numDrink();
+
+  bool get_savedVersion();
+  void set_savedVersion(bool status);
 
   // object getters
   Customer get_customer(int customerNumber);

@@ -261,10 +261,11 @@ void Game::run() {
     }
 
     // give player option to save game file after 3 customers
+    if (cafe->get_savedVersion() && customerSave == 3) {
+        customerSave += 3; // check game was not already saved
+      }
     if (cafe->get_numActiveCustomers() % 3 == 0 &&
         cafe->get_numActiveCustomers() == customerSave) {
-      // && cafe->get_customer(cafe->get_numActiveCustomers() -
-      // 1).get_happiness() == 15
       int save = 0;
       customerSave += 3;
       std::cout << "press 1 if you want to save the game" << std::endl;
@@ -272,6 +273,8 @@ void Game::run() {
       if (save == 1) {
         saveFile();
       } else {
+        cin.clear();             // clear error flag
+        cin.ignore(1000, '\n');  // discard bad input
         std::cout << "game unsaved" << std::endl;
       }
     }
