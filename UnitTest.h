@@ -100,6 +100,9 @@ class UnitTest {
     Customer customer;
     Cafe cafe;
     Table table;
+    Chef chef;
+    Waiter waiter;
+    Barista barista;
     // test 1: max time of customer timer == 2mins
     if (customer.get_endTime() - customer.get_startTime() != 120) {
       cout << "Customer test 1 failed!" << endl;
@@ -111,10 +114,21 @@ class UnitTest {
     // test 3: getting food increases hunger count
     int initialHunger = customer.get_hunger();
     while (cafe.get_customer(0).get_hunger() != 5){
-      
+      chef.doTask(0,0);
+      waiter.doTask(0,0);
+      if (customer.get_hunger() < initialHunger) {
+        cout << "Customer test 3 failed!" << endl;
+      }
     }
     // test 4: getting drink increases thirsty count
-
+    int initialThirst = customer.get_thirst();
+    while (cafe.get_customer(0).get_thirst() != 5){
+      barista.doTask(0,0);
+      waiter.doTask(0,0);
+      if (customer.get_thirst() < initialThirst) {
+        cout << "Customer test 4 failed!" << endl;
+      }
+    }
     // test 5: table clean means disgust == 5
     if (table.get_isClean() == true) {
       if (customer.get_disgust() != 5) {
