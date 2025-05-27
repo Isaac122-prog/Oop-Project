@@ -47,6 +47,9 @@ class Cafe {
   int numFood;
   int numDrink;
 
+  // if cafe is from a previous version or not
+  bool savedVersion;
+
  public:
   sf::Clock startTime; 
 
@@ -62,6 +65,9 @@ class Cafe {
 
   int get_gameDuration();
   void set_gameDuration();
+
+  bool get_savedVersion();
+  void set_savedVersion(bool status);
 
   void set_activeCustomer(int customerNo);
   int get_activeCustomer();
