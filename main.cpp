@@ -125,7 +125,6 @@ int main() {
         save_file >> save;
 
         customers = save["maxCustomers"].asInt();
-        std::cout << "customers from file: " << customers << endl;
       } else {
         std::cout << "no saved file! starting new game" << std::endl;
         typeGame = 0;
