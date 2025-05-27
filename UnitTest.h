@@ -5,6 +5,12 @@
 
 #include "Cafe.h"
 #include "Player.h"
+#include "Table.h"
+#include "Customer.h"
+#include "Cleaner.h"
+#include "Chef.h"
+#include "Barista.h"
+#include "Waiter.h"
 
 using namespace std;
 
