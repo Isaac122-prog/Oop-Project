@@ -27,7 +27,6 @@ void showInstructions() {
     cout << "      E → Waiter (deliver food/drink to customer)\n";
     cout << "      R → Cleaner (clean customer's table)\n";
     cout << "      T → Extra employee (unlocked after 2nd customer leaves)\n";
-    cout << "  - Press the space bar to skip idle time during animations.\n\n";
     cout << "Note:\n";
     cout << "  - The mouse is NOT used during gameplay.\n";
     cout << "  - Use it only to click between the graphics window and terminal if needed.\n";
