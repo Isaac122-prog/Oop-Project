@@ -144,9 +144,18 @@ class UnitTest {
 
   int testCleaner() {
     Cafe cleanerCafe = Cafe(1);
+    Cafe cafe;
     Cleaner cleaner;
-    // test 1: customer disgust level agrees with cleanliness of table
-    // test 2: having cleaned the table the customer disgust level increases
+    Customer customer;
+    // test 1: having cleaned the table the customer disgust level increases
+    while (cafe.get_customer(0).get_disgust() != 5) {
+      int initialDisgust = cafe.get_customer(0).get_disgust();
+      cleaner.doTask(0,0);
+      int currentDisgust = cafe.get_customer(0).get_disgust();
+      if (initialDisgust > currentDisgust) {
+        cout << "Cleaner test 1 failed1" << endl;
+      }
+    }
     return 0;
   }
 
