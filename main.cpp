@@ -18,6 +18,7 @@ void showInstructions() {
     cout << "Welcome to Cafe Game!\n\n";
     cout << "Context: \n";
     cout << "Customers will enter the cafe with low scores in hunger, thirst, and disgust out of 5\n";
+    cout << "Customers will start of with a Happiness level of 15\n";
     cout << "Objective:\n";
     cout << "  - Serve all customers efficiently using your cafe staff to max out their scores before they leave. \n\n";
     cout << "Controls:\n";
@@ -27,13 +28,13 @@ void showInstructions() {
     cout << "      E → Waiter (deliver food/drink to customer)\n";
     cout << "      R → Cleaner (clean customer's table)\n";
     cout << "      T → Extra employee (unlocked after 2nd customer leaves)\n";
+    cout << "      P → To check your in game performance\n"
     cout << "Note:\n";
     cout << "  - The mouse is NOT used during gameplay.\n";
     cout << "  - Use it only to click between the graphics window and terminal if needed.\n";
     cout << "  - available food and drink appear as white squares\n";
     cout << "  - customer's disgust score will continually decrease over time.\n";
     cout << "  - if gameplay pauses, check the terminal for a message!\n";
-    cout << "You can view your in game performance by pressing P";
     cout << "====================================\n\n";
 }
 
